@@ -5,7 +5,7 @@ import { Button, SafeAreaView, View, Text, TextInput } from 'react-native';
 
 import SignUpScreen from './Components/SignUpScreen';
 import LoginScreen from './Components/LoginScreen';
-import ProfileScreen from './Components/ProfileScreen';
+import LoggedInScreen from './Components/LoggedInScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +21,7 @@ class App extends Component {
         <Stack.Navigator>
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Sign Up" component={SignUpScreen}/>
-          <Stack.Screen name="Profile" component={ProfileScreen} options={{headerLeft: (props) => null}} />
+          <Stack.Screen name="Logged In" component={LoggedInScreen} options={{headerLeft: (props) => null}} />
         </Stack.Navigator>
       </NavigationContainer>
     );

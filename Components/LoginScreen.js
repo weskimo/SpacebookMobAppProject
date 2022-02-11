@@ -12,7 +12,7 @@ class LoginScreen extends Component {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
                 <LoginForm />
-                <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
+                <Button title="Log In" onPress={() => navigation.navigate('Logged In')} />
                 <View style={{justifyContent: "start"}}>
                 <Text>Don't have an account?</Text>
                 <Button 

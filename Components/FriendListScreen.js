@@ -7,7 +7,7 @@ class FriendListScreen extends Component {
       
       return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Sign Up</Text>
+          <Text>Your Friends:</Text>
           
         
         </View>
