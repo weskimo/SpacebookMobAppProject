@@ -8,6 +8,7 @@ import FriendListScreen from './FriendListScreen';
 import ProfileScreen from './ProfileScreen';
 import LogOutScreen from './LogOutScreen';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import SearchFriendsScreen from './SearchFriendsScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -22,12 +23,18 @@ class LoggedInScreen extends Component {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') {
+            if (route.name === 'Profile') {
               iconName = focused
-                ? 'ios-information-circle'
-                : 'ios-information-circle-outline';
-            } else if (route.name === 'Settings') {
-              iconName = focused ? 'ios-list-box' : 'ios-list';
+                ? "person-circle-outline"
+                : "person-circle-outline";
+            } else if (route.name === 'MyFriends') {
+              iconName = focused ? 'people-circle-outline' : 'people-circle-outline';
+            } else if (route.name === 'Notifications') {
+              iconName = focused ? 'notifications-circle-outline' : 'notifications-circle-outline';
+            } else if (route.name === 'LogOut') {
+              iconName = focused ? 'close-circle-outline' : 'close-circle-outline';
+            } else if (route.name === 'FindFriends') {
+              iconName = focused ? 'person-add-outline' : 'person-add-outline';
             }
 
             // You can return any component that you like here!
@@ -41,7 +48,8 @@ class LoggedInScreen extends Component {
           <Tab.Screen name="Profile" component={ProfileScreen} />
           <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
-          <Tab.Screen name="Log Out" component={LogOutScreen} />
+          <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />
+          <Tab.Screen name="LogOut" component={LogOutScreen} />
         </Tab.Navigator>
         
       );
