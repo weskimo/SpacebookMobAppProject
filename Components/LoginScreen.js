@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginForm from './LoginForm.js';
 
 
+
 class LoginScreen extends Component {
     render(){
 
@@ -11,18 +12,15 @@ class LoginScreen extends Component {
         return (
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
                 <LoginForm />
+                <Button title="Profile" onPress={() => navigation.navigate('Profile')} />
                 <View style={{justifyContent: "start"}}>
                 <Text>Don't have an account?</Text>
                 <Button 
                     title="Sign Up"
                     onPress={() => navigation.navigate('Sign Up')}/>
+                
                 </View>
             </View>
-           
-               
-           
-                
-            
         );
     } 
 }
