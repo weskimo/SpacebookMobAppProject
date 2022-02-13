@@ -82,6 +82,8 @@ getData = () => {
 
 
   addUser = () => {
+
+    
     let to_send = {
 
       first_name: this.state.firstName,
@@ -99,7 +101,7 @@ getData = () => {
       body: JSON.stringify(to_send)
     })
     .then((response) => {
-      Alert.alert("User added");
+      
       console.log("User Added");
       this.getData();
     })
@@ -118,7 +120,7 @@ getData = () => {
                 value={this.state.tempFirstName}
                 />
           <TextInput 
-                placeholder="Type your Email here.."
+                placeholder="Type your Last Name here.."
                 onChangeText={ value => this.setState({tempLastName: value})}
                 value={this.state.tempLastName}
                 />
@@ -129,7 +131,7 @@ getData = () => {
                 />
 
           <TextInput 
-                placeholder="Type your Email here.."
+                placeholder="Type your Password here.."
                 onChangeText={ value => this.setState({tempPass: value})}
                 value={this.state.tempPass}
                 /> 

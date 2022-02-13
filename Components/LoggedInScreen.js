@@ -37,7 +37,7 @@ class LoggedInScreen extends Component {
               iconName = focused ? 'person-add-outline' : 'person-add-outline';
             }
 
-            // You can return any component that you like here!
+            
             return <Ionicons name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'tomato',
