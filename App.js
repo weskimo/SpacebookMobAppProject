@@ -2,7 +2,9 @@ import 'react-native-gesture-handler';
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import LoggedInScreen from './Components/LoggedInScreen';
 import LoginScreen from './Components/LoginScreen';
 import SignupScreen from './Components/SignUpScreen';

@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ProfileScreen from './ProfileScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import NotificationScreen from './NotificationScreen';
+import FriendListScreen from './FriendListScreen';
+import SearchFriendsScreen from './SearchFriendsScreen';
+
+
+const Tab = createBottomTabNavigator();
 
 
 class HomeScreen extends Component {
@@ -39,6 +49,8 @@ class HomeScreen extends Component {
               this.props.navigation.navigate("Login");
             }else{
                 throw 'Something went wrong';
+
+
             }
         })
         .then((responseJson) => {
@@ -75,17 +87,38 @@ class HomeScreen extends Component {
       );
     }else{
       return (
-        <View>
-          <FlatList
-                data={this.state.listData}
-                renderItem={({item}) => (
-                    <View>
-                      <Text>{item.user_givenname} {item.user_familyname}</Text>
-                    </View>
-                )}
-                keyExtractor={(item,index) => item.user_id.toString()}
-              />
-        </View>
+        
+        
+          
+          <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+              let iconName;
+
+              if (route.name === 'Home') {
+                iconName = focused
+                  ? 'home'
+                  : 'home-outline';
+              } else if (route.name === 'About') {
+                iconName = focused 
+                  ? 'beer' 
+                  : 'beer-outline';
+              }
+
+              // You can return any component that you like here!
+              return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+          })}
+        >
+          <Tab.Screen name="Noti" component={NotificationScreen} />
+          <Tab.Screen name="Friends" component={FriendListScreen} />
+          
+        </Tab.Navigator>
+        
+        
+        
       );
     }
     
