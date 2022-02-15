@@ -1,158 +1,81 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Button, ScrollView, TextInput } from 'react-native';
 
-class SignUpScreen extends Component {
+class SignupScreen extends Component{
+    constructor(props){
+        super(props);
 
+        this.state = {
+            first_name: "",
+            last_name: "",
+            email: "",
+            password: ""
+        }
+    }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-        isLoading: true,
-        userEmail: '',
-        tempEmail: '',
-        firstName: '',
-        tempFirstName: '',
-        tempLastName: '',
-        lastName: '',
-        userPass: '',
-        tempPass: ''
-    };
-}
+    signup = () => {
+        //Validation here...
 
-changeFirstName = () => {
-    let tempFirstName = this.state.tempFirstName;
-    this.setState({
-        firstName: tempFirstName   
-    })
-}
-
-changeLastName = () => {
-    let tempLastName = this.state.tempLastName;
-    this.setState({
-        lastName: tempLastName   
-    })
-}
-
-
-changeUserEmail = () => {
-    let tempEmail = this.state.tempEmail;
-    this.setState({
-        userEmail: tempEmail
-    })
-}
-
-
-changeUserPass = () => {
-    let tempPass = this.state.tempPass;
-    this.setState({
-        userPass: tempPass
-    })
-}
-
-
-componentDidMount(){
-    console.log("mounted");
-    this.getData();
-  }
-
-getData = () => {
-    console.log("getting data...");
-    return fetch("http://localhost:3333/list")
-    .then((response) => response.json())
-    .then((responseJson) => {
-        console.log(responseJson);
-        this.setState({
-            isLoading: false,
-            
+        return fetch("http://localhost:3333/api/1.0.0/user", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
         })
-    })
-    .catch((error) => {
-        console.log(error);
-    });
-    console.log("data got");
-  } 
+        .then((response) => {
+            if(response.status === 201){
+                return response.json()
+            }else if(response.status === 400){
+                throw 'Failed validation';
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .then((responseJson) => {
+               console.log("User created with ID: ", responseJson);
+               this.props.navigation.navigate("Login");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
 
-  submitData = () => {
-    this.changeFirstName();
-    this.changeLastName();
-    this.changeUserEmail();
-    this.changeUserPass();
-  }
-
-
-  addUser = () => {
-
-    
-    let to_send = {
-
-      first_name: this.state.firstName,
-      last_name: this.state.lastName,
-      email: this.state.userEmail,
-      password: this.state.userPass
-      
-    };
-
-    return fetch("http://localhost:3333/api/1.0.0/user", {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(to_send)
-    })
-    .then((response) => {
-      
-      console.log("User Added");
-      this.getData();
-    })
-    .catch((error) => {
-      console.log(error);
-    })
-  }
     render(){
-      const navigation = this.props.navigation;
-      return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Sign Up</Text>
-          <TextInput 
-                placeholder="Type your First Name here.."
-                onChangeText={ value => this.setState({tempFirstName: value})}
-                value={this.state.tempFirstName}
+        return (
+            <ScrollView>
+                <TextInput
+                    placeholder="Enter your first name..."
+                    onChangeText={(first_name) => this.setState({first_name})}
+                    value={this.state.first_name}
+                    style={{padding:5, borderWidth:1, margin:5}}
                 />
-          <TextInput 
-                placeholder="Type your Last Name here.."
-                onChangeText={ value => this.setState({tempLastName: value})}
-                value={this.state.tempLastName}
+                <TextInput
+                    placeholder="Enter your last name..."
+                    onChangeText={(last_name) => this.setState({last_name})}
+                    value={this.state.last_name}
+                    style={{padding:5, borderWidth:1, margin:5}}
                 />
-          <TextInput 
-                placeholder="Type your Email here.."
-                onChangeText={ value => this.setState({tempEmail: value})}
-                value={this.state.tempEmail}
+                <TextInput
+                    placeholder="Enter your email..."
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
+                    style={{padding:5, borderWidth:1, margin:5}}
                 />
-
-          <TextInput 
-                placeholder="Type your Password here.."
-                onChangeText={ value => this.setState({tempPass: value})}
-                value={this.state.tempPass}
-                /> 
-
-          <Button 
-          title="Confirm data"
-          onPress={() => this.submitData() }
-          
-          
-          />
-
-<Button 
-          title="Sign Up"
-          
-          onPress={() => this.addUser() }
-          
-          />
-        
-        </View>
-      );
-    } 
+                <TextInput
+                    placeholder="Enter your password..."
+                    onChangeText={(password) => this.setState({password})}
+                    value={this.state.password}
+                    secureTextEntry
+                    style={{padding:5, borderWidth:1, margin:5}}
+                />
+                <Button
+                    title="Create an account"
+                    onPress={() => this.signup()}
+                />
+            </ScrollView>
+        )
+    }
 }
 
-export default SignUpScreen;
+export default SignupScreen;

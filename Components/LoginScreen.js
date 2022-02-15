@@ -1,133 +1,76 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginForm from './LoginForm.js';
+import { Button } from 'react-native';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
-class LoginScreen extends Component {
-
-
-    constructor(props) {
+class LoginScreen extends Component{
+    constructor(props){
         super(props);
+
         this.state = {
-            isLoading: true,
-            userEmail: '',
-            tempEmail: '',
-            userPass: '',
-            tempPass: ''
-        };
+            email: "",
+            password: ""
+        }
     }
 
-    changeUserEmail = () => {
-        let tempEmail = this.state.tempEmail;
-        this.setState({
-            userEmail: tempEmail
-        })
-    }
-    
-    
-    changeUserPass = () => {
-        let tempPass = this.state.tempPass;
-        this.setState({
-            userPass: tempPass
-        })
-    }
+    login = async () => {
 
+        //Validation here...
 
-
-    componentDidMount(){
-        console.log("mounted");
-       
-      }
-    
-    
-    
-      submitData = () => {
-        this.changeUserEmail();
-        this.changeUserPass();
-      }
-    
-    
-      logInUser = () => {
-    
-        
-       
-        let to_send = {
-
-          email: this.state.userEmail,
-          password: this.state.userPass
-          
-        };
-    
         return fetch("http://localhost:3333/api/1.0.0/login", {
-          method: 'post',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(to_send)
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
         })
         .then((response) => {
-          
-          console.log("User Added");
-          
+            if(response.status === 200){
+                return response.json()
+            }else if(response.status === 400){
+                throw 'Invalid email or password';
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .then(async (responseJson) => {
+                console.log(responseJson);
+                await AsyncStorage.setItem('@session_token', responseJson.token);
+                this.props.navigation.navigate("Home");
         })
         .catch((error) => {
-          console.log(error);
+            console.log(error);
         })
-      }
-
-
-
+    }
 
     render(){
-
-        const navigation = this.props.navigation;
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'space-around' }}>
-                
-
-                <Text>Login:</Text>
-                
-                <TextInput 
-                placeholder="Type your Email here.."
-                onChangeText={ value => this.setState({tempEmail: value})}
-                value={this.state.tempEmail}
+            <ScrollView>
+                <TextInput
+                    placeholder="Enter your email..."
+                    onChangeText={(email) => this.setState({email})}
+                    value={this.state.email}
+                    style={{padding:5, borderWidth:1, margin:5}}
                 />
-
-                <TextInput 
-                    placeholder="Type your Password here.."
-                    onChangeText={ value => this.setState({tempPass: value})}
-                    value={this.state.tempPass}
-                /> 
-
-                <Button 
-                    title="Confirm data"
-                    onPress={() => this.submitData() }
-
+                <TextInput
+                    placeholder="Enter your password..."
+                    onChangeText={(password) => this.setState({password})}
+                    value={this.state.password}
+                    secureTextEntry
+                    style={{padding:5, borderWidth:1, margin:5}}
                 />
-
-                <Button 
-                        title="Login"
-                        
-                        onPress={() => this.logInUser().then( navigation.navigate("Logged In")) }
-                        
-                /> 
-
-
-
-                
-               
-                
-                
-                <Button 
-                    title="Sign Up"
-                    onPress={() => navigation.navigate('Sign Up')}/>
-                
-               
-            </View>
-        );
-    } 
+                <Button
+                    title="Login"
+                    onPress={() => this.login()}
+                />
+                <Button
+                    title="Don't have an account?"
+                    color="darkblue"
+                    onPress={() => this.props.navigation.navigate("Signup")}
+                />
+            </ScrollView>
+        )
+    }
 }
 
 export default LoginScreen;
