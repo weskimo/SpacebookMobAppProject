@@ -112,8 +112,10 @@ class HomeScreen extends Component {
             tabBarInactiveTintColor: 'gray',
           })}
         >
+          <Tab.Screen name="Profile" component={ProfileScreen} />
           <Tab.Screen name="Noti" component={NotificationScreen} />
-          <Tab.Screen name="Friends" component={FriendListScreen} />
+          <Tab.Screen name="MyFriends" component={FriendListScreen} />
+          <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />
           
         </Tab.Navigator>
         
