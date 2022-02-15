@@ -95,14 +95,17 @@ class HomeScreen extends Component {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
-              if (route.name === 'Home') {
+              if (route.name === 'Profile') {
                 iconName = focused
-                  ? 'home'
-                  : 'home-outline';
-              } else if (route.name === 'About') {
-                iconName = focused 
-                  ? 'beer' 
-                  : 'beer-outline';
+                  ? "person-circle-outline"
+                  : "person-circle-outline";
+              } else if (route.name === 'MyFriends') {
+                iconName = focused ? 'people-circle-outline' : 'people-circle-outline';
+              } else if (route.name === 'Notifications') {
+                iconName = focused ? 'notifications-circle-outline' : 'notifications-circle-outline';
+              
+              } else if (route.name === 'FindFriends') {
+                iconName = focused ? 'person-add-outline' : 'person-add-outline';
               }
 
               // You can return any component that you like here!
@@ -113,7 +116,7 @@ class HomeScreen extends Component {
           })}
         >
           <Tab.Screen name="Profile" component={ProfileScreen} />
-          <Tab.Screen name="Noti" component={NotificationScreen} />
+          <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
           <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />
           
