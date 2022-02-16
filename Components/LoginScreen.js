@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem('@spacebook_details', jsonValue)
+      await AsyncStorage.setItem('@user_id', jsonValue)
     } catch (e) {
         console.error(error);
     }
@@ -23,9 +23,9 @@ class LoginScreen extends Component{
         }
     }
 
-    login = async () => {
+   
 
-        
+    login = async () => {
 
         return fetch("http://localhost:3333/api/1.0.0/login", {
             method: 'post',
@@ -38,6 +38,7 @@ class LoginScreen extends Component{
             if(response.status === 200){
                 
                 return response.json()
+               
             }else if(response.status === 400){
                 throw 'Invalid email or password';
             }else{
@@ -47,6 +48,7 @@ class LoginScreen extends Component{
         .then(async (responseJson) => {
                 console.log(responseJson);
                 await AsyncStorage.setItem('@session_token', responseJson.token);
+                await AsyncStorage.setItem('@user_id', responseJson);
                 
                 
                 this.props.navigation.navigate("Home");

@@ -13,6 +13,8 @@ import SearchFriendsScreen from './SearchFriendsScreen';
 const Tab = createBottomTabNavigator();
 
 
+
+
 class HomeScreen extends Component {
   constructor(props){
     super(props);
@@ -30,6 +32,7 @@ class HomeScreen extends Component {
     });
   
     this.getData();
+    
   }
 
   componentWillUnmount() {
@@ -116,7 +119,7 @@ class HomeScreen extends Component {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="Profile" component={ProfileScreen} data={this.state.responseJson} />
+          <Tab.Screen name="Profile" component={ProfileScreen}  />
           <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
           <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />

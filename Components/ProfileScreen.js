@@ -5,15 +5,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FriendListScreen from './FriendListScreen';
 
 
-const getData = async (done) => {
+const getData = async () => {
     try {
-        const jsonValue = await AsyncStorage.getItem('@spacebook_details')
-        const data = JSON.parse(jsonValue);
+        const jsonValue = await AsyncStorage.getItem('@user_id')
+        const data = JSON.stringify(jsonValue);
+        
         return done(data);
     } catch(e) {
         console.error(e);
     }
 }
+
 
 class ProfileScreen extends Component {
 
@@ -22,35 +24,45 @@ class ProfileScreen extends Component {
     
         this.state = {
           isLoading: true,
-          listdata: this.props.children,  
-          login_info: {}
+          userId: ''
+         
           
           
         }
       }
+      retrieveData = async () => {
+        try {
+            const jsonValue = await AsyncStorage.getItem('@user_id')
+            const data = JSON.stringify(jsonValue);
+         
+            this.setState({
+                userId: data,
+                isLoading: false
+            })
+            console.log(value);
+          
+        } catch (error) {
+          // Error retrieving data
+        }
+      };
 
       
       
-      componentDidMount(){
-        getData((data) => {
-            this.setState({
-                login_info: data,
-                isLoading: false
-            });
-        });  
+    componentDidMount(){
+        this.retrieveData();
     }
      
     render(){
         
         if(this.state.isLoading){
             return (
-                <View><Text>Loading...</Text></View>
+                <View><Text>Loading... {this.state.login_info}</Text></View>
             )
         }else{
             
             return (
                 <View>
-                    <Text>Login id: {this.state.login_info.id}</Text>
+                    <Text>Login id: </Text>
                     
                 </View>
             )
