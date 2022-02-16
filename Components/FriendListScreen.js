@@ -13,12 +13,15 @@ class FriendListScreen extends Component {
         
       return (
       
-        <View>
-            <Text>Your friends</Text>
-            <Button 
-                title="Find Friends"
-                
-            />
+        <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+            <Text>Your friends:</Text>
+            
         </View>
       
       );

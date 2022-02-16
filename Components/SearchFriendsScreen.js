@@ -3,6 +3,8 @@ import { View, Text, Button, TextInput} from 'react-native';
 
 
 class SearchFriendsScreen extends Component {
+
+  
     render(){
        
       

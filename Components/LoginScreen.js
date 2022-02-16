@@ -3,6 +3,16 @@ import { Button } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+
+const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('@spacebook_details', jsonValue)
+    } catch (e) {
+        console.error(error);
+    }
+}
+
 class LoginScreen extends Component{
     constructor(props){
         super(props);
@@ -15,7 +25,7 @@ class LoginScreen extends Component{
 
     login = async () => {
 
-        //Validation here...
+        
 
         return fetch("http://localhost:3333/api/1.0.0/login", {
             method: 'post',
@@ -26,6 +36,7 @@ class LoginScreen extends Component{
         })
         .then((response) => {
             if(response.status === 200){
+                
                 return response.json()
             }else if(response.status === 400){
                 throw 'Invalid email or password';
@@ -36,11 +47,35 @@ class LoginScreen extends Component{
         .then(async (responseJson) => {
                 console.log(responseJson);
                 await AsyncStorage.setItem('@session_token', responseJson.token);
+                
+                
                 this.props.navigation.navigate("Home");
         })
         .catch((error) => {
             console.log(error);
         })
+    }
+
+    login2 = () => {
+        fetch('http://localhost:3333/api/1.0.0/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: this.state.email,
+                password: this.state.password
+            })
+        })
+        .then((response) => response.json())
+        .then((json) => {
+            console.log(json);
+            storeData(json);
+            
+        })
+        .catch((error) => {
+            console.error(error);
+        });
     }
 
     render(){

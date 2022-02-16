@@ -19,7 +19,8 @@ class HomeScreen extends Component {
 
     this.state = {
       isLoading: true,
-      listData: []
+      listData: [],
+      login_info: {}
     }
   }
 
@@ -56,7 +57,7 @@ class HomeScreen extends Component {
         .then((responseJson) => {
           this.setState({
             isLoading: false,
-            listData: responseJson
+            login_info: responseJson
           })
         })
         .catch((error) => {
@@ -115,7 +116,7 @@ class HomeScreen extends Component {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="Profile" component={ProfileScreen} />
+          <Tab.Screen name="Profile" component={ProfileScreen} data={this.state.responseJson} />
           <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
           <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />

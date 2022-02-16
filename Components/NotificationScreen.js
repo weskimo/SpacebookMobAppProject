@@ -11,8 +11,14 @@ class NotificationScreen extends Component {
     render(){
       
       return (
-        <View>
-          <Text>Hi</Text>
+        <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+          <Text>Notifications:</Text>
           </View>
     );
       
