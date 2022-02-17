@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 class SearchFriendsScreen extends Component {
@@ -10,7 +11,8 @@ class SearchFriendsScreen extends Component {
 
     this.state = {
       isLoading: true,
-      listData: []
+      listData: [],
+      requestId: ''
     }
 
   }
@@ -51,6 +53,33 @@ class SearchFriendsScreen extends Component {
         })
   }
 
+
+  addFriend = async () => {
+    const value = await AsyncStorage.getItem('@session_token');
+    return fetch("http://localhost:3333/api/1.0.0/user/" + this.state.requestId  +"/friends", {
+       method: 'post',
+       headers: {
+            'X-Authorization':  value
+          }
+        })
+        .then((response) => {
+            if(response.status === 200){
+                return response.json()
+            }else if(response.status === 401){
+              this.props.navigation.navigate("Login");
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+  }
+
+  
+
+
+
   
     render(){
        
@@ -74,7 +103,11 @@ class SearchFriendsScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => (
                       <View>
-                        <Text>{item.user_givenname} {item.user_familyname}</Text>
+                        <Text>
+                          {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
+                          </Text>
+                          <Button title='Add' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }}/>
+                          
                       </View>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
@@ -85,4 +118,9 @@ class SearchFriendsScreen extends Component {
       
     }
   }
+
+
+  
+
+
 export default SearchFriendsScreen;
