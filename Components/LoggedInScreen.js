@@ -31,7 +31,9 @@ class HomeScreen extends Component {
       this.checkLoggedIn();
     });
   
-    this.getData();
+    this.setState({
+      isLoading: false,
+    })
     
   }
 
@@ -39,34 +41,7 @@ class HomeScreen extends Component {
     this.unsubscribe();
   }
 
-  getData = async () => {
-    const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/search", {
-          'headers': {
-            'X-Authorization':  value
-          }
-        })
-        .then((response) => {
-            if(response.status === 200){
-                return response.json()
-            }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
-            }else{
-                throw 'Something went wrong';
 
-
-            }
-        })
-        .then((responseJson) => {
-          this.setState({
-            isLoading: false,
-            login_info: responseJson
-          })
-        })
-        .catch((error) => {
-            console.log(error);
-        })
-  }
 
   checkLoggedIn = async () => {
     const value = await AsyncStorage.getItem('@session_token');
