@@ -48,9 +48,8 @@ class LoginScreen extends Component{
         .then(async (responseJson) => {
                 console.log(responseJson);
                 await AsyncStorage.setItem('@session_token', responseJson.token);
-                await AsyncStorage.setItem('@user_id', responseJson);
-                
-                
+                await AsyncStorage.setItem('@user_id', responseJson.id);
+
                 this.props.navigation.navigate("Home");
         })
         .catch((error) => {
@@ -58,27 +57,7 @@ class LoginScreen extends Component{
         })
     }
 
-    login2 = () => {
-        fetch('http://localhost:3333/api/1.0.0/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: this.state.email,
-                password: this.state.password
-            })
-        })
-        .then((response) => response.json())
-        .then((json) => {
-            console.log(json);
-            storeData(json);
-            
-        })
-        .catch((error) => {
-            console.error(error);
-        });
-    }
+
 
     render(){
         return (

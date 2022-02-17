@@ -3,6 +3,7 @@ import { View, Text, Button, TextInput} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FriendListScreen from './FriendListScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const getData = async () => {
@@ -32,11 +33,11 @@ class ProfileScreen extends Component {
       }
       retrieveData = async () => {
         try {
-            const jsonValue = await AsyncStorage.getItem('@user_id')
-            const data = JSON.stringify(jsonValue);
+            const id = await AsyncStorage.getItem('@user_id');
+            // const data = JSON.stringify(jsonValue);
          
             this.setState({
-                userId: data,
+                userId: id,
                 isLoading: false
             })
             console.log(value);
@@ -56,13 +57,13 @@ class ProfileScreen extends Component {
         
         if(this.state.isLoading){
             return (
-                <View><Text>Loading... {this.state.login_info}</Text></View>
+                <View><Text>Loading... </Text></View>
             )
         }else{
             
             return (
                 <View>
-                    <Text>Login id: </Text>
+                    <Text>Login id: {this.state.userId}</Text>
                     
                 </View>
             )
