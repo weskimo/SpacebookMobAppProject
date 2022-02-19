@@ -32,7 +32,8 @@ class ProfileScreen extends Component {
           text: 'yoyoyo',
           tempPost: '',
           listData: [],
-          post_Id: 0
+          post_Id: 0, 
+          postLikes: 0
          
           
           
@@ -201,15 +202,39 @@ class ProfileScreen extends Component {
         })
     }
 
-    deletePost = () => {
-        this.setState({
-            post_Id: item.post_id
-        })
-    }
+    likePost = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        const postID = this.state.post_Id;
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
+           method: 'post',
+           headers: {
+                'X-Authorization':  value ,
+                'Content-Type': 'application/json' 
 
-    deleteAndRemovePost = () => {
-        del
-    }
+              },
+              
+                
+            
+            })
+            .then((response) => {
+                if(response.status === 200){
+                    this.getPosts();
+                    
+                }else if(response.status === 401){
+                  this.props.navigation.navigate("Login");
+                }else{
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+      }
+
+    
+
+ 
 
 
      
@@ -241,6 +266,9 @@ class ProfileScreen extends Component {
                                 <Text>
                                 {item.text}
                                 </Text>
+                                <Text>Likes: {item.numLikes}</Text> 
+                             
+                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
                                 
                                 
