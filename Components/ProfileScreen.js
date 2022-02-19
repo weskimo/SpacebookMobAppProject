@@ -31,7 +31,8 @@ class ProfileScreen extends Component {
           last_name: '',
           text: 'yoyoyo',
           tempPost: '',
-          listData: []
+          listData: [],
+          post_Id: 0
          
           
           
@@ -159,6 +160,35 @@ class ProfileScreen extends Component {
             })
       }
 
+      removePost = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        const postID = this.state.post_Id;
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID  , {
+           method: 'delete',
+           headers: {
+                'X-Authorization':  value ,
+                'Content-Type': 'application/json' 
+
+              },
+              
+                
+            
+            })
+            .then((response) => {
+                if(response.status === 200){
+                    this.getPosts();
+                }else if(response.status === 401){
+                  this.props.navigation.navigate("Login");
+                }else{
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+      }
+
       makePost = () => {
           this.changePost();
           this.addPost();
@@ -170,6 +200,18 @@ class ProfileScreen extends Component {
             text: tempPost
         })
     }
+
+    deletePost = () => {
+        this.setState({
+            post_Id: item.post_id
+        })
+    }
+
+    deleteAndRemovePost = () => {
+        del
+    }
+
+
      
     render(){
         
@@ -199,6 +241,7 @@ class ProfileScreen extends Component {
                                 <Text>
                                 {item.text}
                                 </Text>
+                                <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
                                 
                                 
                             </View>
