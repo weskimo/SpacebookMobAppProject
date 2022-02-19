@@ -232,6 +232,36 @@ class ProfileScreen extends Component {
             })
       }
 
+      unlikePost = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        const postID = this.state.post_Id;
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
+           method: 'delete',
+           headers: {
+                'X-Authorization':  value ,
+                'Content-Type': 'application/json' 
+
+              },
+              
+                
+            
+            })
+            .then((response) => {
+                if(response.status === 200){
+                    this.getPosts();
+                    
+                }else if(response.status === 401){
+                  this.props.navigation.navigate("Login");
+                }else{
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+      }
+
     
 
  
@@ -269,6 +299,7 @@ class ProfileScreen extends Component {
                                 <Text>Likes: {item.numLikes}</Text> 
                              
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
+                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
                                 
                                 
