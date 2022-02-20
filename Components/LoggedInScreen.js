@@ -2,12 +2,12 @@ import React, {Component} from 'react';
 import {View, Text, FlatList, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileScreen from './ProfileScreen';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import NotificationScreen from './NotificationScreen';
 import FriendListScreen from './FriendListScreen';
 import SearchFriendsScreen from './SearchFriendsScreen';
+import ProfileStack from './ProfileStack';
 
 
 const Tab = createBottomTabNavigator();
@@ -94,7 +94,7 @@ class HomeScreen extends Component {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="Profile" component={ProfileScreen}  />
+          <Tab.Screen name="Profile" component={ProfileStack}  />
           <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
           <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />

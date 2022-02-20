@@ -1,23 +1,16 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FriendListScreen from './FriendListScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeConsumer } from 'react-native-elements';
+import editYourProfile from './editYourProfile';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-const getData = async () => {
-    try {
-        const jsonValue = await AsyncStorage.getItem('@user_id')
-        const data = JSON.stringify(jsonValue);
-        
-        return done(data);
-    } catch(e) {
-        console.error(e);
-    }
-}
 
+
+
+const Stack = createNativeStackNavigator();
 
 class ProfileScreen extends Component {
 
@@ -82,7 +75,7 @@ class ProfileScreen extends Component {
                 last_Name: lastName
 
             })
-            console.log(value);
+            
           
         } catch (error) {
           // Error retrieving data
@@ -278,7 +271,10 @@ class ProfileScreen extends Component {
         }else{
             
             return (
+                
+                
                 <View>
+                    
                     <Text>Login id: {this.state.userId}</Text>
                     <Text>First Name: {this.state.first_Name}</Text>
                     <Text>Last Name: {this.state.last_Name}</Text>
@@ -301,14 +297,25 @@ class ProfileScreen extends Component {
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
+
                                 
                                 
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
                         />
+
+                    
+                        
+                          
+                        
+                    <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}} />
+                        
+                   
+                    
                             
                 </View>
+                
             )
     } 
 
