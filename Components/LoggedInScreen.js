@@ -8,6 +8,7 @@ import NotificationScreen from './NotificationScreen';
 import FriendListScreen from './FriendListScreen';
 import SearchFriendsScreen from './SearchFriendsScreen';
 import ProfileStack from './ProfileStack';
+import editYourProfile from './editYourProfile';
 
 
 const Tab = createBottomTabNavigator();
@@ -94,10 +95,11 @@ class HomeScreen extends Component {
             tabBarInactiveTintColor: 'gray',
           })}
         >
-          <Tab.Screen name="Profile" component={ProfileStack}  />
+          <Tab.Screen name="MyProfile" component={ProfileStack}  />
           <Tab.Screen name="Notifications" component={NotificationScreen} />
           <Tab.Screen name="MyFriends" component={FriendListScreen} />
           <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />
+          
           
         </Tab.Navigator>
         

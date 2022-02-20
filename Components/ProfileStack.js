@@ -6,6 +6,7 @@ import { ThemeConsumer } from 'react-native-elements';
 import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
+import LoggedInScreen from './LoggedInScreen';
 
 
 
@@ -13,14 +14,20 @@ import ProfileScreen from './ProfileScreen';
 
 const Stack = createNativeStackNavigator();
 
+
 class ProfileStack extends Component {
 
     render() {
+
+    const navigation = this.props.navigation;
     return (
-        <Stack.Navigator>
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
+       
+        <Stack.Navigator initialRouteName='Profile'>
+                    
                     <Stack.Screen name="Edit" component={editYourProfile} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} />
                     </Stack.Navigator>
+                   
     )
     }
  }
