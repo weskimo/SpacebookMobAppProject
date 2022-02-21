@@ -27,7 +27,7 @@ class ProfileStack extends Component {
                     
                     <Stack.Screen name="Edit" component={editYourProfile} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
-                    <Stack.Screen name="Edit Post" component={editPost} />
+                    <Stack.Screen name="Edit Posts" component={editPost} />
                     </Stack.Navigator>
                    
     )

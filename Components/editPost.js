@@ -33,6 +33,37 @@ class editPost extends Component {
         }
       }
 
+      getPost = async () => {
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        const postId = await AsyncStorage.getItem('@post_Id')
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post/" + postId, {
+              'headers': {
+                'X-Authorization':  value
+              }
+            })
+            .then((response) => {
+                if(response.status === 200){
+                    return response.json()
+                }else if(response.status === 401){
+                  this.props.navigation.navigate("Login");
+                }else{
+                    throw 'Something went wrong';
+                }
+            })
+            .then((responseJson) => {
+              this.setState({
+                isLoading: false,
+                post_Id: responseJson.post_id,
+                text: responseJson.text
+
+              })
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+      }
+
       getPosts = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
