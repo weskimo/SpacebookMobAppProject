@@ -310,6 +310,7 @@ class ProfileScreen extends Component {
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
+                                <Button title="Edit Post" onPress={() => {this.props.navigation.navigate("Edit Post")}} />
 
                                 
                                 

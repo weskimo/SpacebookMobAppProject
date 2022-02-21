@@ -7,6 +7,7 @@ import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
 import LoggedInScreen from './LoggedInScreen';
+import editPost from './editPost';
 
 
 
@@ -26,6 +27,7 @@ class ProfileStack extends Component {
                     
                     <Stack.Screen name="Edit" component={editYourProfile} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen name="Edit Post" component={editPost} />
                     </Stack.Navigator>
                    
     )
