@@ -40,9 +40,10 @@ class editYourProfile extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
         return fetch("http://localhost:3333/api/1.0.0/user/" + userID, {
-            method: 'patch',
+            method: 'PATCH',
               headers: {
-                'X-Authorization':  value
+                'X-Authorization':  value,
+                'Content-Type': 'application/json' 
               },
               body: JSON.stringify({
                 first_name: this.state.first_Name,
@@ -70,11 +71,11 @@ class editYourProfile extends Component {
               <View>
                    <TextInput
                     placeholder="Enter your first name..."
-                    onChangeText={(first_name) => this.setState({first_name})}
+                    onChangeText={(first_Name) => this.setState({first_Name})}
                     value={this.state.first_name}
                     style={{padding:5, borderWidth:1, margin:5}}
                 />
-                <Button title="Change First Name" onPress={() => {this.saveData(); this.patchData();}}/>
+                <Button title="Change First Name" onPress={() => { this.saveData();this.patchData();}}/>
                  <TextInput
                     placeholder="Enter your last name..."
                     onChangeText={(last_name) => this.setState({last_name})}
