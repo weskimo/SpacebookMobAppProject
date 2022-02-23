@@ -102,7 +102,7 @@ class SearchFriendsScreen extends Component {
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                      <View>
+                      <View style= {{borderWidth: 5}}>
                         <Text>
                           {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
                           </Text>

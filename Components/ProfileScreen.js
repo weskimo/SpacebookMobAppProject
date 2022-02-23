@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeConsumer } from 'react-native-elements';
 import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getHeaderTitle } from '@react-navigation/elements';
+import { Camera } from 'expo-camera';
 
 
 
@@ -21,7 +22,7 @@ class ProfileScreen extends Component {
           isLoading: true,
           userId: '',
           first_Name: '',
-          last_name: '',
+          last_Name: '',
           text: '',
           tempPost: '',
           listData: [],
@@ -322,14 +323,16 @@ class ProfileScreen extends Component {
  
                 
                 
-                <View>
+                <View style={{flex: 1 , borderWidth: 5}}> 
                     <Text>Login id: {this.state.userId}</Text>
                     <Text>First Name: {this.state.first_Name}</Text>
                     <Text>Last Name: {this.state.last_Name}</Text>
+                    <View style={styles.buttonsContainer}>
                     <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}} />
 
                     <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} />
-                    
+                    </View>
+                    <View style= {{borderWidth: 5}}>
                     <TextInput
                     placeholder="Write you post here.."
                     onChangeText={ value => this.setState({tempPost: value})}
@@ -337,22 +340,24 @@ class ProfileScreen extends Component {
                     style={{padding:5, borderWidth:1, margin:5}}
                     />
                     <Button title="Make post" onPress={() => {this.makePost();}}/>
-
+                    </View>
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View>
+                            <View style={{backgroundColor: `#dcdcdc` , borderWidth: 5}}>
+                                <Text>{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
                                 <Text>
                                 {item.text}
                                 </Text>
                                 <Text>Likes: {item.numLikes}</Text> 
-                             
+                                <View style={styles.buttonsContainer}>
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
                                 <Button title="Edit Posts" onPress={() => {this.setState({post_Id: item.post_id});
                                 this.setPostId();this.getPosts();
                                 this.props.navigation.navigate("Edit Posts")}} />
+                                </View>
                                 
 
                                 
@@ -379,3 +384,24 @@ class ProfileScreen extends Component {
 }
 }
 export default ProfileScreen;
+
+
+const styles = StyleSheet.create({
+  contentView: {
+    flex: 1,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    width: '100%',
+    marginVertical: 20,
+  },
+  subHeader: {
+    backgroundColor : "#2089dc",
+    color : "white",
+    textAlign : "center",
+    paddingVertical : 5,
+    marginBottom : 10
+  }
+});  
