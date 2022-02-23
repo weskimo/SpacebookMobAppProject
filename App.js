@@ -9,6 +9,7 @@ import LoggedInScreen from './Components/LoggedInScreen';
 import LoginScreen from './Components/LoginScreen';
 import SignupScreen from './Components/SignUpScreen';
 import LogoutScreen from './Components/LogOutScreen';
+import { Camera } from 'expo-camera';
 
 const Drawer = createDrawerNavigator();
 

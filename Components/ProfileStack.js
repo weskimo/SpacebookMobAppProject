@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
 import LoggedInScreen from './LoggedInScreen';
 import editPost from './editPost';
-
+import cameraComponent from './cameraComponent';
 
 
 
@@ -28,6 +28,7 @@ class ProfileStack extends Component {
                     <Stack.Screen name="Edit" component={editYourProfile} />
                     <Stack.Screen name="Profile" component={ProfileScreen} />
                     <Stack.Screen name="Edit Posts" component={editPost} />
+                    <Stack.Screen name="Take picture" component={cameraComponent} />
                     </Stack.Navigator>
                    
     )

@@ -26,11 +26,36 @@ class ProfileScreen extends Component {
           tempPost: '',
           listData: [],
           post_Id: 0, 
-          postLikes: 0
+          postLikes: 0,
+          photo: null
          
           
           
         }
+      }
+
+      get_profile_image = async () => {
+        const token = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        fetch("http://localhost:3333/api/1.0.0/user/" + id +"/photo", {
+          method: 'GET',
+          headers: {
+            'X-Authorization': token
+          }
+        })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((resBlob) => {
+          let data = URL.createObjectURL(resBlob);
+          this.setState({
+            photo: data,
+            isLoading: false
+          });
+        })
+        .catch((err) => {
+          console.log("error", err)
+        });
       }
 
       getPosts = async () => {
@@ -87,6 +112,8 @@ class ProfileScreen extends Component {
     componentDidMount(){
         this.getProfileData();
         this.getPosts();
+        this.get_profile_image();
+
         
         
     }
@@ -300,6 +327,8 @@ class ProfileScreen extends Component {
                     <Text>First Name: {this.state.first_Name}</Text>
                     <Text>Last Name: {this.state.last_Name}</Text>
                     <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}} />
+
+                    <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} />
                     
                     <TextInput
                     placeholder="Write you post here.."
@@ -308,6 +337,7 @@ class ProfileScreen extends Component {
                     style={{padding:5, borderWidth:1, margin:5}}
                     />
                     <Button title="Make post" onPress={() => {this.makePost();}}/>
+
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
