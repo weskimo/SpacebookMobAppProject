@@ -25,8 +25,8 @@ class ProfileStack extends Component {
        
         <Stack.Navigator initialRouteName='Profile'>
                     
-                    <Stack.Screen name="Edit" component={editYourProfile} />
-                    <Stack.Screen name="Profile" component={ProfileScreen} />
+                    <Stack.Screen  name="Edit" component={editYourProfile} />
+                    <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}} />
                     <Stack.Screen name="Edit Posts" component={editPost} />
                     <Stack.Screen name="Take picture" component={cameraComponent} />
                     </Stack.Navigator>

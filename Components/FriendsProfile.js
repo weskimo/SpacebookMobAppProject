@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -285,29 +285,30 @@ class FriendsProfile extends Component {
  
                 
                 
-                <View>
+                <View style={styles.profileContainer}>
                     <Text>Login id: {this.state.userId}</Text>
-                    <Text>First Name: {this.state.first_Name}</Text>
-                    <Text>Last Name: {this.state.last_Name}</Text>
-                    <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}} />
+                    <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>
+                    <Text style={styles.profileInfo}>Last Name: {this.state.last_Name}</Text>
+                    
                     <TextInput
                     placeholder="Write you post here.."
                     onChangeText={ value => this.setState({tempPost: value})}
                     value={this.state.tempPost}
                     style={{padding:5, borderWidth:1, margin:5}}
                     />
-                    <Button title="Make post" onPress={() => {this.makePost();}}/>
+                    <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
                     <FlatList
                         data={this.state.listData}
-                        renderItem={({item}) => (
-                            <View>
+                        renderItem={({item}) => ( 
+                            <View style={styles.profileContainer}>
+                                <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
                                 <Text>
                                 {item.text}
                                 </Text>
                                 <Text>Likes: {item.numLikes}</Text> 
                              
-                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
-                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
+                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
+                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
                                 
                                 
 
@@ -335,3 +336,38 @@ class FriendsProfile extends Component {
 }
 }
 export default FriendsProfile;
+
+
+const styles = StyleSheet.create({
+    contentView: {
+      flex: 1,
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      borderColor: '#674AB3',
+  
+      width: '100%',
+      marginVertical: 20,
+    },
+    postContainer: {
+      backgroundColor: `#FFFFFF` , 
+      borderWidth: 5,
+      borderColor: '#674AB3'
+    },
+  
+    profileContainer: {
+      backgroundColor: `#FFFFFF` , 
+      borderWidth: 5,
+      borderColor: '#674AB3'
+    },
+  
+    buttonColor: {
+      color: '#9075D8'
+    },
+  
+    profileInfo: {
+      fontSize: 15,
+      fontWeight: "bold"
+    }
+  });  

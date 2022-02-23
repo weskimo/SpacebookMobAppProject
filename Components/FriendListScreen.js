@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
 import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -89,12 +87,12 @@ class FriendListScreen extends Component {
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                      <View style= {{borderWidth: 5}}>
-                        <Text>
+                      <View style= {styles.postContainer}>
+                        <Text style={styles.profileInfo}>
                           {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
                           </Text>
                           <Button title="Go to profile" onPress={ async () => {this.setState({friendsID: item.user_id}); 
-                          await this.setFriendsId().then( this.props.navigation.navigate("MyFriend's Profile"));}}/>
+                          await this.setFriendsId().then( this.props.navigation.navigate("MyFriend's Profile"));}} color='#9075D8'/>
                           
                           <Text>{this.state.friendsID}</Text>
                           
@@ -109,6 +107,40 @@ class FriendListScreen extends Component {
     } 
 }
 export default FriendListScreen;
+
+
+const styles = StyleSheet.create({
+  contentView: {
+    flex: 1,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderColor: '#674AB3',
+
+    width: '100%',
+    marginVertical: 20,
+  },
+  postContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  profileContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  buttonColor: {
+    color: '#9075D8'
+  },
+  profileInfo: {
+    fontSize: 15,
+    fontWeight: "bold"
+  }
+});  
 
 
 

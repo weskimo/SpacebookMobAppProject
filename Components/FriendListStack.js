@@ -26,7 +26,7 @@ class FriendsListStack extends Component {
        
         <Stack.Navigator initialRouteName='Profile'>
                     
-                    <Stack.Screen name="FriendList" component={FriendListScreen} />
+                    <Stack.Screen name="FriendList" component={FriendListScreen} options={{headerShown: false}}/>
                     <Stack.Screen name="MyFriend's Profile" component={FriendsProfile} />
                     </Stack.Navigator>
                    

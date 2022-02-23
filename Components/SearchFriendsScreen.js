@@ -102,11 +102,11 @@ class SearchFriendsScreen extends Component {
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                      <View style= {{borderWidth: 5}}>
-                        <Text>
+                      <View style= {styles.postContainer}>
+                        <Text style={styles.profileInfo}>
                           {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
                           </Text>
-                          <Button title='Add' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }}/>
+                          <Button title='Add' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} color='#9075D8'/>
                           
                       </View>
                   )}
@@ -124,3 +124,37 @@ class SearchFriendsScreen extends Component {
 
 
 export default SearchFriendsScreen;
+
+
+const styles = StyleSheet.create({
+  contentView: {
+    flex: 1,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderColor: '#674AB3',
+
+    width: '100%',
+    marginVertical: 20,
+  },
+  postContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  profileContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  buttonColor: {
+    color: '#9075D8'
+  },
+  profileInfo: {
+    fontSize: 15,
+    fontWeight: "bold"
+  }
+});  

@@ -322,41 +322,45 @@ class ProfileScreen extends Component {
 
  
                 
-                
-                <View style={{flex: 1 , borderWidth: 5}}> 
+             
+                <View style={styles.profileContainer }> 
                     <Text>Login id: {this.state.userId}</Text>
-                    <Text>First Name: {this.state.first_Name}</Text>
-                    <Text>Last Name: {this.state.last_Name}</Text>
+                    <Text style={styles.profileInfo}>
+                      {this.state.first_Name}
+                      </Text>
+                    <Text style={styles.profileInfo}>
+                      {this.state.last_Name}
+                      </Text>
                     <View style={styles.buttonsContainer}>
-                    <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}} />
+                    <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}}  color='#9075D8'/>
 
-                    <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} />
+                    <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} color='#9075D8'/>
                     </View>
-                    <View style= {{borderWidth: 5}}>
+                    <View style={styles.postContainer} >
                     <TextInput
                     placeholder="Write you post here.."
                     onChangeText={ value => this.setState({tempPost: value})}
                     value={this.state.tempPost}
                     style={{padding:5, borderWidth:1, margin:5}}
                     />
-                    <Button title="Make post" onPress={() => {this.makePost();}}/>
+                    <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
                     </View>
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={{backgroundColor: `#dcdcdc` , borderWidth: 5}}>
-                                <Text>{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
+                            <View style={styles.postContainer}>
+                                <Text style={styles.profileInfo} >{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
                                 <Text>
                                 {item.text}
                                 </Text>
                                 <Text>Likes: {item.numLikes}</Text> 
                                 <View style={styles.buttonsContainer}>
-                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}}/>
-                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
-                                <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
+                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
+                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
+                                <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} color='#9075D8'/>
                                 <Button title="Edit Posts" onPress={() => {this.setState({post_Id: item.post_id});
                                 this.setPostId();this.getPosts();
-                                this.props.navigation.navigate("Edit Posts")}} />
+                                this.props.navigation.navigate("Edit Posts")}} color='#9075D8'/>
                                 </View>
                                 
 
@@ -393,15 +397,29 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    borderColor: '#674AB3',
 
     width: '100%',
     marginVertical: 20,
   },
-  subHeader: {
-    backgroundColor : "#2089dc",
-    color : "white",
-    textAlign : "center",
-    paddingVertical : 5,
-    marginBottom : 10
+  postContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  profileContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#674AB3'
+  },
+
+  buttonColor: {
+    color: '#9075D8'
+  },
+
+  profileInfo: {
+    fontSize: 15,
+    fontWeight: "bold"
   }
 });  
