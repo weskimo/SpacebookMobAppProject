@@ -204,9 +204,9 @@ class editPost extends Component {
                                 <TextInput placeholder='Change post to...' 
                                 onChangeText={ value => this.setState({tempPost: value})}
                                 />
-                                <Button title='Change Post' onPress={() => {this.setState({post_Id: item.post_id});this.changePost() ;} }/>
+                                <Button title='Change Post' onPress={() => {this.setState({post_Id: item.post_id});this.changePost() ;} } color='#9075D8'/>
 
-                                <Button title='Patch Post' onPress={() => {this.patchPost(); this.getPosts();} }/>
+                                <Button title='Patch Post' onPress={() => {this.patchPost(); this.getPosts();} } color='#9075D8'/>
                              
 
                                 

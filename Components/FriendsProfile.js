@@ -286,7 +286,7 @@ class FriendsProfile extends Component {
                 
                 
                 <View style={styles.profileContainer}>
-                    <Text>Login id: {this.state.userId}</Text>
+                    <Text style={styles.postText}>Login id: {this.state.userId}</Text>
                     <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>
                     <Text style={styles.profileInfo}>Last Name: {this.state.last_Name}</Text>
                     
@@ -302,14 +302,14 @@ class FriendsProfile extends Component {
                         renderItem={({item}) => ( 
                             <View style={styles.profileContainer}>
                                 <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
-                                <Text>
+                                <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
-                                <Text>Likes: {item.numLikes}</Text> 
-                             
+                                <Text style={styles.postText}>Likes: {item.numLikes}</Text> 
+                                <View style={styles.buttonsContainer}>
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
-                                
+                                </View>
                                 
 
                                 
@@ -348,7 +348,8 @@ const styles = StyleSheet.create({
       borderColor: '#674AB3',
   
       width: '100%',
-      marginVertical: 20,
+      marginVertical: 10,
+      marginHorizontal: 10
     },
     postContainer: {
       backgroundColor: `#FFFFFF` , 
@@ -359,7 +360,8 @@ const styles = StyleSheet.create({
     profileContainer: {
       backgroundColor: `#FFFFFF` , 
       borderWidth: 5,
-      borderColor: '#674AB3'
+      borderColor: '#674AB3',
+      
     },
   
     buttonColor: {
@@ -368,6 +370,12 @@ const styles = StyleSheet.create({
   
     profileInfo: {
       fontSize: 15,
-      fontWeight: "bold"
+      fontWeight: "bold",
+      marginHorizontal: 10
+    },
+  
+    postText: {
+      fontSize: 12,
+      marginHorizontal: 10
     }
   });  
