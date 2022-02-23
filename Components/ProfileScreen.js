@@ -91,6 +91,10 @@ class ProfileScreen extends Component {
         
     }
 
+    componentWillUnmount() {
+        this.unsubscribe();
+      }
+
     getProfileData = async () => {
 
         const value = await AsyncStorage.getItem('@session_token');
@@ -317,7 +321,7 @@ class ProfileScreen extends Component {
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}}/>
                                 <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} />
                                 <Button title="Edit Posts" onPress={() => {this.setState({post_Id: item.post_id});
-                                this.setPostId();
+                                this.setPostId();this.getPosts();
                                 this.props.navigation.navigate("Edit Posts")}} />
                                 
 
