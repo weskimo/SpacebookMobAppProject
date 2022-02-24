@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, Image} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image, ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeConsumer } from 'react-native-elements';
@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { Camera } from 'expo-camera';
 import { Avatar } from 'react-native-elements';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
@@ -324,23 +325,29 @@ class ProfileScreen extends Component {
  
                 
              
-                <View style={styles.profileContainer }> 
+                <ScrollView style={styles.profileContainer }> 
+                    
+                    <SafeAreaView style={styles.infoContainer}>
                     <Image 
                      style={styles.tinyLogo}
                      source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                     />
-                    <Text style={styles.postText}>Login id: {this.state.userId}</Text>
-                    <Text style={styles.profileInfo}>
-                      {this.state.first_Name}
-                      </Text>
-                    <Text style={styles.profileInfo}>
-                      {this.state.last_Name}
-                      </Text>
+                    <SafeAreaView>
+                        <Text style={styles.postText}>Login id: {this.state.userId}</Text>
+                        <Text style={styles.profileInfo}>
+                          {this.state.first_Name}
+                          </Text>
+                        <Text style={styles.profileInfo}>
+                          {this.state.last_Name}
+                        </Text>
+                    </SafeAreaView>
+                    </SafeAreaView>
+                    
                     <View style={styles.buttonsContainer}>
                     <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}}  color='#9075D8'/>
-
                     <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} color='#9075D8'/>
                     </View>
+
                     <View >
                     <TextInput
                     placeholder="Write you post here.."
@@ -350,20 +357,24 @@ class ProfileScreen extends Component {
                     />
                     <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
                     </View>
+
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
+                                <SafeAreaView style={styles.postAuthorContainer}>
                                 <Image 
                                   style={styles.tinyLogo}
                                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
                                 <Text style={styles.profileInfo} >{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
+                                </SafeAreaView>
                                 <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
                                 <Text style={styles.postText}>
                                   Likes: {item.numLikes}
                                 </Text> 
+
                                 <View style={styles.buttonsContainer}>
                                 <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
                                 <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
@@ -371,11 +382,8 @@ class ProfileScreen extends Component {
                                 <Button title="Edit Posts" onPress={() => {this.setState({post_Id: item.post_id});
                                 this.setPostId();this.getPosts();
                                 this.props.navigation.navigate("Edit Posts")}} color='#9075D8'/>
-                                </View>
-                                
+                                </View> 
 
-                                
-                                
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
@@ -390,7 +398,7 @@ class ProfileScreen extends Component {
                    
                     
                             
-                </View>
+                </ScrollView>
                 
             )
     } 
@@ -443,5 +451,16 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  postAuthorContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    alignItems: 'center'
   },
 });  

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, Image} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -286,13 +286,17 @@ class FriendsProfile extends Component {
                 
                 
                 <View style={styles.profileContainer}>
+                  <SafeAreaView style={styles.infoContainer}>
                   <Image 
                      style={styles.tinyLogo}
                      source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
                     />
+                    <SafeAreaView>
                     <Text style={styles.postText}>Login id: {this.state.userId}</Text>
                     <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>
                     <Text style={styles.profileInfo}>Last Name: {this.state.last_Name}</Text>
+                    </SafeAreaView>
+                    </SafeAreaView>
                     
                     <TextInput
                     placeholder="Write you post here.."
@@ -305,10 +309,12 @@ class FriendsProfile extends Component {
                         data={this.state.listData}
                         renderItem={({item}) => ( 
                             <View style={styles.profileContainer}>
+                              <SafeAreaView style={styles.postAuthorContainer}>
                               <Image 
                                   style={styles.tinyLogo}
                                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
                                 <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
+                                </SafeAreaView>
                                 <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
@@ -353,7 +359,7 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       flexWrap: 'wrap',
       borderColor: '#674AB3',
-  
+      
       width: '100%',
       marginVertical: 10,
       marginHorizontal: 10
@@ -388,5 +394,16 @@ const styles = StyleSheet.create({
     tinyLogo: {
       width: 50,
       height: 50,
+    },
+    infoContainer: {
+      flexDirection: 'row',
+      marginVertical: 10,
+      marginHorizontal: 10
+    },
+    postAuthorContainer: {
+      flexDirection: 'row',
+      marginVertical: 10,
+      marginHorizontal: 10,
+      alignItems: 'center'
     },
   });  

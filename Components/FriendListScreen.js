@@ -88,12 +88,17 @@ class FriendListScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => (
                       <View style= {styles.postContainer}>
+                        <SafeAreaView style={styles.infoContainer}>
+                          
                         <Image 
                                   style={styles.tinyLogo}
                                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+                         <SafeAreaView style={styles.infoContainer}>
                         <Text style={styles.profileInfo}>
                           {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
                           </Text>
+                          </SafeAreaView>
+                          </SafeAreaView>
                           <Button title="Go to profile" onPress={ async () => {this.setState({friendsID: item.user_id}); 
                           await this.setFriendsId().then( this.props.navigation.navigate("MyFriend's Profile"));}} color='#9075D8'/>
                           
@@ -146,6 +151,11 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10
   },
 });  
 

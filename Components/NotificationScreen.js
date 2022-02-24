@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
 
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FriendListScreen from './FriendListScreen';
@@ -128,11 +128,14 @@ class NotificationScreen extends Component {
                 data={this.state.listData}
                 renderItem={({item}) => (
                     <View>
+                      <Image 
+                                  style={styles.tinyLogo}
+                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
                       <Text>
                         {item.first_name} {item.last_name} {item.user_id.toString()}
                         </Text>
-                        <Button title='Accept' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.acceptFriend(); }}/>
-                        <Button title='Decline' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.declineFriend(); }}/>
+                        <Button title='Accept' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.acceptFriend(); }} color='#9075D8'/>
+                        <Button title='Decline' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.declineFriend(); }} color='#9075D8'/>
                         
                     </View>
                 )}
@@ -144,3 +147,24 @@ class NotificationScreen extends Component {
 }
 }
 export default NotificationScreen;
+
+
+const styles = StyleSheet.create({
+
+  buttonsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderColor: '#674AB3',
+    width: '100%',
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  buttonColor: {
+    color: '#9075D8'
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
+
+});  
