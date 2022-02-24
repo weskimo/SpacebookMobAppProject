@@ -119,21 +119,21 @@ class editYourProfile extends Component {
                     value={this.state.first_name}
                     style={{padding:5, borderWidth:1, margin:5}}
                 />
-                <Button title="Change First Name" onPress={() => { this.saveData();this.patchData();}} color='#9075D8'/>
+                
                  <TextInput
                     placeholder="Enter your last name..."
                     onChangeText={(last_name) => this.setState({last_name})}
                     value={this.state.last_name}
                     style={{padding:5, borderWidth:1, margin:5}}
                 />
-                <Button title="Change Last Name"onPress={() => { this.saveData();this.patchData();this.getProfileData();}} color='#9075D8'/>
+                
                  <TextInput
                     placeholder="Enter your email..."
                     onChangeText={(email) => this.setState({email})}
                     value={this.state.email}
                     style={{padding:5, borderWidth:1, margin:5}}
                 />
-                <Button title="Change Email"onPress={() => { this.saveData();this.patchData();}} color='#9075D8'/>
+                
                  <TextInput
                     placeholder="Enter your password..."
                     onChangeText={(password) => this.setState({password})}
@@ -141,7 +141,7 @@ class editYourProfile extends Component {
                     secureTextEntry
                     style={{padding:5, borderWidth:1, margin:5}}
                 />
-                  <Button title="Change password"onPress={() => { this.saveData();this.patchData();}} color='#9075D8'/>
+                   <Button title="Change Details"onPress={() => { this.saveData();this.patchData();this.getProfileData();}} color='#9075D8'/>
               </View>
             );
           }

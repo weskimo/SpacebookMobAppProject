@@ -77,11 +77,12 @@ class LoginScreen extends Component{
                 />
                 <Button
                     title="Login"
-                    onPress={() => this.login()}
+                    onPress={() => this.login()
+                    } color='#9075D8'
                 />
                 <Button
                     title="Don't have an account?"
-                    color="darkblue"
+                    color='#9075D8'
                     onPress={() => this.props.navigation.navigate("Signup")}
                 />
             </ScrollView>

@@ -72,6 +72,7 @@ class SignupScreen extends Component{
                 <Button
                     title="Create an account"
                     onPress={() => this.signup()}
+                    color='#9075D8'
                 />
             </ScrollView>
         )

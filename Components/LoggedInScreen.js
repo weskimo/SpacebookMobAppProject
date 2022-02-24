@@ -10,6 +10,7 @@ import SearchFriendsScreen from './SearchFriendsScreen';
 import ProfileStack from './ProfileStack';
 import editYourProfile from './editYourProfile';
 import FriendsListStack from './FriendListStack';
+import { Camera } from 'expo-camera';
 
 
 const Tab = createBottomTabNavigator();

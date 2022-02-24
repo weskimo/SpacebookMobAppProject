@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -286,6 +286,10 @@ class FriendsProfile extends Component {
                 
                 
                 <View style={styles.profileContainer}>
+                  <Image 
+                     style={styles.tinyLogo}
+                     source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    />
                     <Text style={styles.postText}>Login id: {this.state.userId}</Text>
                     <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>
                     <Text style={styles.profileInfo}>Last Name: {this.state.last_Name}</Text>
@@ -377,5 +381,9 @@ const styles = StyleSheet.create({
     postText: {
       fontSize: 12,
       marginHorizontal: 10
-    }
+    },
+    tinyLogo: {
+      width: 50,
+      height: 50,
+    },
   });  

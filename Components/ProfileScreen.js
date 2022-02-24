@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeConsumer } from 'react-native-elements';
@@ -7,6 +7,7 @@ import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getHeaderTitle } from '@react-navigation/elements';
 import { Camera } from 'expo-camera';
+import { Avatar } from 'react-native-elements';
 
 
 
@@ -158,7 +159,7 @@ class ProfileScreen extends Component {
     
                 })
 
-                this.props.navigation.navigate("Home");
+                this.props.navigation.navigate("SpaceBook");
         })
         .catch((error) => {
             console.log(error);
@@ -324,6 +325,10 @@ class ProfileScreen extends Component {
                 
              
                 <View style={styles.profileContainer }> 
+                    <Image 
+                     style={styles.tinyLogo}
+                     source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    />
                     <Text style={styles.postText}>Login id: {this.state.userId}</Text>
                     <Text style={styles.profileInfo}>
                       {this.state.first_Name}
@@ -431,5 +436,9 @@ const styles = StyleSheet.create({
   postText: {
     fontSize: 12,
     marginHorizontal: 10
-  }
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
 });  
