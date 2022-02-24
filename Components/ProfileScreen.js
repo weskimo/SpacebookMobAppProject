@@ -354,6 +354,9 @@ class ProfileScreen extends Component {
                         data={this.state.listData}
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
+                                <Image 
+                                  style={styles.tinyLogo}
+                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
                                 <Text style={styles.profileInfo} >{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
                                 <Text style={styles.postText}>
                                 {item.text}

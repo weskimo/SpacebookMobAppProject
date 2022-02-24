@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
@@ -88,6 +88,9 @@ class FriendListScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => (
                       <View style= {styles.postContainer}>
+                        <Image 
+                                  style={styles.tinyLogo}
+                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
                         <Text style={styles.profileInfo}>
                           {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
                           </Text>
@@ -139,7 +142,11 @@ const styles = StyleSheet.create({
   profileInfo: {
     fontSize: 15,
     fontWeight: "bold"
-  }
+  },
+  tinyLogo: {
+    width: 50,
+    height: 50,
+  },
 });  
 
 

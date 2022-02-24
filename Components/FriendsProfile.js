@@ -305,6 +305,9 @@ class FriendsProfile extends Component {
                         data={this.state.listData}
                         renderItem={({item}) => ( 
                             <View style={styles.profileContainer}>
+                              <Image 
+                                  style={styles.tinyLogo}
+                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
                                 <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
                                 <Text style={styles.postText}>
                                 {item.text}
