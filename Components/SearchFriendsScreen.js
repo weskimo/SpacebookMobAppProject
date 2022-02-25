@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -98,24 +99,26 @@ class SearchFriendsScreen extends Component {
         );
       }else{
         return (
-          <View>
+          <ScrollView styles={styles.profileContainer}>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                      <View style= {styles.postContainer}>
+                    <SafeAreaView styles={styles.profileContainer}>
+                        <SafeAreaView styles={styles.profileContainer}>
                         <Image 
                                   style={styles.tinyLogo}
                                   source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
                         <Text style={styles.profileInfo}>
-                          {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
+                          {item.user_givenname} {item.user_familyname} {item.user_id.toString()} 
                           </Text>
+                          </SafeAreaView>
                           <Button title='Add' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} color='#9075D8'/>
-                          
-                      </View>
+                          </SafeAreaView>
+                      
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
                 />
-          </View>
+          </ScrollView>
         );
       }
       
@@ -135,11 +138,12 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+   
     borderColor: '#674AB3',
+    justifyContent: 'space-between',
 
-    width: '100%',
-    marginVertical: 20,
+    marginVertical: 10,
+    marginHorizontal: 10
   },
   postContainer: {
     backgroundColor: `#FFFFFF` , 
@@ -150,18 +154,39 @@ const styles = StyleSheet.create({
   profileContainer: {
     backgroundColor: `#FFFFFF` , 
     borderWidth: 5,
-    borderColor: '#674AB3'
+    borderColor: '#674AB3',
+    marginHorizontal: 10,
+    flexDirection: 'row',
+    
   },
 
   buttonColor: {
     color: '#9075D8'
   },
+
   profileInfo: {
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginHorizontal: 10
+  },
+
+  postText: {
+    fontSize: 15,
+    marginHorizontal: 10
   },
   tinyLogo: {
     width: 50,
     height: 50,
+  },
+  infoContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10
+  },
+  postAuthorContainer: {
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    alignItems: 'center'
   },
 });  

@@ -414,10 +414,10 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
+   
     borderColor: '#674AB3',
+    justifyContent: 'space-between',
 
-    width: '100%',
     marginVertical: 10,
     marginHorizontal: 10
   },
@@ -445,7 +445,7 @@ const styles = StyleSheet.create({
   },
 
   postText: {
-    fontSize: 12,
+    fontSize: 15,
     marginHorizontal: 10
   },
   tinyLogo: {

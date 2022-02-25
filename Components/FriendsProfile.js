@@ -388,7 +388,7 @@ const styles = StyleSheet.create({
     },
   
     postText: {
-      fontSize: 12,
+      fontSize: 15,
       marginHorizontal: 10
     },
     tinyLogo: {
