@@ -22,11 +22,36 @@ class FriendsProfile extends Component {
           tempPost: '',
           listData: [],
           post_Id: 0, 
-          postLikes: 0
+          postLikes: 0,
+          photo: null
          
           
           
         }
+      }
+
+      get_profile_image = async () => {
+        const token = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@friendsID');
+        fetch("http://localhost:3333/api/1.0.0/user/" + id +"/photo", {
+          method: 'GET',
+          headers: {
+            'X-Authorization': token
+          }
+        })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((resBlob) => {
+          let data = URL.createObjectURL(resBlob);
+          this.setState({
+            photo: data,
+            isLoading: false
+          });
+        })
+        .catch((err) => {
+          console.log("error", err)
+        });
       }
 
       getPosts = async () => {
@@ -83,6 +108,7 @@ class FriendsProfile extends Component {
     componentDidMount(){
         this.getProfileData();
         this.getPosts();
+        this.get_profile_image();
         
         
     }
@@ -287,10 +313,12 @@ class FriendsProfile extends Component {
                 
                 <View style={styles.profileContainer}>
                   <SafeAreaView style={styles.infoContainer}>
-                  <Image 
-                     style={styles.tinyLogo}
-                     source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
-                    />
+                  <Image
+                                  source={{
+                                    uri: this.state.photo,
+                                  }}
+                                  style={styles.tinyLogo}
+                                />
                     <SafeAreaView>
                     <Text style={styles.postText}>Login id: {this.state.userId}</Text>
                     <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>

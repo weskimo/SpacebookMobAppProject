@@ -328,9 +328,11 @@ class ProfileScreen extends Component {
                 <ScrollView style={styles.profileContainer }> 
                     
                     <SafeAreaView style={styles.infoContainer}>
-                    <Image 
-                     style={styles.tinyLogo}
-                     source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    <Image
+                      source={{
+                        uri: this.state.photo,
+                      }}
+                      style={styles.profileLogo}
                     />
                     <SafeAreaView>
                         <Text style={styles.postText}>Login id: {this.state.userId}</Text>
@@ -363,9 +365,12 @@ class ProfileScreen extends Component {
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
                                 <SafeAreaView style={styles.postAuthorContainer}>
-                                <Image 
+                                <Image
+                                  source={{
+                                    uri: this.state.photo,
+                                  }}
                                   style={styles.tinyLogo}
-                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+                                />
                                 <Text style={styles.profileInfo} >{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
                                 </SafeAreaView>
                                 <Text style={styles.postText}>
@@ -447,6 +452,10 @@ const styles = StyleSheet.create({
   postText: {
     fontSize: 15,
     marginHorizontal: 10
+  },
+  profileLogo: {
+    width: 100,
+    height: 100,
   },
   tinyLogo: {
     width: 50,
