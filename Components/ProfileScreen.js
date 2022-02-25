@@ -371,7 +371,7 @@ class ProfileScreen extends Component {
                                   }}
                                   style={styles.tinyLogo}
                                 />
-                                <Text style={styles.profileInfo} >{this.state.first_Name + " " + this.state.last_Name + " says:"}</Text>
+                                <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
                                 </SafeAreaView>
                                 <Text style={styles.postText}>
                                 {item.text}

@@ -199,34 +199,7 @@ class FriendsProfile extends Component {
         })
     }
 
-    removePost = async () => {
-        const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@user_id');
-        const postID = this.state.post_Id;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID  , {
-           method: 'delete',
-           headers: {
-                'X-Authorization':  value ,
-                'Content-Type': 'application/json' 
 
-              },
-              
-                
-            
-            })
-            .then((response) => {
-                if(response.status === 200){
-                    this.getPosts();
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
-                }else{
-                    throw 'Something went wrong';
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-      }
 
 
     likePost = async () => {
