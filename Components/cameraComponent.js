@@ -16,8 +16,8 @@ class cameraComponent extends Component {
     }
 
     async componentDidMount(){
-        const { status } = await Camera.requestCameraPermissionsAsync();
-        this.setState({hasPermission: status === 'granted'});
+        const status = await Camera.requestCameraPermissionsAsync();
+        this.setState({hasPermission: status});
       }
 
     sendToServer = async (data) => {
@@ -27,7 +27,7 @@ class cameraComponent extends Component {
   
         let res = await fetch(data.base64);
         let blob = await res.blob();
-  
+        
         return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/photo", {
             method: "POST",
             headers: {
