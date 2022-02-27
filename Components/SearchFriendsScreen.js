@@ -19,8 +19,9 @@ class SearchFriendsScreen extends Component {
   }
 
   componentDidMount() {
-
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {  
     this.getData();
+    });
   }
 
   componentWillUnmount() {

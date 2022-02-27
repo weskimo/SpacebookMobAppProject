@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
+import { View, Text, Button, FlatList, SafeAreaView, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-
+// lets have some radio buttons to replace the double buttons
 
 class FriendListScreen extends Component {
 
@@ -23,8 +22,9 @@ class FriendListScreen extends Component {
 
   componentDidMount() {
     
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {  
     this.getData();
-   
+    });
   }
 
   componentWillUnmount() {

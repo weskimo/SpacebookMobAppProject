@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, SafeAreaView} from 'react-native';
+import {View, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import ProfileScreen from './ProfileScreen';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import NotificationScreen from './NotificationScreen';
-import FriendListScreen from './FriendListScreen';
 import SearchFriendsScreen from './SearchFriendsScreen';
 import ProfileStack from './ProfileStack';
-import editYourProfile from './editYourProfile';
 import FriendsListStack from './FriendListStack';
-import { Camera } from 'expo-camera';
 
 
 const Tab = createBottomTabNavigator();
@@ -41,7 +37,9 @@ class HomeScreen extends Component {
   }
 
   componentWillUnmount() {
+    this.unsubscribe = this.props.navigation.addListener('focus', () => {  
     this.unsubscribe();
+    });
   }
 
 
