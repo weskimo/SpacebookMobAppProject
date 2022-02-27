@@ -77,7 +77,7 @@ class HomeScreen extends Component {
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
 
-              if (route.name === 'Profile') {
+              if (route.name === 'MyProfile') {
                 iconName = focused
                   ? "person-circle-outline"
                   : "person-circle-outline";

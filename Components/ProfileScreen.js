@@ -113,11 +113,12 @@ class ProfileScreen extends Component {
       
       
     componentDidMount(){
+      this.unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getProfileData();
         this.getPosts();
         this.get_profile_image();
 
-        
+      });
         
     }
 
@@ -301,6 +302,30 @@ class ProfileScreen extends Component {
       setPostId = async () => {
         const postID = this.state.post_Id;
         await AsyncStorage.setItem('@post_Id', postID);
+      }
+
+      get_profile_image_posts = async (user) => {
+        const token = await AsyncStorage.getItem('@session_token');
+        const id = user;
+        fetch("http://localhost:3333/api/1.0.0/user/" + id +"/photo", {
+          method: 'GET',
+          headers: {
+            'X-Authorization': token
+          }
+        })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((resBlob) => {
+          let data = URL.createObjectURL(resBlob);
+          this.setState({
+            photo: data,
+            isLoading: false
+          });
+        })
+        .catch((err) => {
+          console.log("error", err)
+        });
       }
 
     

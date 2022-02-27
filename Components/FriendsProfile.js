@@ -106,10 +106,11 @@ class FriendsProfile extends Component {
       
       
     componentDidMount(){
+      this.unsubscribe = this.props.navigation.addListener('focus', () => {  
         this.getProfileData();
         this.getPosts();
         this.get_profile_image();
-        
+      });
         
     }
 
