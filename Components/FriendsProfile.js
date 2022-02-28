@@ -305,6 +305,7 @@ class FriendsProfile extends Component {
                     onChangeText={ value => this.setState({tempPost: value})}
                     value={this.state.tempPost}
                     style={{padding:5, borderWidth:1, margin:5}}
+                    maxLength={200}
                     />
                     <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
                     <FlatList

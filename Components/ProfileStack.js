@@ -13,6 +13,7 @@ import cameraComponent from './cameraComponent';
 
 
 
+
 const Stack = createNativeStackNavigator();
 
 
@@ -29,6 +30,8 @@ class ProfileStack extends Component {
                     <Stack.Screen name="Profile" component={ProfileScreen} options={{headerShown: false}} />
                     <Stack.Screen name="Edit Posts" component={editPost} />
                     <Stack.Screen name="Take picture" component={cameraComponent} />
+                    
+                    
                     </Stack.Navigator>
                    
     )

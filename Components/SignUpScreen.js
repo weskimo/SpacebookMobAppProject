@@ -1,15 +1,35 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, TextInput } from 'react-native';
+import { Button, ScrollView, TextInput, Text } from 'react-native';
+import { ThemeConsumer } from 'react-native-elements';
+import ValidationComponent from 'react-simple-form-validator';
 
-class SignupScreen extends Component{
+class SignupScreen extends ValidationComponent{
     constructor(props){
         super(props);
+
+
+        this.fieldRules = {
+            email: {
+                     email: true, 
+                     required: true 
+                    },
+            password: { required: true,
+                
+                  },
+            firstName: {
+                required: true,
+            },
+            lastName: {
+                required: true,
+            }
+          };
 
         this.state = {
             first_name: "",
             last_name: "",
             email: "",
-            password: ""
+            password: "",
+            errorMsg: ""
         }
     }
 
@@ -27,6 +47,7 @@ class SignupScreen extends Component{
             if(response.status === 201){
                 return response.json()
             }else if(response.status === 400){
+                this.setState({errorMsg: "Invalid Signup details. Please enter a valid email"})
                 throw 'Failed validation';
             }else{
                 throw 'Something went wrong';
@@ -43,36 +64,44 @@ class SignupScreen extends Component{
 
     render(){
         return (
-            <ScrollView>
-                <TextInput
-                    placeholder="Enter your first name..."
-                    onChangeText={(first_name) => this.setState({first_name})}
+            <ScrollView stlye={{flexDirection: 'column'}}>
+                <form>
+                    <input
+                    id="firstname"
+                    type="text"
+                    onChange={(fn) => this.validate({ first_name: fn.target.value, fieldRules: this.fieldRules })}
                     value={this.state.first_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
-                <TextInput
-                    placeholder="Enter your last name..."
-                    onChangeText={(last_name) => this.setState({last_name})}
+                    placeholder="Enter your first name..."
+                    />
+                    <input
+                    id="name"
+                    type="text"
+                    onChange={(ln) => this.validate({ last_name: ln.target.value, fieldRules: this.fieldRules })}
                     value={this.state.last_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
-                <TextInput
-                    placeholder="Enter your email..."
-                    onChangeText={(email) => this.setState({email})}
+                    placeholder="Enter your last name..."
+                    />
+                    <input
+                    id="email"
+                    type="email"
+                    onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
                     value={this.state.email}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
-                <TextInput
-                    placeholder="Enter your password..."
-                    onChangeText={(password) => this.setState({password})}
+                    placeholder="Enter your email..."
+                    />
+                    <input
+                    id="password"
+                    type="password"
+                    onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
                     value={this.state.password}
-                    secureTextEntry
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
+                    placeholder="Create a Password..."
+                    />
+                
+                </form>
+                <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
+
                 <Button
-                    title="Create an account"
-                    onPress={() => this.signup()}
+                    title="Sign Up"
                     color='#9075D8'
+                    onPress={() => this.signup()}
                 />
             </ScrollView>
         )

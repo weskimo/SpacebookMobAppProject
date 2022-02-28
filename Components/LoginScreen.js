@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { Button,  Text  } from 'react-native';
+import { ScrollView, TextInput} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ValidationComponent from 'react-simple-form-validator';
+
 
 
 const storeData = async (value) => {
@@ -13,13 +15,26 @@ const storeData = async (value) => {
     }
 }
 
-class LoginScreen extends Component{
+class LoginScreen extends ValidationComponent{
     constructor(props){
         super(props);
 
+        this.fieldRules = {
+            email: {
+                     email: true, 
+                     required: true,
+                     maxlength: 320,
+                     minlength: 5   
+                    },
+            password: { required: true,
+                minlength: 5
+                  }
+          };
+
         this.state = {
             email: "",
-            password: ""
+            password: "",
+            errorMsg: ""
         }
     }
 
@@ -40,7 +55,10 @@ class LoginScreen extends Component{
                 return response.json()
                
             }else if(response.status === 400){
+                this.setState({errorMsg: "Invalid email or password"});
                 throw 'Invalid email or password';
+                
+                
             }else{
                 throw 'Something went wrong';
             }
@@ -57,36 +75,41 @@ class LoginScreen extends Component{
         })
     }
 
-    
-
-
 
     render(){
         return (
             <ScrollView>
-                <TextInput
-                    placeholder="Enter your email..."
-                    onChangeText={(email) => this.setState({email})}
+                <form>
+                    <input
+                    id="email"
+                    type="email"
+                    onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
                     value={this.state.email}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
-                <TextInput
-                    placeholder="Enter your password..."
-                    onChangeText={(password) => this.setState({password})}
+                    placeholder="Enter your email..."
+                    />
+                    <input
+                    id="password"
+                    type="password"
+                    onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
                     value={this.state.password}
-                    secureTextEntry
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
+                   
+                    placeholder="Enter your password..."
+                    />
+                </form>
+
+                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <Button
                     title="Login"
-                    onPress={() => this.login()
-                    } color='#9075D8'
+                    color='#9075D8'
+                    onPress={() => this.login()}
                 />
                 <Button
                     title="Don't have an account?"
                     color='#9075D8'
                     onPress={() => this.props.navigation.navigate("Signup")}
                 />
+
+            
             </ScrollView>
         )
     }

@@ -26,9 +26,9 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {
+    
       this.checkLoggedIn();
-    });
+  
   
     this.setState({
       isLoading: false,
@@ -37,9 +37,9 @@ class HomeScreen extends Component {
   }
 
   componentWillUnmount() {
-    this.unsubscribe = this.props.navigation.addListener('focus', () => {  
+     
     this.unsubscribe();
-    });
+ 
   }
 
 

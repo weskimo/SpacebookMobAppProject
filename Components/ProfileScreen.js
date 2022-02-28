@@ -30,7 +30,8 @@ class ProfileScreen extends Component {
           listData: [],
           post_Id: 0, 
           postLikes: 0,
-          photo: null
+          photo: null,
+          postError: ""
          
           
           
@@ -318,15 +319,14 @@ class ProfileScreen extends Component {
         })
         .then((resBlob) => {
           let data = URL.createObjectURL(resBlob);
-          this.setState({
-            photo: data,
-            isLoading: false
-          });
+          return data;
         })
         .catch((err) => {
           console.log("error", err)
         });
       }
+
+    
 
     
 
@@ -360,7 +360,7 @@ class ProfileScreen extends Component {
                       style={styles.profileLogo}
                     />
                     <SafeAreaView>
-                        <Text style={styles.postText}>Login id: {this.state.userId}</Text>
+                        <Text>Login id: {this.state.userId}</Text>
                         <Text style={styles.profileInfo}>
                           {this.state.first_Name}
                           </Text>
@@ -381,6 +381,7 @@ class ProfileScreen extends Component {
                     onChangeText={ value => this.setState({tempPost: value})}
                     value={this.state.tempPost}
                     style={{padding:5, borderWidth:1, margin:5}}
+                    maxLength={200}
                     />
                     <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
                     </View>
@@ -390,18 +391,13 @@ class ProfileScreen extends Component {
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
                                 <SafeAreaView style={styles.postAuthorContainer}>
-                                <Image
-                                  source={{
-                                    uri: this.state.photo,
-                                  }}
-                                  style={styles.tinyLogo}
-                                />
+                                
                                 <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
                                 </SafeAreaView>
                                 <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
-                                <Text style={styles.postText}>
+                                <Text style={styles.profileInfo}>
                                   Likes: {item.numLikes}
                                 </Text> 
 
@@ -476,7 +472,7 @@ const styles = StyleSheet.create({
 
   postText: {
     fontSize: 15,
-    marginHorizontal: 10
+    marginHorizontal: 30
   },
   profileLogo: {
     width: 100,
