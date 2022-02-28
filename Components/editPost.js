@@ -181,18 +181,15 @@ class editPost extends Component {
         
         if(this.state.isLoading){
             return (
-                <View><Text>Loading... 
-                    </Text></View>
+                <View>
+                  <Text>
+                    Loading... 
+                  </Text>
+                </View>
             )
         }else{
-            
             return (
-
- 
-                
-                
                 <View>
-
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
@@ -200,36 +197,31 @@ class editPost extends Component {
                                 <Text>
                                 {item.text}
                                 </Text>
-                                <Text>Likes: {item.numLikes}</Text> 
-                                <TextInput placeholder='Change post to...' 
-                                onChangeText={ value => this.setState({tempPost: value})}
+                                <Text>
+                                  Likes: {item.numLikes}
+                                </Text> 
+                                <TextInput 
+                                  placeholder='Change post to...' 
+                                  onChangeText={ value => this.setState({tempPost: value})}
                                 />
-                                <Button title='Change Post' onPress={() => {this.setState({post_Id: item.post_id});this.changePost() ;} } color='#9075D8'/>
+                                <Button 
+                                  title='Change Post' 
+                                  onPress={() => {this.setState({post_Id: item.post_id});this.changePost() ;}} 
+                                  color='#9075D8'
+                                />
 
-                                <Button title='Patch Post' onPress={() => {this.patchPost(); this.getPosts();} } color='#9075D8'/>
-                             
-
-                                
-                                
+                                <Button 
+                                  title='Patch Post' 
+                                  onPress={() => {this.patchPost(); this.getPosts();}} 
+                                  color='#9075D8'
+                                /> 
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
-                        />
-
-                    
-                        
-                          
-                        
-                   
-                        
-                   
-                    
-                            
+                        />        
                 </View>
-                
             )
     } 
-
 }
 }
 export default editPost;

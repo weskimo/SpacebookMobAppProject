@@ -11,9 +11,6 @@ import FriendsListStack from './FriendListStack';
 
 const Tab = createBottomTabNavigator();
 
-
-
-
 class HomeScreen extends Component {
   constructor(props){
     super(props);
@@ -42,8 +39,6 @@ class HomeScreen extends Component {
  
   }
 
-
-
   checkLoggedIn = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     if (value == null) {
@@ -66,51 +61,49 @@ class HomeScreen extends Component {
         </View>
       );
     }else{
-      return (
-        
-        
-          
+      return (    
           <Tab.Navigator
-          screenOptions={({ route }) => ({
-            tabBarIcon: ({ focused, color, size }) => {
-              let iconName;
-
-              if (route.name === 'MyProfile') {
-                iconName = focused
-                  ? "person-circle-outline"
-                  : "person-circle-outline";
-              } else if (route.name === 'MyFriends') {
-                iconName = focused ? 'people-circle-outline' : 'people-circle-outline';
-              } else if (route.name === 'Notifications') {
-                iconName = focused ? 'notifications-circle-outline' : 'notifications-circle-outline';
-              
-              } else if (route.name === 'FindFriends') {
-                iconName = focused ? 'person-add-outline' : 'person-add-outline';
-              }
-
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />;
+            screenOptions={({ route }) => ({
+              tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+                if (route.name === 'MyProfile') {
+                  iconName = focused
+                    ? "person-circle-outline"
+                    : "person-circle-outline";
+                } else if (route.name === 'MyFriends') {
+                  iconName = focused ? 'people-circle-outline' : 'people-circle-outline';
+                } else if (route.name === 'Notifications') {
+                  iconName = focused ? 'notifications-circle-outline' : 'notifications-circle-outline';
+                
+                } else if (route.name === 'FindFriends') {
+                  iconName = focused ? 'person-add-outline' : 'person-add-outline';
+                }
+                return <Ionicons name={iconName} size={size} color={color} />;
             },
             tabBarActiveTintColor: 'tomato',
             tabBarInactiveTintColor: 'gray',
-          })}
-        >
-          <Tab.Screen name="MyProfile" component={ProfileStack}  />
-          <Tab.Screen name="Notifications" component={NotificationScreen} />
-          <Tab.Screen name="MyFriends" component={FriendsListStack} />
-          <Tab.Screen name="FindFriends" component={SearchFriendsScreen} />
-          
-          
-        </Tab.Navigator>
-        
-        
-        
+            })}
+          >
+            <Tab.Screen 
+              name="MyProfile" 
+              component={ProfileStack}  
+            />
+            <Tab.Screen 
+              name="Notifications" 
+              component={NotificationScreen} 
+            />
+            <Tab.Screen 
+              name="MyFriends" 
+              component={FriendsListStack} 
+            />
+            <Tab.Screen 
+              name="FindFriends" 
+              component={SearchFriendsScreen} 
+            /> 
+          </Tab.Navigator>    
       );
     }
     
   }
 }
-
-
-
 export default HomeScreen;

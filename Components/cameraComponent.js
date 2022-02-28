@@ -59,19 +59,28 @@ class cameraComponent extends Component {
       render(){
         if(this.state.hasPermission){
           return(
-            <View style={styles.container}>
+            <View 
+              style={styles.container}
+            >
               <Camera 
                 style={styles.camera} 
                 type={this.state.type}
                 ref={ref => this.camera = ref}
               >
-                <View style={styles.buttonContainer}>
+                <View 
+                  style={styles.buttonContainer}
+                >
                   <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
                       this.takePicture();
-                    }}>
-                    <Text style={styles.text}> Take Photo </Text>
+                    }}
+                  >
+                    <Text
+                       style={styles.text}
+                    >
+                       Take Photo 
+                    </Text>
                   </TouchableOpacity>
                 </View>
               </Camera>
@@ -79,7 +88,9 @@ class cameraComponent extends Component {
           );
         }else{
           return(
-            <Text>No access to camera</Text>
+            <Text>
+              No access to camera
+            </Text>
           );
         }
       }

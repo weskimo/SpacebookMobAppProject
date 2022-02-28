@@ -105,7 +105,6 @@ class editYourProfile extends Component {
             return (
               <View>
                 <Text>Loading..</Text>
-                
               </View>
             );
           }else{
@@ -113,35 +112,39 @@ class editYourProfile extends Component {
               <View>
                     <Text>First Name: {this.state.first_name}</Text>
                     <Text>Last Name: {this.state.last_name}</Text>
-                   <TextInput
-                    placeholder="Enter your first name..."
-                    onChangeText={(first_name) => this.setState({first_name})}
-                    value={this.state.first_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
+                    <TextInput
+                      placeholder="Enter your first name..."
+                      onChangeText={(first_name) => this.setState({first_name})}
+                      value={this.state.first_name}
+                      style={{padding:5, borderWidth:1, margin:5}}
+                    />
                 
-                 <TextInput
-                    placeholder="Enter your last name..."
-                    onChangeText={(last_name) => this.setState({last_name})}
-                    value={this.state.last_name}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
+                    <TextInput
+                      placeholder="Enter your last name..."
+                      onChangeText={(last_name) => this.setState({last_name})}
+                      value={this.state.last_name}
+                      style={{padding:5, borderWidth:1, margin:5}}
+                    />
                 
-                 <TextInput
-                    placeholder="Enter your email..."
-                    onChangeText={(email) => this.setState({email})}
-                    value={this.state.email}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
+                    <TextInput
+                        placeholder="Enter your email..."
+                        onChangeText={(email) => this.setState({email})}
+                        value={this.state.email}
+                        style={{padding:5, borderWidth:1, margin:5}}
+                    />
                 
-                 <TextInput
-                    placeholder="Enter your password..."
-                    onChangeText={(password) => this.setState({password})}
-                    value={this.state.password}
-                    secureTextEntry
-                    style={{padding:5, borderWidth:1, margin:5}}
-                />
-                   <Button title="Change Details"onPress={() => { this.saveData();this.patchData();this.getProfileData();}} color='#9075D8'/>
+                    <TextInput
+                        placeholder="Enter your password..."
+                        onChangeText={(password) => this.setState({password})}
+                        value={this.state.password}
+                        secureTextEntry
+                        style={{padding:5, borderWidth:1, margin:5}}
+                    />
+                    <Button 
+                        title="Change Details"
+                        onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
+                        color='#9075D8'
+                    />
               </View>
             );
           }

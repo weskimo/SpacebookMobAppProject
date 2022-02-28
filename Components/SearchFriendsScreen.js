@@ -105,17 +105,19 @@ class SearchFriendsScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => (
                     <SafeAreaView styles={styles.profileContainer}>
-                        <SafeAreaView styles={styles.profileContainer}>
-                        <Image 
-                                  style={styles.tinyLogo}
-                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
-                        <Text style={styles.profileInfo}>
-                          {item.user_givenname} {item.user_familyname} {item.user_id.toString()} 
-                          </Text>
-                          </SafeAreaView>
-                          <Button title='Add' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} color='#9075D8'/>
-                          </SafeAreaView>
-                      
+                      <SafeAreaView styles={styles.profileContainer}>
+                      <Image 
+                          style={styles.tinyLogo}
+                          source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+                      <Text style={styles.profileInfo}>
+                        {item.user_givenname} {item.user_familyname} {item.user_id.toString()} 
+                      </Text>
+                      </SafeAreaView>
+                      <Button 
+                        title='Add' 
+                        onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
+                        color='#9075D8'/>
+                    </SafeAreaView>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
                 />
@@ -125,11 +127,6 @@ class SearchFriendsScreen extends Component {
       
     }
   }
-
-
-  
-
-
 export default SearchFriendsScreen;
 
 

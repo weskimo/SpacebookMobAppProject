@@ -57,8 +57,25 @@ class HomeScreen extends Component{
     render(){
         return (
             <ScrollView>
-                <Text style={{fontSize:18, fontWeight:'bold', padding:5, margin:5}}>If you leave me now, you'll take away the biggest part of me...</Text>
-                <Text style={{fontSize:18, fontWeight:'bold', padding:5, margin:5}}>...Oooooohh, baby please don't go!</Text>
+                <Text 
+                    style={{
+                            fontSize:18, 
+                            fontWeight:'bold', 
+                            padding:5, 
+                            margin:5
+                            }}
+                >
+                    If you leave me now, you'll take away the biggest part of me...
+                </Text>
+                <Text 
+                    style={{
+                            fontSize:18, 
+                            fontWeight:'bold', 
+                            padding:5, 
+                            margin:5}}
+                >
+                     ...Oooooohh, baby please don't go!
+                </Text>
                 <Button
                     title="I'm outta here"
                     onPress={() => this.logout()}

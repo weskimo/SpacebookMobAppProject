@@ -346,86 +346,94 @@ class ProfileScreen extends Component {
         }else{
             
             return (
-
- 
-                
-             
                 <ScrollView style={styles.profileContainer }> 
-                    
                     <SafeAreaView style={styles.infoContainer}>
-                    <Image
-                      source={{
-                        uri: this.state.photo,
-                      }}
-                      style={styles.profileLogo}
-                    />
-                    <SafeAreaView>
-                        <Text>Login id: {this.state.userId}</Text>
+                      <Image
+                        source={{
+                          uri: this.state.photo,
+                        }}
+                        style={styles.profileLogo}
+                      />
+                      <SafeAreaView>
+                        <Text>
+                          Login id: {this.state.userId}
+                        </Text>
                         <Text style={styles.profileInfo}>
                           {this.state.first_Name}
-                          </Text>
+                        </Text>
                         <Text style={styles.profileInfo}>
                           {this.state.last_Name}
                         </Text>
+                      </SafeAreaView>
                     </SafeAreaView>
-                    </SafeAreaView>
-                    
                     <View style={styles.buttonsContainer}>
-                    <Button title="Edit Profile" onPress={() => {this.props.navigation.navigate("Edit")}}  color='#9075D8'/>
-                    <Button title="Take Photo" onPress={() => {this.props.navigation.navigate("Take picture")}} color='#9075D8'/>
+                      <Button 
+                        title="Edit Profile" 
+                        onPress={() => {this.props.navigation.navigate("Edit")}}  
+                        color='#9075D8'
+                      />
+                      <Button 
+                        title="Take Photo" 
+                        onPress={() => {this.props.navigation.navigate("Take picture")}} 
+                        color='#9075D8'
+                      />
                     </View>
-
                     <View >
-                    <TextInput
-                    placeholder="Write you post here.."
-                    onChangeText={ value => this.setState({tempPost: value})}
-                    value={this.state.tempPost}
-                    style={{padding:5, borderWidth:1, margin:5}}
-                    maxLength={200}
-                    />
-                    <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
-                    </View>
-
+                      <TextInput
+                        placeholder="Write you post here.."
+                        onChangeText={ value => this.setState({tempPost: value})}
+                        value={this.state.tempPost}
+                        style={{padding:5, borderWidth:1, margin:5}}
+                        maxLength={200}
+                      />
+                      <Button 
+                        title="Make post" 
+                        onPress={() => {this.makePost();}} 
+                        color='#9075D8'
+                      />
+                      </View>
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
-                                <SafeAreaView style={styles.postAuthorContainer}>
-                                
-                                <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
-                                </SafeAreaView>
-                                <Text style={styles.postText}>
-                                {item.text}
-                                </Text>
+                              <SafeAreaView style={styles.postAuthorContainer}>
                                 <Text style={styles.profileInfo}>
-                                  Likes: {item.numLikes}
-                                </Text> 
-
-                                <View style={styles.buttonsContainer}>
-                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
-                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
-                                <Button title="Delete post" onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} color='#9075D8'/>
-                                <Button title="Edit Posts" onPress={() => {this.setState({post_Id: item.post_id});
-                                this.setPostId();this.getPosts();
-                                this.props.navigation.navigate("Edit Posts")}} color='#9075D8'/>
-                                </View> 
-
+                                  {item.author.first_name + " " + item.author.last_name + " says:"}
+                                </Text>
+                              </SafeAreaView>
+                              <Text style={styles.postText}>
+                                {item.text}
+                              </Text>
+                              <Text style={styles.profileInfo}>
+                                Likes: {item.numLikes}
+                              </Text> 
+                              <View style={styles.buttonsContainer}>
+                                <Button 
+                                  title="Like" 
+                                  onPress={() => {this.setState({post_Id: item.post_id}); this.likePost();}} 
+                                  color='#9075D8'
+                                />
+                                <Button 
+                                  title="Unlike" 
+                                  onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} 
+                                  color='#9075D8'
+                                />
+                                <Button 
+                                  title="Delete post" 
+                                  onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} 
+                                  color='#9075D8'/>
+                                <Button 
+                                  title="Edit Posts" 
+                                  onPress={() => {this.setState({post_Id: item.post_id});
+                                    this.setPostId();this.getPosts();
+                                    this.props.navigation.navigate("Edit Posts")}} color='#9075D8'
+                                />
+                              </View> 
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
-                        />
-
-                    
-                        
-                          
-                        
-                   
-                        
-                   
-                    
-                            
-                </ScrollView>
-                
+                    />        
+                </ScrollView>     
             )
     } 
 

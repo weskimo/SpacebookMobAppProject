@@ -31,9 +31,7 @@ class NotificationScreen extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
-
-
-
+  
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     return fetch("http://localhost:3333/api/1.0.0/friendrequests", {
@@ -124,21 +122,27 @@ class NotificationScreen extends Component {
     }else{
       return (
         <View>
-          
           <FlatList
-                data={this.state.listData}
-                renderItem={({item}) => (
-                    <View>
-                      <Image 
-                                  style={styles.tinyLogo}
-                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
-                      <Text>
-                        {item.first_name} {item.last_name} {item.user_id.toString()}
-                        </Text>
-                        <Button title='Accept' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.acceptFriend(); }} color='#9075D8'/>
-                        <Button title='Decline' onPress={() => {this.setState({requestId: item.user_id.toString()}); this.declineFriend(); }} color='#9075D8'/>
-                        
-                    </View>
+              data={this.state.listData}
+              renderItem={({item}) => (
+              <View>
+                <Image 
+                  style={styles.tinyLogo}
+                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+                <Text>
+                  {item.first_name} {item.last_name} {item.user_id.toString()}
+                </Text>
+                <Button 
+                  title='Accept' 
+                  onPress={() => {this.setState({requestId: item.user_id.toString()}); 
+                    this.acceptFriend(); }} 
+                  color='#9075D8'/>
+                <Button 
+                  title='Decline' 
+                  onPress={() => {this.setState({requestId: item.user_id.toString()}); 
+                    this.declineFriend(); }} 
+                  color='#9075D8'/>
+              </View>
                 )}
                 keyExtractor={(item,index) => item.user_id.toString()}
               />

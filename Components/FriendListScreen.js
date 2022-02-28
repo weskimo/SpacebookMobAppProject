@@ -84,7 +84,8 @@ class FriendListScreen extends Component {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
-            }}>
+            }}
+          >
             <Text>Loading..</Text>
           </View>
         );
@@ -93,24 +94,30 @@ class FriendListScreen extends Component {
           <View>
             <FlatList
                   data={this.state.listData}
-                  renderItem={({item}) => (
+                  renderItem={({item}) => 
+                      (
                       <View style= {styles.postContainer}>
                         <SafeAreaView style={styles.infoContainer}>
-                          
-                        <Image 
-                                  style={styles.tinyLogo}
-                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
-                         <SafeAreaView style={styles.infoContainer}>
-                        <Text style={styles.profileInfo}>
-                          {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
-                          </Text>
+                          <Image 
+                                style={styles.tinyLogo}
+                                source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+                          <SafeAreaView style={styles.infoContainer}>
+                          <Text style={styles.profileInfo}>
+                            {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
+                            </Text>
                           </SafeAreaView>
-                          </SafeAreaView>
-                          <Button title="Select User" onPress={() => {this.setState({friendsID: item.user_id}); }} color='#9075D8'/>
-                          <Button title="Go to profile" onPress={() => {this.clickOnProfile(); this.props.navigation.navigate("MyFriend's Profile");}} color='#9075D8'/>
-                         
-                          
-                          
+                        </SafeAreaView>
+                          <Button 
+                            title="Select User" 
+                            onPress={() => {this.setState({friendsID: item.user_id}); }} 
+                            color='#9075D8'
+                          />
+                          <Button 
+                            title="Go to profile" 
+                            onPress={() => {this.clickOnProfile(); 
+                            this.props.navigation.navigate("MyFriend's Profile");}} 
+                            color='#9075D8'
+                          />
                       </View>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}

@@ -14,6 +14,7 @@ class SignupScreen extends ValidationComponent{
                      required: true 
                     },
             password: { required: true,
+                        
                 
                   },
             firstName: {
@@ -35,6 +36,13 @@ class SignupScreen extends ValidationComponent{
 
     signup = () => {
         //Validation here...
+        if(this.state.password.length <5) {
+            this.setState({errorMsg: "The password must be greater than 5 characters"})
+        } else if(this.state.first_name.length <1){
+            this.setState({errorMsg: "Your first name must be greater than 1 character"})
+        } else if (this.state.last_name.length <1) {
+            this.setState({errorMsg: "Your last name must be greater than 1 character"})
+        } else {
 
         return fetch("http://localhost:3333/api/1.0.0/user", {
             method: 'post',
@@ -61,42 +69,45 @@ class SignupScreen extends ValidationComponent{
             console.log(error);
         })
     }
+}
 
     render(){
         return (
-            <ScrollView stlye={{flexDirection: 'column'}}>
+            <ScrollView>
                 <form>
                     <input
-                    id="firstname"
-                    type="text"
-                    onChange={(fn) => this.validate({ first_name: fn.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.first_name}
-                    placeholder="Enter your first name..."
+                        id="firstname"
+                        type="text"
+                        onChange={(fn) => this.validate({ first_name: fn.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.first_name}
+                        placeholder="Enter your first name..."
                     />
                     <input
-                    id="name"
-                    type="text"
-                    onChange={(ln) => this.validate({ last_name: ln.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.last_name}
-                    placeholder="Enter your last name..."
+                        id="name"
+                        type="text"
+                        onChange={(ln) => this.validate({ last_name: ln.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.last_name}
+                        placeholder="Enter your last name..."
                     />
                     <input
-                    id="email"
-                    type="email"
-                    onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.email}
-                    placeholder="Enter your email..."
+                        id="email"
+                        type="email"
+                        onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.email}
+                        placeholder="Enter your email..."
                     />
                     <input
-                    id="password"
-                    type="password"
-                    onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.password}
-                    placeholder="Create a Password..."
+                        id="password"
+                        type="password"
+                        onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.password}
+                        placeholder="Create a Password..."
                     />
-                
                 </form>
-                <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
+                <Text 
+                    style={{color: "red"}}
+                >
+                    {this.state.errorMsg}</Text>
 
                 <Button
                     title="Sign Up"

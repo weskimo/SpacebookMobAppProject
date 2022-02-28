@@ -94,17 +94,12 @@ class FriendsProfile extends Component {
                 isLoading: false,
                 first_Name: firstName,
                 last_Name: lastName
-
             })
-            
-          
         } catch (error) {
           // Error retrieving data
         }
       };
-
-      
-      
+ 
     componentDidMount(){
       this.unsubscribe = this.props.navigation.addListener('focus', () => {  
         this.getProfileData();
@@ -115,20 +110,16 @@ class FriendsProfile extends Component {
     }
 
     getProfileData = async () => {
-
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@friendsID');
         return fetch("http://localhost:3333/api/1.0.0/user/" + id, {
               'headers': {
                 'X-Authorization':  value
-              },
-            
+              },  
         })
         .then((response) => {
             if(response.status === 200){
-                
-                return response.json()
-               
+                return response.json()  
             }else if(response.status === 400){
                 throw 'Invalid email or password';
             }else{
@@ -146,9 +137,7 @@ class FriendsProfile extends Component {
                     isLoading: false,
                     first_Name: responseJson.first_name,
                     last_Name: responseJson.last_name
-    
                 })
-
                 this.props.navigation.navigate("Home");
         })
         .catch((error) => {
@@ -164,7 +153,6 @@ class FriendsProfile extends Component {
            headers: {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
-
               },
               body: JSON.stringify({
                 text: this.state.text
@@ -214,9 +202,6 @@ class FriendsProfile extends Component {
                 'Content-Type': 'application/json' 
 
               },
-              
-                
-            
             })
             .then((response) => {
                 if(response.status === 200){
@@ -244,9 +229,6 @@ class FriendsProfile extends Component {
                 'Content-Type': 'application/json' 
 
               },
-              
-                
-            
             })
             .then((response) => {
                 if(response.status === 200){
@@ -263,92 +245,86 @@ class FriendsProfile extends Component {
             })
       }
 
-    
-
- 
-
-
-     
     render(){
         const navigation = this.props.navigation; 
         
         
         if(this.state.isLoading){
             return (
-                <View><Text>Loading... 
-                    </Text></View>
+                <View>
+                  <Text>Loading...</Text>
+                </View>
             )
         }else{
-            
             return (
-
- 
-                
-                
                 <View style={styles.profileContainer}>
                   <SafeAreaView style={styles.infoContainer}>
-                  <Image
-                                  source={{
-                                    uri: this.state.photo,
-                                  }}
-                                  style={styles.tinyLogo}
-                                />
+                    <Image
+                        source={{uri: this.state.photo}}
+                        style={styles.tinyLogo}
+                    />
                     <SafeAreaView>
-                    <Text style={styles.postText}>Login id: {this.state.userId}</Text>
-                    <Text style={styles.profileInfo}>First Name: {this.state.first_Name}</Text>
-                    <Text style={styles.profileInfo}>Last Name: {this.state.last_Name}</Text>
+                      <Text style={styles.postText}>
+                        Login id: {this.state.userId}
+                      </Text>
+                      <Text style={styles.profileInfo}>
+                        First Name: {this.state.first_Name}
+                      </Text>
+                      <Text style={styles.profileInfo}>
+                        Last Name: {this.state.last_Name}
+                      </Text>
                     </SafeAreaView>
-                    </SafeAreaView>
-                    
-                    <TextInput
+                  </SafeAreaView>
+                  <TextInput
                     placeholder="Write you post here.."
                     onChangeText={ value => this.setState({tempPost: value})}
                     value={this.state.tempPost}
                     style={{padding:5, borderWidth:1, margin:5}}
                     maxLength={200}
-                    />
-                    <Button title="Make post" onPress={() => {this.makePost();}} color='#9075D8'/>
-                    <FlatList
-                        data={this.state.listData}
-                        renderItem={({item}) => ( 
-                            <View style={styles.profileContainer}>
-                              <SafeAreaView style={styles.postAuthorContainer}>
-                              <Image 
-                                  style={styles.tinyLogo}
-                                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
-                                <Text style={styles.profileInfo} >{item.author.first_name + " " + item.author.last_name + " says:"}</Text>
-                                </SafeAreaView>
-                                <Text style={styles.postText}>
-                                {item.text}
-                                </Text>
-                                <Text style={styles.postText}>Likes: {item.numLikes}</Text> 
-                                <View style={styles.buttonsContainer}>
-                                <Button title="Like" onPress={() => {this.setState({post_Id: item.post_id});this.likePost();}} color='#9075D8'/>
-                                <Button title="Unlike" onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} color='#9075D8'/>
-                                </View>
-                                
-
-                                
-                                
-                            </View>
+                  />
+                  <Button 
+                    title="Make post" 
+                    onPress={() => {this.makePost();}} 
+                    color='#9075D8'
+                  />
+                  <FlatList
+                    data={this.state.listData}
+                    renderItem={({item}) => ( 
+                      <View style={styles.profileContainer}>
+                        <SafeAreaView style={styles.postAuthorContainer}>
+                          <Image 
+                            style={styles.tinyLogo}
+                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+                          <Text style={styles.profileInfo}>
+                            {item.author.first_name + " " + item.author.last_name + " says:"}
+                          </Text>
+                        </SafeAreaView>
+                          <Text style={styles.postText}>
+                            {item.text}
+                          </Text>
+                          <Text style={styles.postText}>
+                            Likes: {item.numLikes}
+                          </Text> 
+                          <View style={styles.buttonsContainer}>
+                            <Button 
+                              title="Like" 
+                              onPress={() => {this.setState({post_Id: item.post_id});
+                              this.likePost();}} color='#9075D8'
+                            />
+                            <Button 
+                              title="Unlike" 
+                              onPress={() => {this.setState({post_Id: item.post_id});
+                              this.unlikePost();}} 
+                              color='#9075D8'
+                            />
+                          </View>     
+                     </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
-                        />
-
-                    
-                        
-                          
-                        
-                   
-                        
-                   
-                    
-                            
-                </View>
-                
+                        />          
+                </View>  
             )
     } 
-
 }
 }
 export default FriendsProfile;

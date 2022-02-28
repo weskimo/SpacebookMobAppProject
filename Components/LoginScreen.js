@@ -5,7 +5,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import ValidationComponent from 'react-simple-form-validator';
 
 
-
 const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -38,8 +37,6 @@ class LoginScreen extends ValidationComponent{
         }
     }
 
-   
-
     login = async () => {
 
         return fetch("http://localhost:3333/api/1.0.0/login", {
@@ -57,8 +54,6 @@ class LoginScreen extends ValidationComponent{
             }else if(response.status === 400){
                 this.setState({errorMsg: "Invalid email or password"});
                 throw 'Invalid email or password';
-                
-                
             }else{
                 throw 'Something went wrong';
             }
@@ -75,29 +70,28 @@ class LoginScreen extends ValidationComponent{
         })
     }
 
-
     render(){
         return (
             <ScrollView>
                 <form>
                     <input
-                    id="email"
-                    type="email"
-                    onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.email}
-                    placeholder="Enter your email..."
+                        id="email"
+                        type="email"
+                        onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.email}
+                        placeholder="Enter your email..."
                     />
                     <input
-                    id="password"
-                    type="password"
-                    onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
-                    value={this.state.password}
-                   
-                    placeholder="Enter your password..."
+                        id="password"
+                        type="password"
+                        onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.password}
+                        placeholder="Enter your password..."
                     />
                 </form>
-
-                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                <Text style={{color: 'red'}}>
+                    {this.state.errorMsg}
+                </Text>
                 <Button
                     title="Login"
                     color='#9075D8'
@@ -108,8 +102,6 @@ class LoginScreen extends ValidationComponent{
                     color='#9075D8'
                     onPress={() => this.props.navigation.navigate("Signup")}
                 />
-
-            
             </ScrollView>
         )
     }
