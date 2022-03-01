@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button, ScrollView, TextInput, Text } from 'react-native';
-import { ThemeConsumer } from 'react-native-elements';
 import ValidationComponent from 'react-simple-form-validator';
 
 class SignupScreen extends ValidationComponent{

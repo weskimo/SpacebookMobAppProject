@@ -44,6 +44,12 @@ class FriendListScreen extends Component {
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+            }else if (response.status === 403){  
+              this.setState({errorMsg: "You can only view the friends of yourself and your friends!"})
+            }else if (response.status === 404){  
+              this.setState({errorMsg: "User not found?!"})
+            }else if (response.status === 500){  
+              this.setState({errorMsg: "Server Error on!"})
             }else{
                 throw 'Something went wrong';
             }

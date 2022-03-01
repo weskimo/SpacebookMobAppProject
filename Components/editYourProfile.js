@@ -15,14 +15,10 @@ class editYourProfile extends Component {
           first_name: '',
           last_name: '',
           email: '',
-          password: ''
+          password: '',
+          errorMsg: ''
         }
       }
-    
-   
-        // await AsyncStorage.setItem('@first_name', responseJson.first_name);
-        // await AsyncStorage.setItem('@last_name', responseJson.last_name);
-
         saveData = async () => {
                     await AsyncStorage.setItem('@first_name', this.state.first_name);
                     await AsyncStorage.setItem('@last_name', this.state.last_name);
@@ -50,9 +46,14 @@ class editYourProfile extends Component {
                   
                   return response.json()
                  
-              }else if(response.status === 400){
-                  throw 'Invalid email or password';
-              }else{
+              }else if(response.status === 401){
+                  this.setState({errorMsg: "Unauthorized"})
+                  throw '401 Unauthorized';
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "User not found?!"})
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                }else{
                   throw 'Something went wrong';
               }
           })
@@ -94,6 +95,27 @@ class editYourProfile extends Component {
                 password: this.state.password
             })
             })
+            .then((response) => {
+              if(response.status === 200){
+                  
+                  return response.json()
+              }else if(response.status === 400){
+                this.setState({errorMsg: "Bad Request"})
+                throw '400 Badrequest ';
+              }else if(response.status === 401){
+                  this.setState({errorMsg: "Unauthorized"});
+                  this.props.navigation.navigate("Login");
+                  throw '401 Unauthorized';
+                }else if (response.status === 403){  
+                  this.setState({errorMsg: "Forbidden request 403 - patch data"})
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "404 not found?!"})
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                }else{
+                  throw 'Something went wrong';
+              }
+          })
             
       }
     
@@ -110,6 +132,7 @@ class editYourProfile extends Component {
           }else{
             return (
               <View>
+                    <Text style={{color: 'red'}}>{this.errorMsg}</Text>
                     <Text>First Name: {this.state.first_name}</Text>
                     <Text>Last Name: {this.state.last_name}</Text>
                     <TextInput

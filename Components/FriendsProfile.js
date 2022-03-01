@@ -23,7 +23,8 @@ class FriendsProfile extends Component {
           listData: [],
           post_Id: 0, 
           postLikes: 0,
-          photo: null
+          photo: null,
+          errorMsg: ""
          
           
           
@@ -67,6 +68,16 @@ class FriendsProfile extends Component {
                     return response.json()
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
+                  throw '401 in getposts'
+                }else if (response.status === 403){  
+                  this.setState({errorMsg: "You can only see the posts of yourself and your friends!"})
+                  throw '403 in getposts'
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "404 Not found?!"})
+                  throw '404 in getposts'
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error?!"})
+                  throw '500 in getposts'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -118,13 +129,23 @@ class FriendsProfile extends Component {
               },  
         })
         .then((response) => {
-            if(response.status === 200){
-                return response.json()  
-            }else if(response.status === 400){
-                throw 'Invalid email or password';
-            }else{
-                throw 'Something went wrong';
-            }
+          if(response.status === 200){
+                  
+            return response.json()
+           
+          }else if(response.status === 401){
+            this.setState({errorMsg: "Unauthorized"})
+            this.props.navigation.navigate("Login");
+            throw '401 Unauthorized';
+          }else if (response.status === 404){  
+            this.setState({errorMsg: "User not found?!"})
+            throw '404 in get profile data'
+          }else if (response.status === 500){  
+            this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+            throw '500 in get profile data'
+          }else{
+            throw 'Something went wrong';
+        }
         })
         .then(async (responseJson) => {
                 console.log(responseJson);
@@ -163,8 +184,16 @@ class FriendsProfile extends Component {
             .then((response) => {
                 if(response.status === 201){
                     this.getPosts();
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in addpost';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in add post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in add post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -207,8 +236,16 @@ class FriendsProfile extends Component {
                 if(response.status === 200){
                     this.getPosts();
                     
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in like post';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in like post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in like post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -234,8 +271,16 @@ class FriendsProfile extends Component {
                 if(response.status === 200){
                     this.getPosts();
                     
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in unlike post';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in unlike post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in unlike post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -258,6 +303,7 @@ class FriendsProfile extends Component {
         }else{
             return (
                 <View style={styles.profileContainer}>
+                  <Text>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer}>
                     <Image
                         source={{uri: this.state.photo}}

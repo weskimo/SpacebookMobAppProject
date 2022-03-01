@@ -26,7 +26,8 @@ class editPost extends Component {
           tempPost: '',
           listData: [],
           post_Id: 0, 
-          postLikes: 0
+          postLikes: 0,
+          errorMsg: ''
          
           
           
@@ -47,6 +48,12 @@ class editPost extends Component {
                     return response.json()
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
+                }else if (response.status === 403){  
+                  this.setState({errorMsg: "You can only view the posts of your friends!"})
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "Posts not found?!"})
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -77,6 +84,12 @@ class editPost extends Component {
                     return response.json()
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
+                }else if (response.status === 403){  
+                  this.setState({errorMsg: "You can only view the posts of your friends!"})
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "Posts not found?!"})
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -137,14 +150,19 @@ class editPost extends Component {
               body: JSON.stringify({
                 text: this.state.text
             })
-                
-            
+
             })
             .then((response) => {
                 if(response.status === 201){
                     this.getPosts();
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
+                }else if (response.status === 403){  
+                  this.setState({errorMsg: "You can only update your own posts!"})
+                }else if (response.status === 404){  
+                  this.setState({errorMsg: "Post Not found?!"})
+                }else if (response.status === 500){  
+                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -190,6 +208,7 @@ class editPost extends Component {
         }else{
             return (
                 <View>
+                  <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
