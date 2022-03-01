@@ -31,7 +31,7 @@ class ProfileScreen extends Component {
           post_Id: 0, 
           postLikes: 0,
           photo: null,
-          postError: ""
+          errorMsg: ""
          
           
           
@@ -73,8 +73,19 @@ class ProfileScreen extends Component {
             .then((response) => {
                 if(response.status === 200){
                     return response.json()
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized';
+                  }else if (response.status === 403){  
+                    this.setState({errorMsg: "You can only view the posts of yourself or your friends!"})
+                    throw '403 in get posts data'
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in get posts data'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in get posts data'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -135,7 +146,6 @@ class ProfileScreen extends Component {
               'headers': {
                 'X-Authorization':  value
               },
-            
         })
         .then((response) => {
             if(response.status === 200){
@@ -144,6 +154,16 @@ class ProfileScreen extends Component {
                
             }else if(response.status === 400){
                 throw 'Invalid email or password';
+              }else if(response.status === 401){
+                this.setState({errorMsg: "Unauthorized"})
+                this.props.navigation.navigate("Login");
+                throw '401 Unauthorized';
+              }else if (response.status === 404){  
+                this.setState({errorMsg: "User not found?!"})
+                throw '404 in get profile data'
+              }else if (response.status === 500){  
+                this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                throw '500 in get profile data'
             }else{
                 throw 'Something went wrong';
             }
@@ -188,8 +208,16 @@ class ProfileScreen extends Component {
             .then((response) => {
                 if(response.status === 201){
                     this.getPosts();
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in addpost';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in add post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in add post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -217,8 +245,19 @@ class ProfileScreen extends Component {
             .then((response) => {
                 if(response.status === 200){
                     this.getPosts();
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in remove post';
+                  }else if (response.status === 403){  
+                    this.setState({errorMsg: "Forbidden - You can only delete your own posts!"})
+                    throw '403 in remove post'
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in remove post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in remove post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -259,8 +298,16 @@ class ProfileScreen extends Component {
                 if(response.status === 200){
                     this.getPosts();
                     
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in like post';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in like post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in like post'
                 }else{
                     throw 'Something went wrong';
                 }
@@ -280,18 +327,23 @@ class ProfileScreen extends Component {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
 
-              },
-              
-                
-            
+              },     
             })
             .then((response) => {
                 if(response.status === 200){
                     this.getPosts();
                     
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
-                }else{
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in unlike post';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in unlike post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in unlike post'
+                 }else{
                     throw 'Something went wrong';
                 }
             })
@@ -346,7 +398,8 @@ class ProfileScreen extends Component {
         }else{
             
             return (
-                <ScrollView style={styles.profileContainer }> 
+                <ScrollView style={styles.profileContainer }>
+                    <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <SafeAreaView style={styles.infoContainer}>
                       <Image
                         source={{

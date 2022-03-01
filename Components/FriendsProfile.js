@@ -303,7 +303,7 @@ class FriendsProfile extends Component {
         }else{
             return (
                 <View style={styles.profileContainer}>
-                  <Text>{this.state.errorMsg}</Text>
+                  <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer}>
                     <Image
                         source={{uri: this.state.photo}}

@@ -54,6 +54,9 @@ class LoginScreen extends ValidationComponent{
             }else if(response.status === 400){
                 this.setState({errorMsg: "Invalid email or password"});
                 throw 'Invalid email or password';
+            }else if(response.status === 500){
+                this.setState({errorMsg: "Server Error! Please reload or try again later!"});
+                throw "Server Error! Please reload or try again later!";
             }else{
                 throw 'Something went wrong';
             }
@@ -73,6 +76,7 @@ class LoginScreen extends ValidationComponent{
     render(){
         return (
             <ScrollView>
+                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <form>
                     <input
                         id="email"

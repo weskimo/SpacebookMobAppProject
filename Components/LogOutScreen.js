@@ -7,7 +7,8 @@ class HomeScreen extends Component{
         super(props);
 
         this.state = {
-            token: ''
+            token: '',
+            errorMsg: ''
         }
     }
 
@@ -44,6 +45,10 @@ class HomeScreen extends Component{
                 this.props.navigation.navigate("Login");
             }else if(response.status === 401){
                 this.props.navigation.navigate("Login");
+                throw "401! Unauthorized!";
+            }else if(response.status === 500){
+                this.setState({errorMsg: "Server Error! Please reload or try again later!"});
+                throw "Server Error! Please reload or try again later!";
             }else{
                 throw 'Something went wrong';
             }
@@ -57,6 +62,7 @@ class HomeScreen extends Component{
     render(){
         return (
             <ScrollView>
+                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <Text 
                     style={{
                             fontSize:18, 

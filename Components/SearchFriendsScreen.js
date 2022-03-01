@@ -13,7 +13,8 @@ class SearchFriendsScreen extends Component {
     this.state = {
       isLoading: true,
       listData: [],
-      requestId: ''
+      requestId: '',
+      errorMsg: ''
     }
 
   }
@@ -37,9 +38,16 @@ class SearchFriendsScreen extends Component {
         })
         .then((response) => {
             if(response.status === 200){
+                this.setState({errorMsg: ''})
                 return response.json()
+            }else if(response.status === 400){
+                this.setState({errorMsg: 'Bad Request, Please reload or try again later.'})
+                throw '500 server error'
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+            }else if(response.status === 500){
+              this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
+              throw '500 server error'
             }else{
                 throw 'Something went wrong';
             }
@@ -66,9 +74,19 @@ class SearchFriendsScreen extends Component {
         })
         .then((response) => {
             if(response.status === 200){
+                this.setState({errorMsg: ''})
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+            }else if(response.status === 403){
+              this.setState({errorMsg: 'You have already added this user!'})
+              throw '403 add friend'
+          }else if(response.status === 404){
+              this.setState({errorMsg: 'Not found! Please reload'})
+              throw '404 in add friend'
+          }else if(response.status === 500){
+            this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
+            throw '500 server error in add friend'
             }else{
                 throw 'Something went wrong';
             }
@@ -101,6 +119,7 @@ class SearchFriendsScreen extends Component {
       }else{
         return (
           <ScrollView styles={styles.profileContainer}>
+            <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (

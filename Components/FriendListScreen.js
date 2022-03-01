@@ -98,6 +98,7 @@ class FriendListScreen extends Component {
       }else{
         return (
           <View>
+            <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 

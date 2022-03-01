@@ -55,7 +55,10 @@ class SignupScreen extends ValidationComponent{
                 return response.json()
             }else if(response.status === 400){
                 this.setState({errorMsg: "Invalid Signup details. Please enter a valid email"})
-                throw 'Failed validation';
+                throw '400 - Failed validation';
+            }else if(response.status === 500){
+                this.setState({errorMsg: "Server Error! Please reload or try again later!"})
+                throw '500 Server error';
             }else{
                 throw 'Something went wrong';
             }
@@ -73,6 +76,7 @@ class SignupScreen extends ValidationComponent{
     render(){
         return (
             <ScrollView>
+                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <form>
                     <input
                         id="firstname"

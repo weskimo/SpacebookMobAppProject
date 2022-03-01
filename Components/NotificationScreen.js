@@ -17,7 +17,8 @@ class NotificationScreen extends Component {
     this.state = {
       isLoading: true,
       listData: [],
-      requestId: ''
+      requestId: '',
+      errorMsg: ''
     }
 
   }
@@ -44,6 +45,10 @@ class NotificationScreen extends Component {
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+              throw "401! Unauthorized!";
+            }else if(response.status === 500){
+              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+              throw "500! Server error!";
             }else{
                 throw 'Something went wrong';
             }
@@ -73,6 +78,15 @@ class NotificationScreen extends Component {
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+              throw "401! Unauthorized!";
+            }else if(response.status === 404){
+              this.props.navigation.navigate("Login");
+              this.setState({errorMsg: "404 Not found Error!"})
+              throw "404! Not found!";
+            }else if(response.status === 500){
+              this.props.navigation.navigate("Login");
+              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+              throw "500! Server error!";
             }else{
                 throw 'Something went wrong';
             }
@@ -95,6 +109,14 @@ class NotificationScreen extends Component {
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate("Login");
+            }else if(response.status === 404){
+              this.props.navigation.navigate("Login");
+              this.setState({errorMsg: "404 Not found Error!"})
+              throw "404! Not found!";
+            }else if(response.status === 500){
+              this.props.navigation.navigate("Login");
+              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+              throw "500! Server error!";
             }else{
                 throw 'Something went wrong';
             }
@@ -122,6 +144,7 @@ class NotificationScreen extends Component {
     }else{
       return (
         <View>
+          <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
           <FlatList
               data={this.state.listData}
               renderItem={({item}) => (

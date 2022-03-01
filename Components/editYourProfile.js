@@ -132,6 +132,7 @@ class editYourProfile extends Component {
           }else{
             return (
               <View>
+                    <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <Text style={{color: 'red'}}>{this.errorMsg}</Text>
                     <Text>First Name: {this.state.first_name}</Text>
                     <Text>Last Name: {this.state.last_name}</Text>
