@@ -82,6 +82,9 @@ class editYourProfile extends Component {
       patchData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
+        if(this.state.first_name.length <1 || this.state.last_name.length < 1) {
+          this.setState({errorMsg: "User Name must be greater than 1 character"})
+        } else {
         return fetch("http://localhost:3333/api/1.0.0/user/" + userID, {
             method: 'PATCH',
               headers: {
@@ -115,9 +118,11 @@ class editYourProfile extends Component {
                 }else{
                   throw 'Something went wrong';
               }
+            
           })
             
       }
+    }
     
 
         render(){
