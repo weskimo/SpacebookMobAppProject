@@ -398,16 +398,24 @@ class ProfileScreen extends Component {
         }else{
             
             return (
-                <ScrollView style={styles.profileContainer }>
+                <ScrollView style={styles.pageContainer}>
+                  <SafeAreaView style={styles.profileSectionContainer}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                    <SafeAreaView style={styles.infoContainer}>
-                      <Image
-                        source={{
-                          uri: this.state.photo,
-                        }}
-                        style={styles.profileLogo}
-                      />
-                      <SafeAreaView>
+                    <SafeAreaView style={styles.mainProfileContainer}>
+                    <SafeAreaView style={styles.picAndInfoContainer}>
+                      <SafeAreaView style={styles.profPicAndButtonContainer}>
+                        <SafeAreaView style={styles.pictureSpace}>
+                          <Image
+                            source={{
+                              uri: this.state.photo,
+                            }}
+                            style={styles.profileLogo}
+                          />
+                        </SafeAreaView>
+                      
+                      </SafeAreaView>
+                    
+                      <SafeAreaView style={styles.profileTextInfo}>
                         <Text>
                           Login id: {this.state.userId}
                         </Text>
@@ -417,20 +425,23 @@ class ProfileScreen extends Component {
                         <Text style={styles.profileInfo}>
                           {this.state.last_Name}
                         </Text>
+                        </SafeAreaView>
                       </SafeAreaView>
-                    </SafeAreaView>
-                    <View style={styles.buttonsContainer}>
+                      <SafeAreaView style={styles.editButton}>
                       <Button 
-                        title="Edit Profile" 
-                        onPress={() => {this.props.navigation.navigate("Edit")}}  
-                        color='#9075D8'
-                      />
-                      <Button 
-                        title="Take Photo" 
+                          title="Edit Profile" 
+                          onPress={() => {this.props.navigation.navigate("Edit")}}  
+                          color="#ef8354"
+                          style={styles.editButton}
+                          />
+                          <Button 
+                        title="Change Photo" 
                         onPress={() => {this.props.navigation.navigate("Take picture")}} 
-                        color='#9075D8'
+                        color="#ef8354"
                       />
-                    </View>
+                      </SafeAreaView>
+                      </SafeAreaView>
+                      
                     <View >
                       <TextInput
                         placeholder="Write you post here.."
@@ -442,9 +453,11 @@ class ProfileScreen extends Component {
                       <Button 
                         title="Make post" 
                         onPress={() => {this.makePost();}} 
-                        color='#9075D8'
+                        color="#ef8354"
                       />
                       </View>
+                      </SafeAreaView>
+                      
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
@@ -464,22 +477,23 @@ class ProfileScreen extends Component {
                                 <Button 
                                   title="Like" 
                                   onPress={() => {this.setState({post_Id: item.post_id}); this.likePost();}} 
-                                  color='#9075D8'
+                                  color="#ef8354"
                                 />
                                 <Button 
                                   title="Unlike" 
                                   onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} 
-                                  color='#9075D8'
+                                  color="#ef8354"
                                 />
                                 <Button 
                                   title="Delete post" 
                                   onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} 
-                                  color='#9075D8'/>
+                                  color="#ef8354"/>
                                 <Button 
                                   title="Edit Posts" 
                                   onPress={() => {this.setState({post_Id: item.post_id});
                                     this.setPostId();this.getPosts();
-                                    this.props.navigation.navigate("Edit Posts")}} color='#9075D8'
+                                    this.props.navigation.navigate("Edit Posts")}} 
+                                    color="#ef8354"
                                 />
                               </View> 
                             </View>
@@ -499,36 +513,71 @@ const styles = StyleSheet.create({
   contentView: {
     flex: 1,
   },
+  pageContainer: {
+    backgroundColor: `#001d3d` , 
+    borderWidth: 5,
+    borderColor: '#001d3d',
+  },
+  profileSectionContainer: {
+    backgroundColor: `#ffffff` , 
+    borderWidth: 5,
+    borderColor: '#001d3d',
+  },
+  mainProfileContainer: {
+    backgroundColor: `#ffffff` , 
+    flexDirection: 'row',
+    marginVertical: 10,
+    marginHorizontal: 10,
+    justifyContent: 'space-between'
+  },
+  picAndInfoContainer: {
+    flexDirection: 'row',
+  },
+  profPicAndButtonContainer: {
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+    
+    
+  },
+  profileTextInfo: {
+    flexDirection: 'column',
+    marginVertical: 10,
+    marginHorizontal: 10,
+  },
+  editButton: {
+    flexDirection: 'column',
+    justifyContent: 'space-evenly'
+  },
+  pictureSpace: {
+    marginVertical: 10,
+  },
+
+
+
   buttonsContainer: {
     flexDirection: 'row',
-   
-    borderColor: '#674AB3',
+    borderColor: '#001d3d',
     justifyContent: 'space-between',
 
     marginVertical: 10,
     marginHorizontal: 10
   },
   postContainer: {
-    backgroundColor: `#FFFFFF` , 
+    backgroundColor: `#ffffff` , 
     borderWidth: 5,
-    borderColor: '#674AB3'
+    borderColor: '#001d3d'
   },
 
   profileContainer: {
-    backgroundColor: `#FFFFFF` , 
+    backgroundColor: `#ffffff` , 
     borderWidth: 5,
-    borderColor: '#674AB3',
+    borderColor: '#001d3d',
     
-  },
-
-  buttonColor: {
-    color: '#9075D8'
   },
 
   profileInfo: {
     fontSize: 15,
     fontWeight: "bold",
-    marginHorizontal: 10
   },
 
   postText: {
@@ -539,12 +588,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
-  tinyLogo: {
-    width: 50,
-    height: 50,
-  },
   infoContainer: {
     flexDirection: 'row',
+    alignContent: 'space-around',
     marginVertical: 10,
     marginHorizontal: 10
   },
@@ -554,4 +600,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     alignItems: 'center'
   },
+  profilePageContainer: {
+    backgroundColor: `#001d3d` , 
+    borderWidth: 5,
+    borderColor: '#001d3d',
+  },
+  profileLayout: {
+    marginHorizontal: 10
+  },
+  editProfileButton: {
+    alignContent: 'space-between'
+  }
 });  
