@@ -123,20 +123,25 @@ class SearchFriendsScreen extends Component {
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                    <SafeAreaView styles={styles.profileContainer}>
-                      <SafeAreaView styles={styles.profileContainer}>
-                      <Image 
-                          style={styles.tinyLogo}
-                          source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
-                      <Text style={styles.profileInfo}>
-                        {item.user_givenname} {item.user_familyname} {item.user_id.toString()} 
-                      </Text>
-                      </SafeAreaView>
+                    <View style= {styles.profileContainer}>
+                        <SafeAreaView >
+                          
+                          <SafeAreaView>
+                          <Text style={styles.profileInfo}>
+                            User ID: {item.user_id.toString()}
+                            </Text>
+                          <Text style={styles.profileInfo}>
+                            Name: {item.user_givenname} {item.user_familyname}
+                            </Text>
+                            
+                          </SafeAreaView>
+                        </SafeAreaView>
                       <Button 
                         title='Add' 
                         onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
-                        color='#9075D8'/>
-                    </SafeAreaView>
+                        color='#ef8354'/>
+                    </View>
+                    
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
                 />
@@ -169,12 +174,9 @@ const styles = StyleSheet.create({
   },
 
   profileContainer: {
-    backgroundColor: `#FFFFFF` , 
+    backgroundColor: `#ffffff` , 
     borderWidth: 5,
-    borderColor: '#674AB3',
-    marginHorizontal: 10,
-    flexDirection: 'row',
-    
+    borderColor: '#001d3d',
   },
 
   buttonColor: {

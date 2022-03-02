@@ -103,28 +103,32 @@ class FriendListScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => 
                       (
-                      <View style= {styles.postContainer}>
-                        <SafeAreaView style={styles.infoContainer}>
-                          <Image 
-                                style={styles.tinyLogo}
-                                source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
-                          <SafeAreaView style={styles.infoContainer}>
+                      <View style= {styles.profileContainer}>
+                        <SafeAreaView >
+                          
+                          <SafeAreaView>
                           <Text style={styles.profileInfo}>
-                            {item.user_givenname} {item.user_familyname} {item.user_id.toString()}
+                            User ID: {item.user_id.toString()}
                             </Text>
+                          <Text style={styles.profileInfo}>
+                            Name: {item.user_givenname} {item.user_familyname}
+                            </Text>
+                            
                           </SafeAreaView>
                         </SafeAreaView>
+                        <SafeAreaView style={styles.buttonsContainer}>
                           <Button 
                             title="Select User" 
                             onPress={() => {this.setState({friendsID: item.user_id}); }} 
-                            color='#9075D8'
+                            color='#ef8354'
                           />
                           <Button 
                             title="Go to profile" 
                             onPress={() => {this.clickOnProfile(); 
                             this.props.navigation.navigate("MyFriend's Profile");}} 
-                            color='#9075D8'
+                            color='#ef8354'
                           />
+                          </SafeAreaView>
                       </View>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
@@ -144,10 +148,11 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-around',
     borderColor: '#674AB3',
 
     width: '100%',
-    marginVertical: 20,
+    marginVertical: 10,
   },
   postContainer: {
     backgroundColor: `#FFFFFF` , 
@@ -156,9 +161,9 @@ const styles = StyleSheet.create({
   },
 
   profileContainer: {
-    backgroundColor: `#FFFFFF` , 
+    backgroundColor: `#ffffff` , 
     borderWidth: 5,
-    borderColor: '#674AB3'
+    borderColor: '#001d3d',
   },
 
   buttonColor: {
@@ -166,7 +171,8 @@ const styles = StyleSheet.create({
   },
   profileInfo: {
     fontSize: 15,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    marginHorizontal: 10
   },
   tinyLogo: {
     width: 50,

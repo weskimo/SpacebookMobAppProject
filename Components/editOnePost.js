@@ -12,7 +12,7 @@ import { getHeaderTitle } from '@react-navigation/elements';
 
 
 
-class editPost extends Component {
+class editOnePost extends Component {
 
     constructor(props){
         super(props);
@@ -34,10 +34,13 @@ class editPost extends Component {
         }
       }
 
+     
+
       getPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
-        const postId = await AsyncStorage.getItem('@post_Id')
+        const postId = await AsyncStorage.getItem('@post_id');
+        
         return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post/" + postId, {
               'headers': {
                 'X-Authorization':  value
@@ -45,6 +48,7 @@ class editPost extends Component {
             })
             .then((response) => {
                 if(response.status === 200){
+                    this.setState({post_Id: postId})
                     return response.json()
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
@@ -61,8 +65,11 @@ class editPost extends Component {
             .then((responseJson) => {
               this.setState({
                 isLoading: false,
-                post_Id: responseJson.post_id,
-                text: responseJson.text
+                
+                text: responseJson.text,
+                first_Name: responseJson.author.first_name,
+                last_name: responseJson.author.last_name
+
 
               })
             })
@@ -71,66 +78,10 @@ class editPost extends Component {
             })
       }
 
-      getPosts = async () => {
-        const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post", {
-              'headers': {
-                'X-Authorization':  value
-              }
-            })
-            .then((response) => {
-                if(response.status === 200){
-                    return response.json()
-                }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
-                }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only view the posts of your friends!"})
-                }else if (response.status === 404){  
-                  this.setState({errorMsg: "Posts not found?!"})
-                }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
-                }else{
-                    throw 'Something went wrong';
-                }
-            })
-            .then((responseJson) => {
-              this.setState({
-                isLoading: false,
-                listData: responseJson
-              })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-      }
-
-      retrieveData = async () => {
-        try {
-            const id = await AsyncStorage.getItem('@user_id');
-            const firstName = await AsyncStorage.getItem('@first_name');
-            const lastName = await AsyncStorage.getItem('@last_name');
-            // const data = JSON.stringify(jsonValue);
-         
-            this.setState({
-                userId: id,
-                isLoading: false,
-                first_Name: firstName,
-                last_Name: lastName
-
-            })
-            
-          
-        } catch (error) {
-          // Error retrieving data
-        }
-      };
-
       
-      
-    componentDidMount(){
+    componentDidMount = async () => {
        
-        this.getPosts();
+        this.getPost();
         
         
     }
@@ -139,8 +90,8 @@ class editPost extends Component {
     patchPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
-        const post_id = this.state.post_Id;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + post_id , {
+        
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + this.state.post_Id , {
            method: 'PATCH',
            headers: {
                 'X-Authorization':  value ,
@@ -153,8 +104,8 @@ class editPost extends Component {
 
             })
             .then((response) => {
-                if(response.status === 201){
-                    this.getPosts();
+                if(response.status === 200){
+                    this.getPost();
                 }else if(response.status === 401){
                   this.props.navigation.navigate("Login");
                 }else if (response.status === 403){  
@@ -176,7 +127,7 @@ class editPost extends Component {
 
       makePost = () => {
           this.changePost();
-          this.addPost();
+          
       }
 
       changePost = () => {
@@ -209,38 +160,29 @@ class editPost extends Component {
             return (
                 <View>
                   <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                    <FlatList
-                        data={this.state.listData}
-                        renderItem={({item}) => (
-                            <View>
-                                <Text>
-                                {item.text}
-                                </Text>
-                                <Text>
-                                  Likes: {item.numLikes}
-                                </Text> 
-                                <TextInput 
+                <Text>{this.state.first_Name} {this.state.last_name} says: </Text>
+                <Text> {this.state.text}</Text>
+                <Text>{this.state.postLikes}</Text>
+                <Text>{this.state.post_Id}</Text>
+                <TextInput 
                                   placeholder='Change post to...' 
                                   onChangeText={ value => this.setState({tempPost: value})}
                                 />
                                 <Button 
                                   title='Change Post' 
-                                  onPress={() => {this.setState({post_Id: item.post_id});this.changePost() ;}} 
-                                  color='#9075D8'
+                                  onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
+                                  color='#ef8354'
                                 />
 
                                 <Button 
                                   title='Patch Post' 
-                                  onPress={() => {this.patchPost(); this.getPosts();}} 
-                                  color='#9075D8'
+                                  onPress={() => {this.patchPost();}} 
+                                  color='#ef8354'
                                 /> 
-                            </View>
-                        )}
-                        keyExtractor={(item,index) => item.post_id.toString()}
-                        />        
+                                
                 </View>
             )
     } 
 }
 }
-export default editPost;
+export default editOnePost;

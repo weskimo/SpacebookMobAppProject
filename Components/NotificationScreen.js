@@ -149,9 +149,7 @@ class NotificationScreen extends Component {
               data={this.state.listData}
               renderItem={({item}) => (
               <View>
-                <Image 
-                  style={styles.tinyLogo}
-                  source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}/>
+                
                 <Text>
                   {item.first_name} {item.last_name} {item.user_id.toString()}
                 </Text>
@@ -159,12 +157,12 @@ class NotificationScreen extends Component {
                   title='Accept' 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.acceptFriend(); }} 
-                  color='#9075D8'/>
+                  color='#ef8354'/>
                 <Button 
                   title='Decline' 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.declineFriend(); }} 
-                  color='#9075D8'/>
+                  color='#ef8354'/>
               </View>
                 )}
                 keyExtractor={(item,index) => item.user_id.toString()}

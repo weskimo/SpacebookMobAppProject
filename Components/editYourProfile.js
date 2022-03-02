@@ -133,9 +133,13 @@ class editYourProfile extends Component {
             return (
               <View>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                    <Text style={{color: 'red'}}>{this.errorMsg}</Text>
+                    <View style={styles.pageContainer}>
+                    <View style={styles.textContainer}>
                     <Text>First Name: {this.state.first_name}</Text>
                     <Text>Last Name: {this.state.last_name}</Text>
+                    <Text>Email: {this.state.email}</Text>
+                    
+                    </View>
                     <TextInput
                       placeholder="Enter your first name..."
                       onChangeText={(first_name) => this.setState({first_name})}
@@ -167,8 +171,9 @@ class editYourProfile extends Component {
                     <Button 
                         title="Change Details"
                         onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
-                        color='#9075D8'
+                        color='#ef8354'
                     />
+              </View>
               </View>
             );
           }
@@ -177,3 +182,17 @@ class editYourProfile extends Component {
       }
 
 export default editYourProfile;
+
+const styles = StyleSheet.create({
+  pageContainer: {
+    backgroundColor: `#ffffff` , 
+    borderWidth: 5,
+    borderColor: '#001d3d',
+    
+  },
+
+  textContainer: {
+    marginHorizontal: 10,
+    marginVertical: 5
+  }
+});

@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, Image, ScrollView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image, ScrollView, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeConsumer } from 'react-native-elements';
-import editYourProfile from './editYourProfile';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getHeaderTitle } from '@react-navigation/elements';
-import { Camera } from 'expo-camera';
-import { Avatar } from 'react-native-elements';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import ProfilePostsList from './profilePostsList';
 
 
+// not using this, just doing it in the screen.
 
 
-
-
-class ProfileScreen extends Component {
-
+class MyProfileMain extends Component {
     constructor(props){
         super(props);
     
@@ -37,44 +26,6 @@ class ProfileScreen extends Component {
           
           
         }
-      }
-      getPosts = async () => {
-        const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post", {
-              'headers': {
-                'X-Authorization':  value
-              }
-            })
-            .then((response) => {
-                if(response.status === 200){
-                    return response.json()
-                  }else if(response.status === 401){
-                    this.setState({errorMsg: "Unauthorized"})
-                    this.props.navigation.navigate("Login");
-                    throw '401 Unauthorized';
-                  }else if (response.status === 403){  
-                    this.setState({errorMsg: "You can only view the posts of yourself or your friends!"})
-                    throw '403 in get posts data'
-                  }else if (response.status === 404){  
-                    this.setState({errorMsg: "User not found?!"})
-                    throw '404 in get posts data'
-                  }else if (response.status === 500){  
-                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
-                    throw '500 in get posts data'
-                }else{
-                    throw 'Something went wrong';
-                }
-            })
-            .then((responseJson) => {
-              this.setState({
-                isLoading: false,
-                listData: responseJson
-              })
-            })
-            .catch((error) => {
-                console.log(error);
-            })
       }
 
       get_profile_image = async () => {
@@ -104,14 +55,12 @@ class ProfileScreen extends Component {
       
       
     componentDidMount(){
-      this.unsubscribe = this.props.navigation.addListener('focus', () => {
+      
         this.getProfileData();
-        this.getPosts();
         
         this.get_profile_image();
 
-      });
-        
+   
     }
 
     componentWillUnmount() {
@@ -194,21 +143,12 @@ class ProfileScreen extends Component {
           console.log("error", err)
         });
       }
+      render() {
+          return (
 
-    render(){
-        const navigation = this.props.navigation; 
-        
-        
-        if(this.state.isLoading){
-            return (
-                <View><Text>Loading... 
-                    </Text></View>
-            )
-        }else{
-            
-            return (
-                <ScrollView style={styles.pageContainer}>
-                  <SafeAreaView style={styles.profileSectionContainer}>
+
+
+                    <SafeAreaView style={styles.profileSectionContainer}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <SafeAreaView style={styles.mainProfileContainer}>
                     <SafeAreaView style={styles.picAndInfoContainer}>
@@ -249,7 +189,7 @@ class ProfileScreen extends Component {
                         color="#ef8354"
                       />
                       <Button 
-                                  title="Manage Posts" 
+                                  title="Edit Posts" 
                                   onPress={() => {
                                     this.props.navigation.navigate("Edit Posts")}} 
                                     color="#ef8354"
@@ -259,119 +199,112 @@ class ProfileScreen extends Component {
                       
                     
                       </SafeAreaView>
-                      
-                      
-                      <ProfilePostsList />
-
-                </ScrollView>     
-            )
-    } 
-
-}
-}
-export default ProfileScreen;
+                      )
+                    }
+                      }
+export default MyProfileMain;
 
 
 const styles = StyleSheet.create({
-  contentView: {
-    flex: 1,
-  },
-  pageContainer: {
-    backgroundColor: `#001d3d` , 
-    borderWidth: 5,
-    borderColor: '#001d3d',
-  },
-  profileSectionContainer: {
-    backgroundColor: `#ffffff` , 
-    borderWidth: 5,
-    borderColor: '#001d3d',
-  },
-  mainProfileContainer: {
-    backgroundColor: `#ffffff` , 
-    flexDirection: 'row',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    justifyContent: 'space-between'
-  },
-  picAndInfoContainer: {
-    flexDirection: 'row',
-  },
-  profPicAndButtonContainer: {
-    flexDirection: 'column',
-    justifyContent: 'space-between'
-    
-    
-  },
-  profileTextInfo: {
-    flexDirection: 'column',
-    marginVertical: 10,
-    marginHorizontal: 10,
-  },
-  editButton: {
-    flexDirection: 'column',
-    justifyContent: 'space-evenly'
-  },
-  pictureSpace: {
-    marginVertical: 10,
-  },
-
-
-
-  buttonsContainer: {
-    flexDirection: 'row',
-    borderColor: '#001d3d',
-    justifyContent: 'space-between',
-
-    marginVertical: 10,
-    marginHorizontal: 10
-  },
-  postContainer: {
-    backgroundColor: `#ffffff` , 
-    borderWidth: 5,
-    borderColor: '#001d3d'
-  },
-
-  profileContainer: {
-    backgroundColor: `#ffffff` , 
-    borderWidth: 5,
-    borderColor: '#001d3d',
-    
-  },
-
-  profileInfo: {
-    fontSize: 15,
-    fontWeight: "bold",
-  },
-
-  postText: {
-    fontSize: 15,
-    marginHorizontal: 30
-  },
-  profileLogo: {
-    width: 100,
-    height: 100,
-  },
-  infoContainer: {
-    flexDirection: 'row',
-    alignContent: 'space-around',
-    marginVertical: 10,
-    marginHorizontal: 10
-  },
-  postAuthorContainer: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    marginHorizontal: 10,
-    alignItems: 'center'
-  },
-  profilePageContainer: {
-    backgroundColor: `#001d3d` , 
-    borderWidth: 5,
-    borderColor: '#001d3d',
-  },
-  profileLayout: {
-    marginHorizontal: 10
-  },
-  editProfileButton: {
-    alignContent: 'space-between'
-  }
-});  
+    contentView: {
+      flex: 1,
+    },
+    pageContainer: {
+      backgroundColor: `#001d3d` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+    },
+    profileSectionContainer: {
+      backgroundColor: `#ffffff` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+    },
+    mainProfileContainer: {
+      backgroundColor: `#ffffff` , 
+      flexDirection: 'row',
+      marginVertical: 10,
+      marginHorizontal: 10,
+      justifyContent: 'space-between'
+    },
+    picAndInfoContainer: {
+      flexDirection: 'row',
+    },
+    profPicAndButtonContainer: {
+      flexDirection: 'column',
+      justifyContent: 'space-between'
+      
+      
+    },
+    profileTextInfo: {
+      flexDirection: 'column',
+      marginVertical: 10,
+      marginHorizontal: 10,
+    },
+    editButton: {
+      flexDirection: 'column',
+      justifyContent: 'space-evenly'
+    },
+    pictureSpace: {
+      marginVertical: 10,
+    },
+  
+  
+  
+    buttonsContainer: {
+      flexDirection: 'row',
+      borderColor: '#001d3d',
+      justifyContent: 'space-between',
+  
+      marginVertical: 10,
+      marginHorizontal: 10
+    },
+    postContainer: {
+      backgroundColor: `#ffffff` , 
+      borderWidth: 5,
+      borderColor: '#001d3d'
+    },
+  
+    profileContainer: {
+      backgroundColor: `#ffffff` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+      
+    },
+  
+    profileInfo: {
+      fontSize: 15,
+      fontWeight: "bold",
+    },
+  
+    postText: {
+      fontSize: 15,
+      marginHorizontal: 30
+    },
+    profileLogo: {
+      width: 100,
+      height: 100,
+    },
+    infoContainer: {
+      flexDirection: 'row',
+      alignContent: 'space-around',
+      marginVertical: 10,
+      marginHorizontal: 10
+    },
+    postAuthorContainer: {
+      flexDirection: 'row',
+      marginVertical: 10,
+      marginHorizontal: 10,
+      alignItems: 'center'
+    },
+    profilePageContainer: {
+      backgroundColor: `#001d3d` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+    },
+    profileLayout: {
+      marginHorizontal: 10
+    },
+    editProfileButton: {
+      alignContent: 'space-between'
+    }
+  });  
