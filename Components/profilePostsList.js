@@ -260,6 +260,28 @@ class ProfilePostsList extends Component {
       })
   }
 
+  get_profile_image = async (userID) => {
+    const token = await AsyncStorage.getItem('@session_token');
+    const id = userID
+    fetch("http://localhost:3333/api/1.0.0/user/" + id +"/photo", {
+      method: 'GET',
+      headers: {
+        'X-Authorization': token
+      }
+    })
+    .then((res) => {
+      return res.blob();
+    }).then((resBlob) => {
+        let data = URL.createObjectURL(resBlob);
+        return data;
+      })
+   
+    .catch((err) => {
+      console.log("error", err)
+    });
+  }
+
+
 
 
 
@@ -296,6 +318,9 @@ class ProfilePostsList extends Component {
                         renderItem={({item}) => (
                             <View style={styles.postContainer}>
                               <SafeAreaView style={styles.postAuthorContainer}>
+                                  <Image source={{
+                              uri: this.get_profile_image(item.author.user_id)
+                            }} />
                                 
                                 <Text style={styles.profileInfo}>
                                   {item.author.first_name + " " + item.author.last_name + " says:"}

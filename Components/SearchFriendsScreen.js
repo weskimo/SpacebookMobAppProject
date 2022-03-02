@@ -124,7 +124,7 @@ class SearchFriendsScreen extends Component {
                   data={this.state.listData}
                   renderItem={({item}) => (
                     <View style= {styles.profileContainer}>
-                        <SafeAreaView >
+                       <SafeAreaView style={styles.friendContainer}>
                           
                           <SafeAreaView>
                           <Text style={styles.profileInfo}>
@@ -135,11 +135,13 @@ class SearchFriendsScreen extends Component {
                             </Text>
                             
                           </SafeAreaView>
-                        </SafeAreaView>
+                    
                       <Button 
                         title='Add' 
                         onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
-                        color='#ef8354'/>
+                        color='#ef8354'
+                      />
+                        </SafeAreaView>
                     </View>
                     
                   )}
@@ -208,4 +210,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     alignItems: 'center'
   },
+  friendContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 10,
+  }
 });  

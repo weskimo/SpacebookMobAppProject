@@ -222,18 +222,18 @@ class editPosts extends Component {
                                   {item.author.first_name} {item.author.last_name} says: </Text>
                               </SafeAreaView>
                                 <Divider />
-                                <Text>
+                                <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
-                                <View>
-                                <Text style={styles.postText}>
-                                  {this.state.post_Id}
-                                </Text>
-                                </View>
                                 
-                                <Text>
+                                <View style={styles.likeAndPostIDContainerEdit}>
+                                <Text style={styles.postText}>
                                   Likes: {item.numLikes}
                                 </Text> 
+                                <Text style={styles.postText}>
+                                  Post Id: {item.post_id}
+                                </Text>
+                                </View>
                                 <Divider />
                                 
                                
@@ -345,7 +345,7 @@ const styles = StyleSheet.create({
 
   postText: {
     fontSize: 15,
-    marginHorizontal: 15,
+    marginHorizontal: 10,
     marginVertical: 5,
     
   },
@@ -388,6 +388,12 @@ const styles = StyleSheet.create({
 
 
   buttonContainerEdit: {
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 5
+  },
+  likeAndPostIDContainerEdit: {
     flexDirection:'row',
     justifyContent: 'space-between',
     marginVertical: 10,

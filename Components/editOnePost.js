@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList} from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeConsumer } from 'react-native-elements';
 import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { getHeaderTitle } from '@react-navigation/elements';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Divider } from 'react-native-elements';
 
 
 
@@ -158,31 +161,84 @@ class editOnePost extends Component {
             )
         }else{
             return (
-                <View>
-                  <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                <Text>{this.state.first_Name} {this.state.last_name} says: </Text>
-                <Text> {this.state.text}</Text>
-                <Text>{this.state.postLikes}</Text>
-                <Text>{this.state.post_Id}</Text>
-                <TextInput 
-                                  placeholder='Change post to...' 
-                                  onChangeText={ value => this.setState({tempPost: value})}
-                                />
-                                <Button 
-                                  title='Change Post' 
-                                  onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
-                                  color='#ef8354'
-                                />
+                <ScrollView style={styles.pageContainer}>
+                    <SafeAreaView style={styles.postContainer}>
+                        <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                        <View>
+                            <Text style={styles.nameInfo}>{this.state.first_Name} {this.state.last_name} says: </Text>
+                        </View>
+                        <Divider />
+                        <View style={styles.textPost}>
+                            <Text> {this.state.text}</Text>
+                        </View>
+                        <View style={styles.likeAndPostId}>
+                            <Text style={styles.nameInfo}>Likes: {this.state.postLikes}</Text>
+                            <Text style={styles.nameInfo}>Post ID: {this.state.post_Id}</Text>
+                        </View>
+                        <Divider/>
+                       
+                        <SafeAreaView style={styles.textInput}>
+                        <TextInput 
+                            placeholder='Change post to...' 
+                            onChangeText={ value => this.setState({tempPost: value})}
+                        />
+                        </SafeAreaView>
+                       
+                        <View>
+                            <Button 
+                                title='Change Post' 
+                                onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
+                                color='#ef8354'
+                            />
 
-                                <Button 
-                                  title='Patch Post' 
-                                  onPress={() => {this.patchPost();}} 
-                                  color='#ef8354'
-                                /> 
-                                
-                </View>
+                            <Button 
+                                title='Patch Post' 
+                                onPress={() => {this.patchPost();}} 
+                                color='#ef8354'
+                            /> 
+                         </View>
+                         
+                   </SafeAreaView>             
+                </ScrollView>
             )
     } 
 }
 }
 export default editOnePost;
+
+const styles = StyleSheet.create({
+    pageContainer: {
+        backgroundColor: `#001d3d` , 
+        borderWidth: 5,
+        borderColor: '#001d3d',
+      },
+      postContainer: {
+        backgroundColor: `#ffffff` , 
+        borderWidth: 5,
+        borderColor: '#001d3d',
+      },
+      nameInfo: {
+        fontSize: 15,
+        fontWeight: "bold",
+        marginHorizontal: 5
+      },
+      textPost: {
+        fontSize: 15,
+        marginHorizontal: 20,
+        marginVertical: 5 
+      },
+      likeAndPostId: {
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginVertical: 5
+      },
+      textInputBox: {
+        borderWidth: 2,
+        borderColor: '#001d3d'
+      },
+      textInput: {
+          marginHorizontal: 5,
+          marginVertical: 10,
+      }
+
+})
