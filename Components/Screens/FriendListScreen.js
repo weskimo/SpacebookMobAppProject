@@ -16,7 +16,7 @@ class FriendListScreen extends Component {
       isLoading: true,
       listData: [],
       requestId: '',
-      friendsID: null
+      friendsID: '',
     }
 
   }
@@ -69,7 +69,7 @@ class FriendListScreen extends Component {
 
   setFriendsId = async () => {
           
-          await AsyncStorage.setItem('@friendsID', this.state.friendsID);
+    await AsyncStorage.setItem('@friendsID', this.state.friendsID);
           
   }
 
@@ -123,10 +123,12 @@ class FriendListScreen extends Component {
                             onPress={() => {this.setState({friendsID: item.user_id}); }} 
                             color='#ef8354'
                           />
+                          <Text> {this.state.friendsID}</Text>
                           <Button 
                             title="Go to profile" 
-                            onPress={() => {this.clickOnProfile(); 
-                            this.props.navigation.navigate("MyFriend's Profile");}} 
+                            onPress={() => {
+                              this.setState({friendsID: item.user_id});
+                              this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
                             color='#ef8354'
                           />
                           </SafeAreaView>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView, ScrollView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, TabRouter } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import styles from '../StyleSheets/FriendsProfileStyles.js';
+import FriendListScreen from './FriendListScreen.js';
 
 
 
@@ -16,7 +17,7 @@ class FriendsProfile extends Component {
     
         this.state = {
           isLoading: true,
-          userId: '',
+          userId: props.FriendListScreen.friendID,
           first_Name: '',
           last_name: '',
           text: '',
@@ -31,11 +32,14 @@ class FriendsProfile extends Component {
           
         }
       }
+      
 
       get_profile_image = async () => {
         const token = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
-        fetch("http://localhost:3333/api/1.0.0/user/" + id +"/photo", {
+
+        const friendID = this.state.userId;
+          
+        fetch("http://localhost:3333/api/1.0.0/user/" + friendID +"/photo", {
           method: 'GET',
           headers: {
             'X-Authorization': token
@@ -58,8 +62,9 @@ class FriendsProfile extends Component {
 
       getPosts = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post", {
+        const friendID = FriendListScreen.friendID;
+        const friendsID = JSON.stringify(friendID);
+        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID  +"/post", {
               'headers': {
                 'X-Authorization':  value
               }
@@ -94,23 +99,6 @@ class FriendsProfile extends Component {
             })
       }
 
-      retrieveData = async () => {
-        try {
-            const id = await AsyncStorage.getItem('@user_id');
-            const firstName = await AsyncStorage.getItem('@first_name');
-            const lastName = await AsyncStorage.getItem('@last_name');
-            // const data = JSON.stringify(jsonValue);
-         
-            this.setState({
-                userId: id,
-                isLoading: false,
-                first_Name: firstName,
-                last_Name: lastName
-            })
-        } catch (error) {
-          // Error retrieving data
-        }
-      };
  
     componentDidMount(){
       this.unsubscribe = this.props.navigation.addListener('focus', () => {  
@@ -123,8 +111,9 @@ class FriendsProfile extends Component {
 
     getProfileData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id, {
+        const {friendID} = FriendListScreen.friendID;
+        const friendsID = JSON.stringify(friendID);
+        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID, {
               'headers': {
                 'X-Authorization':  value
               },  
@@ -155,7 +144,7 @@ class FriendsProfile extends Component {
                 await AsyncStorage.setItem('@email', responseJson.email);
                 await AsyncStorage.setItem('@password', responseJson.password);
                 this.setState({
-                    userId: id,
+                    
                     isLoading: false,
                     first_Name: responseJson.first_name,
                     last_Name: responseJson.last_name
@@ -169,8 +158,9 @@ class FriendsProfile extends Component {
 
     addPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post" , {
+        const friendID = FriendListScreen.friendID;
+        const friendsID = JSON.stringify(friendID);
+        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID + "/post" , {
            method: 'post',
            headers: {
                 'X-Authorization':  value ,
