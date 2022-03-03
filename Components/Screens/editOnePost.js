@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
       },
       textPost: {
         fontSize: 15,
-        marginHorizontal: 20,
+        marginHorizontal: 10,
         marginVertical: 5 
       },
       likeAndPostId: {

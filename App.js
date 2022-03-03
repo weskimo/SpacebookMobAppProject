@@ -5,10 +5,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import LoggedInScreen from './Components/LoggedInScreen';
-import LoginScreen from './Components/LoginScreen';
-import SignupScreen from './Components/SignUpScreen';
-import LogoutScreen from './Components/LogOutScreen';
+import LoggedInScreen from './Components/Screens/LoggedInScreen';
+import LoginScreen from './Components/Screens/LoginScreen';
+import SignupScreen from './Components/Screens/SignUpScreen';
+import LogoutScreen from './Components/Screens/LogOutScreen';
 import { Camera } from 'expo-camera';
 
 const Drawer = createDrawerNavigator();

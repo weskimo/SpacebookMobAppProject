@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView} from 'react-native';
+import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView, ScrollView} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Divider } from 'react-native-elements/dist/divider/Divider';
 
 
 
@@ -302,7 +303,7 @@ class FriendsProfile extends Component {
             )
         }else{
             return (
-                <View style={styles.profileContainer}>
+                <ScrollView style={styles.profileContainer}>
                   <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer}>
                     <Image
@@ -331,44 +332,45 @@ class FriendsProfile extends Component {
                   <Button 
                     title="Make post" 
                     onPress={() => {this.makePost();}} 
-                    color='#9075D8'
+                    color="#ef8354"
                   />
                   <FlatList
                     data={this.state.listData}
                     renderItem={({item}) => ( 
                       <View style={styles.profileContainer}>
                         <SafeAreaView style={styles.postAuthorContainer}>
-                          <Image 
-                            style={styles.tinyLogo}
-                            source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}} />
+                          
                           <Text style={styles.profileInfo}>
                             {item.author.first_name + " " + item.author.last_name + " says:"}
                           </Text>
+                          
                         </SafeAreaView>
+                        <Divider />
                           <Text style={styles.postText}>
                             {item.text}
                           </Text>
-                          <Text style={styles.postText}>
+                          <Text style={styles.likesText}>
                             Likes: {item.numLikes}
                           </Text> 
+                          <Divider />
                           <View style={styles.buttonsContainer}>
                             <Button 
                               title="Like" 
                               onPress={() => {this.setState({post_Id: item.post_id});
-                              this.likePost();}} color='#9075D8'
+                              this.likePost();}} color="#ef8354"
                             />
                             <Button 
                               title="Unlike" 
                               onPress={() => {this.setState({post_Id: item.post_id});
                               this.unlikePost();}} 
-                              color='#9075D8'
+                              color="#ef8354"
                             />
                           </View>     
                      </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
                         />          
-                </View>  
+                </ScrollView>  
             )
     } 
 }
@@ -382,8 +384,8 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
-      borderColor: '#674AB3',
+      borderColor: '#001d3d',
+      justifyContent: 'space-around',
       
       width: '100%',
       marginVertical: 10,
@@ -392,13 +394,13 @@ const styles = StyleSheet.create({
     postContainer: {
       backgroundColor: `#FFFFFF` , 
       borderWidth: 5,
-      borderColor: '#674AB3'
+      borderColor: '#001d3d'
     },
   
     profileContainer: {
       backgroundColor: `#FFFFFF` , 
       borderWidth: 5,
-      borderColor: '#674AB3',
+      borderColor: '#001d3d'
       
     },
   
@@ -409,12 +411,13 @@ const styles = StyleSheet.create({
     profileInfo: {
       fontSize: 15,
       fontWeight: "bold",
-      marginHorizontal: 10
+      
     },
   
     postText: {
       fontSize: 15,
-      marginHorizontal: 10
+      marginHorizontal: 10,
+      marginVertical: 20
     },
     tinyLogo: {
       width: 50,
@@ -431,4 +434,9 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       alignItems: 'center'
     },
+  likesText: {
+    fontSize: 15,
+      fontWeight: "bold",
+      marginHorizontal: 10
+  }
   });  

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Button, ScrollView, TextInput, Text } from 'react-native';
+import { Button, ScrollView, TextInput, Text, SafeAreaView } from 'react-native';
 import ValidationComponent from 'react-simple-form-validator';
 
-class SignupScreen extends ValidationComponent{
+class SignUpForm extends ValidationComponent{
     constructor(props){
         super(props);
 
@@ -65,7 +65,7 @@ class SignupScreen extends ValidationComponent{
         })
         .then((responseJson) => {
                console.log("User created with ID: ", responseJson);
-               this.props.navigation.navigate("Login");
+               this.props.navigation.navigate("SpaceBook");
         })
         .catch((error) => {
             console.log(error);
@@ -74,8 +74,9 @@ class SignupScreen extends ValidationComponent{
 }
 
     render(){
+        const navigation = this.props.navigation; 
         return (
-            <ScrollView>
+            <SafeAreaView>
                 <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <form>
                     <input
@@ -114,12 +115,12 @@ class SignupScreen extends ValidationComponent{
 
                 <Button
                     title="Sign Up"
-                    color='#9075D8'
+                    
                     onPress={() => this.signup()}
                 />
-            </ScrollView>
+            </SafeAreaView>
         )
     }
 }
 
-export default SignupScreen;
+export default SignUpForm;

@@ -85,11 +85,11 @@ class HomeScreen extends Component{
                 <Button
                     title="I'm outta here"
                     onPress={() => this.logout()}
-                    color='#9075D8'
+                    color="#ef8354"
                 />
                 <Button
                     title="OK, take me home, country roads"
-                    color='#9075D8'
+                    color="#ef8354"
                     onPress={() => this.props.navigation.navigate("Home")}
                 />
             </ScrollView>

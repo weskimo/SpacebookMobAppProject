@@ -9,7 +9,7 @@ import { getHeaderTitle } from '@react-navigation/elements';
 import { Camera } from 'expo-camera';
 import { Avatar } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import ProfilePostsList from './profilePostsList';
+import ProfilePostsList from '../Components/profilePostsList';
 
 
 
@@ -239,7 +239,7 @@ class ProfileScreen extends Component {
                       <SafeAreaView style={styles.editButton}>
                       <Button 
                           title="Edit Profile" 
-                          onPress={() => {this.props.navigation.navigate("Edit")}}  
+                          onPress={() => {this.props.navigation.navigate("Edit Profile")}}  
                           color="#ef8354"
                           style={styles.editButton}
                           />
@@ -251,7 +251,7 @@ class ProfileScreen extends Component {
                       <Button 
                                   title="Manage Posts" 
                                   onPress={() => {
-                                    this.props.navigation.navigate("Edit Posts")}} 
+                                    this.props.navigation.navigate("Manage Posts")}} 
                                     color="#ef8354"
                                 />
                       </SafeAreaView>

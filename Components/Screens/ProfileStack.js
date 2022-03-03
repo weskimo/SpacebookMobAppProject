@@ -28,7 +28,7 @@ class ProfileStack extends Component {
        
         <Stack.Navigator initialRouteName='Profile'>   
             <Stack.Screen  
-                 name="Edit" 
+                 name="Edit Profile" 
                 component={editYourProfile} 
             />
             <Stack.Screen 
@@ -37,7 +37,7 @@ class ProfileStack extends Component {
                 options={{headerShown: false}} 
             />
             <Stack.Screen 
-                name="Edit Posts" 
+                name="Manage Posts" 
                 component={editPosts} 
             />
             <Stack.Screen

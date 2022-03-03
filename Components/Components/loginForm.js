@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Button,  Text  } from 'react-native';
-import { ScrollView, TextInput} from 'react-native-gesture-handler';
+import { ScrollView, TextInput, StyleSheet, SafeAreaView, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ValidationComponent from 'react-simple-form-validator';
+
+
+
 
 
 const storeData = async (value) => {
@@ -14,7 +17,7 @@ const storeData = async (value) => {
     }
 }
 
-class LoginScreen extends ValidationComponent{
+class LoginForm extends ValidationComponent{
     constructor(props){
         super(props);
 
@@ -75,7 +78,8 @@ class LoginScreen extends ValidationComponent{
 
     render(){
         return (
-            <ScrollView>
+            <View>
+             
                 <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <form>
                     <input
@@ -93,24 +97,35 @@ class LoginScreen extends ValidationComponent{
                         placeholder="Enter your password..."
                     />
                 </form>
+              
                 <Text style={{color: 'red'}}>
                     {this.state.errorMsg}
                 </Text>
-                <Button
-                    title="Login"
-                    color='#9075D8'
-                    onPress={() => this.login()}
-                />
-                <Button
-                    title="Don't have an account?"
-                    color='#9075D8'
-                    onPress={() => this.props.navigation.navigate("Signup")}
-                />
-            </ScrollView>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Login"
+                        
+                        onPress={() => this.login()}
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Don't have an account?"
+                        color='#ef8354'
+                        onPress={() => this.props.navigation.navigate("Signup")}
+                    />
+                </View>
+             
+            </View>
         )
     }
 }
 
-export default LoginScreen;
+export default LoginForm;
 
-
+const styles = StyleSheet.create({
+    buttonContainer: {
+        marginVertical: 10
+    }
+    
+})
