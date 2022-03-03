@@ -102,5 +102,12 @@ export default StyleSheet.create({
     },
     editProfileButton: {
       alignContent: 'space-between'
-    }
+    },
+    postLikes: {
+      fontSize: 15,
+      fontWeight: "bold",
+      marginHorizontal: 10,
+      marginVertical: 5,
+    },
+
   });  
