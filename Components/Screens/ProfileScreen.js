@@ -377,7 +377,7 @@ class ProfileScreen extends Component {
         }else{
             
             return (
-                <ScrollView style={styles.pageContainer} accessible={true}>
+                <ScrollView style={styles.pageContainer} accessible={true} accessibilityLabel="Your Profile">
                   <SafeAreaView style={styles.profileSectionContainer} accessible={true}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <SafeAreaView style={styles.mainProfileContainer} accessible={true}>
@@ -453,7 +453,7 @@ class ProfileScreen extends Component {
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={styles.postContainer} accessible={true}>
+                            <View style={styles.postContainer} accessible={true} accessibilityLabel="Your Wall posts">
                               <SafeAreaView style={styles.postAuthorContainer}>
                                  
                                 

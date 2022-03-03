@@ -61,7 +61,7 @@ class HomeScreen extends Component{
 
     render(){
         return (
-            <ScrollView accessible={true}>
+            <ScrollView accessible={true} accessibilityLabel="Logout Screen">
                 <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <Text 
                     style={{

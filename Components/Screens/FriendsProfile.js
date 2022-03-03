@@ -294,7 +294,7 @@ class FriendsProfile extends Component {
             )
         }else{
             return (
-                <ScrollView style={styles.profileContainer} accessible={true}>
+                <ScrollView style={styles.profileContainer} accessible={true} accessibilityLabel="Friends Profile">
                   <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer} accessible={true}>
                     <Image
@@ -329,7 +329,7 @@ class FriendsProfile extends Component {
                   <FlatList
                     data={this.state.listData}
                     renderItem={({item}) => ( 
-                      <View style={styles.profileContainer} accessible={true}>
+                      <View style={styles.profileContainer} accessible={true} accessibilityLabel="Friends Wall Post">
                         <SafeAreaView style={styles.postAuthorContainer}>
                           
                           <Text style={styles.profileInfo}>

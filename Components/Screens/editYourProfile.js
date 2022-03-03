@@ -179,6 +179,7 @@ class editYourProfile extends Component {
                         onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
                         color='#ef8354'
                         accessibilityRole="button"
+                        accessibilityLabel="Click here to change details"
                     />
               </View>
               </View>

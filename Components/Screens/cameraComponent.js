@@ -63,6 +63,7 @@ class cameraComponent extends Component {
             <View 
               style={styles.container}
               accessible={true}
+              accessibilityLabel="Camera Screen"
             >
               <Camera 
                 style={styles.camera} 
@@ -77,6 +78,9 @@ class cameraComponent extends Component {
                     onPress={() => {
                       this.takePicture();
                     }}
+                    accessible={true}
+                    accessibilityLabel="Take Picture"
+                    accessibilityRole="button"
                   >
                     <Text
                        style={styles.text}

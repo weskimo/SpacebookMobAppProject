@@ -77,7 +77,7 @@ class LoginScreen extends ValidationComponent{
 
     render(){
         return (
-                <View accessible={true}>
+                <View accessible={true} accessibilityLabel="Login Screen and Form">
                     
                 <SafeAreaView style={styles.loginForm} accessible={true}>
                     <Text style={styles.text}>

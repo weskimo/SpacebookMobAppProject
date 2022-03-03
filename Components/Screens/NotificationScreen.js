@@ -143,7 +143,7 @@ class NotificationScreen extends Component {
       );
     }else{
       return (
-        <View accessible={true}>
+        <View accessible={true} accessibilityLabel="Notificatons appear here when you get them">
           <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
           <FlatList
               data={this.state.listData}

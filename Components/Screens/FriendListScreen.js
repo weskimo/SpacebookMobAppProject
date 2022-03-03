@@ -98,13 +98,13 @@ class FriendListScreen extends Component {
         );
       }else{
         return (
-          <View accessible={true}>
+          <View accessible={true} accessibilityLabel="Friend List">
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 
                       (
-                      <View style= {styles.profileContainer}>
+                      <View style= {styles.profileContainer} accessibilityLabel="Friend">
                         <SafeAreaView >
                           
                           <SafeAreaView>
@@ -123,6 +123,7 @@ class FriendListScreen extends Component {
                             onPress={() => {this.setState({friendsID: item.user_id}); }} 
                             color='#ef8354'
                             accessibilityRole="button"
+                            
                           />
                           <Text> {this.state.friendsID}</Text>
                           <Button 

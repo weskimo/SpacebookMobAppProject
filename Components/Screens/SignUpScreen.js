@@ -64,7 +64,7 @@ class SignupScreen extends ValidationComponent{
 
     render(){
         return (
-            <View style={styles.loginForm} accessible={true}>
+            <View style={styles.loginForm} accessible={true} accessibilityLabel="Sign Up Screen and form">
                     
             <View style={styles.loginForm} accessible={true}>
                 <View>

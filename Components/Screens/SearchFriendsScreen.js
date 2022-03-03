@@ -119,12 +119,12 @@ class SearchFriendsScreen extends Component {
         );
       }else{
         return (
-          <ScrollView styles={styles.profileContainer} accessible={true}>
+          <ScrollView styles={styles.profileContainer} accessible={true} accessibilityLabel="Find new Friends"> 
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                    <View style= {styles.profileContainer} accessible={true}>
+                    <View style= {styles.profileContainer} accessible={true} accessibilityLabel="Possible Friend">
                        <SafeAreaView style={styles.friendContainer}>
                           
                           <SafeAreaView>
