@@ -15,6 +15,12 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 10
+    },
+
+    signUpContainer: {
+        marginVertical: 20,
+        borderWidth: 2,
+        borderColor: '#001d3d'
     }
     
 });

@@ -15,6 +15,11 @@ export default StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         marginVertical: 10
+    },
+
+    buttonContainer: {
+        marginVertical: 10
     }
+    
     
 });

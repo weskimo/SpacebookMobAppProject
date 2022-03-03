@@ -17,7 +17,7 @@ class FriendsProfile extends Component {
     
         this.state = {
           isLoading: true,
-          userId: props.FriendListScreen.friendID,
+          userId: props.route.params,
           first_Name: '',
           last_name: '',
           text: '',
@@ -36,10 +36,9 @@ class FriendsProfile extends Component {
 
       get_profile_image = async () => {
         const token = await AsyncStorage.getItem('@session_token');
-
-        const friendID = this.state.userId;
+        const friendsID = this.state.userId;
           
-        fetch("http://localhost:3333/api/1.0.0/user/" + friendID +"/photo", {
+        fetch("http://localhost:3333/api/1.0.0/user/" + friendsID +"/photo", {
           method: 'GET',
           headers: {
             'X-Authorization': token
@@ -62,8 +61,7 @@ class FriendsProfile extends Component {
 
       getPosts = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const friendID = FriendListScreen.friendID;
-        const friendsID = JSON.stringify(friendID);
+        const friendsID = this.state.userId;
         return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID  +"/post", {
               'headers': {
                 'X-Authorization':  value
@@ -111,8 +109,7 @@ class FriendsProfile extends Component {
 
     getProfileData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const {friendID} = FriendListScreen.friendID;
-        const friendsID = JSON.stringify(friendID);
+        const friendsID = this.state.userId;
         return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID, {
               'headers': {
                 'X-Authorization':  value
@@ -158,8 +155,11 @@ class FriendsProfile extends Component {
 
     addPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const friendID = FriendListScreen.friendID;
-        const friendsID = JSON.stringify(friendID);
+        const friendsID = this.state.userId;
+        const getState = this.state.text;
+        if (getState.length < 1 || getState.length > 320) {
+          this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
+    } else {
         return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID + "/post" , {
            method: 'post',
            headers: {
@@ -192,6 +192,7 @@ class FriendsProfile extends Component {
             .catch((error) => {
                 console.log(error);
             })
+          }
       }
 
       
@@ -293,14 +294,14 @@ class FriendsProfile extends Component {
             )
         }else{
             return (
-                <ScrollView style={styles.profileContainer}>
+                <ScrollView style={styles.profileContainer} accessible={true}>
                   <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                  <SafeAreaView style={styles.infoContainer}>
+                  <SafeAreaView style={styles.infoContainer} accessible={true}>
                     <Image
                         source={{uri: this.state.photo}}
                         style={styles.tinyLogo}
                     />
-                    <SafeAreaView>
+                    <SafeAreaView accessible={true}>
                       <Text style={styles.postText}>
                         Login id: {this.state.userId}
                       </Text>
@@ -323,11 +324,12 @@ class FriendsProfile extends Component {
                     title="Make post" 
                     onPress={() => {this.makePost();}} 
                     color="#ef8354"
+                    accessibilityRole="button"
                   />
                   <FlatList
                     data={this.state.listData}
                     renderItem={({item}) => ( 
-                      <View style={styles.profileContainer}>
+                      <View style={styles.profileContainer} accessible={true}>
                         <SafeAreaView style={styles.postAuthorContainer}>
                           
                           <Text style={styles.profileInfo}>
@@ -348,12 +350,14 @@ class FriendsProfile extends Component {
                               title="Like" 
                               onPress={() => {this.setState({post_Id: item.post_id});
                               this.likePost();}} color="#ef8354"
+                              accessibilityRole="button"
                             />
                             <Button 
                               title="Unlike" 
                               onPress={() => {this.setState({post_Id: item.post_id});
                               this.unlikePost();}} 
                               color="#ef8354"
+                              accessibilityRole="button"
                             />
                           </View>     
                      </View>

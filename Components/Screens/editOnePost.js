@@ -161,8 +161,8 @@ class editOnePost extends Component {
             )
         }else{
             return (
-                <ScrollView style={styles.pageContainer}>
-                    <SafeAreaView style={styles.postContainer}>
+                <ScrollView style={styles.pageContainer} accessible={true}>
+                    <SafeAreaView style={styles.postContainer} accessible={true}>
                         <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                         <View>
                             <Text style={styles.nameInfo}>{this.state.first_Name} {this.state.last_name} says: </Text>
@@ -184,17 +184,19 @@ class editOnePost extends Component {
                         />
                         </SafeAreaView>
                        
-                        <View>
+                        <View accessible={true}>
                             <Button 
                                 title='Change Post' 
                                 onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
                                 color='#ef8354'
+                                accessibilityRole="button"
                             />
 
                             <Button 
                                 title='Patch Post' 
                                 onPress={() => {this.patchPost();}} 
                                 color='#ef8354'
+                                accessibilityRole="button"
                             /> 
                          </View>
                          

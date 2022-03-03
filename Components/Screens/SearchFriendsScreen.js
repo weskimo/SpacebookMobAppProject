@@ -119,12 +119,12 @@ class SearchFriendsScreen extends Component {
         );
       }else{
         return (
-          <ScrollView styles={styles.profileContainer}>
+          <ScrollView styles={styles.profileContainer} accessible={true}>
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
-                    <View style= {styles.profileContainer}>
+                    <View style= {styles.profileContainer} accessible={true}>
                        <SafeAreaView style={styles.friendContainer}>
                           
                           <SafeAreaView>
@@ -141,6 +141,7 @@ class SearchFriendsScreen extends Component {
                         title='Add' 
                         onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
                         color='#ef8354'
+                        accessibilityRole="button"
                       />
                         </SafeAreaView>
                     </View>

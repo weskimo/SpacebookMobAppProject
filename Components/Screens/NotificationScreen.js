@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
-
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FriendListScreen from './FriendListScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -144,7 +143,7 @@ class NotificationScreen extends Component {
       );
     }else{
       return (
-        <View>
+        <View accessible={true}>
           <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
           <FlatList
               data={this.state.listData}
@@ -158,12 +157,17 @@ class NotificationScreen extends Component {
                   title='Accept' 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.acceptFriend(); }} 
-                  color='#ef8354'/>
+                  color='#ef8354'
+                  accessibilityRole="button"
+                />
+                  
                 <Button 
                   title='Decline' 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.declineFriend(); }} 
-                  color='#ef8354'/>
+                  color='#ef8354'
+                  accessibilityRole="button"
+                />
               </View>
                 )}
                 keyExtractor={(item,index) => item.user_id.toString()}

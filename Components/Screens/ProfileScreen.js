@@ -310,6 +310,10 @@ class ProfileScreen extends Component {
             })
       }
       addPost = async () => {
+        // between 1-320 characters
+        if (this.state.text.length < 1 || this.state.text.length > 320) {
+              this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
+        } else {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post" , {
@@ -328,6 +332,7 @@ class ProfileScreen extends Component {
             .then((response) => {
                 if(response.status === 201){
                     this.getPosts();
+                    this.setState({errorMsg: ""});
                   }else if(response.status === 401){
                     this.setState({errorMsg: "Unauthorized"})
                     this.props.navigation.navigate("Login");
@@ -345,6 +350,7 @@ class ProfileScreen extends Component {
             .catch((error) => {
                 console.log(error);
             })
+          }
       }
       makePost = () => {
         this.changePost();
@@ -371,24 +377,25 @@ class ProfileScreen extends Component {
         }else{
             
             return (
-                <ScrollView style={styles.pageContainer}>
-                  <SafeAreaView style={styles.profileSectionContainer}>
+                <ScrollView style={styles.pageContainer} accessible={true}>
+                  <SafeAreaView style={styles.profileSectionContainer} accessible={true}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                    <SafeAreaView style={styles.mainProfileContainer}>
-                    <SafeAreaView style={styles.picAndInfoContainer}>
-                      <SafeAreaView style={styles.profPicAndButtonContainer}>
-                        <SafeAreaView style={styles.pictureSpace}>
+                    <SafeAreaView style={styles.mainProfileContainer} accessible={true}>
+                    <SafeAreaView style={styles.picAndInfoContainer} accessible={true}>
+                      <SafeAreaView style={styles.profPicAndButtonContainer} accessible={true}>
+                        <SafeAreaView style={styles.pictureSpace} accessible={true}>
                           <Image
                             source={{
                               uri: this.state.photo,
                             }}
                             style={styles.profileLogo}
                           />
+                          
                         </SafeAreaView>
                       
                       </SafeAreaView>
                     
-                      <SafeAreaView style={styles.profileTextInfo}>
+                      <SafeAreaView style={styles.profileTextInfo} accessible={true}>
                         <Text>
                           Login id: {this.state.userId}
                         </Text>
@@ -400,23 +407,26 @@ class ProfileScreen extends Component {
                         </Text>
                         </SafeAreaView>
                       </SafeAreaView>
-                      <SafeAreaView style={styles.editButton}>
+                      <SafeAreaView style={styles.editButton} accessible={true}>
                       <Button 
                           title="Edit Profile" 
                           onPress={() => {this.props.navigation.navigate("Edit Profile")}}  
                           color="#ef8354"
                           style={styles.editButton}
+                          accessibilityRole="button"
                           />
                           <Button 
                         title="Change Photo" 
                         onPress={() => {this.props.navigation.navigate("Take picture")}} 
                         color="#ef8354"
+                        accessibilityRole="button"
                       />
                       <Button 
                                   title="Manage Posts" 
                                   onPress={() => {
                                     this.props.navigation.navigate("Manage Posts")}} 
                                     color="#ef8354"
+                                    accessibilityRole="button"
                                 />
                       </SafeAreaView>
                       </SafeAreaView>
@@ -424,7 +434,7 @@ class ProfileScreen extends Component {
                     
                       </SafeAreaView>
                       
-                      <SafeAreaView>
+                      <SafeAreaView accessible={true}>
                     <View style={styles.postContainer}>
                       <TextInput
                         placeholder="Write you post here.."
@@ -437,12 +447,13 @@ class ProfileScreen extends Component {
                         title="Make post" 
                         onPress={() => {this.makePost();}} 
                         color="#ef8354"
+                        accessibilityRole="button"
                       />
                       </View>
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={styles.postContainer}>
+                            <View style={styles.postContainer} accessible={true}>
                               <SafeAreaView style={styles.postAuthorContainer}>
                                  
                                 
@@ -466,16 +477,20 @@ class ProfileScreen extends Component {
                                   title="Like" 
                                   onPress={() => {this.setState({post_Id: item.post_id}); this.likePost();}} 
                                   color="#ef8354"
+                                  accessibilityRole="button"
                                 />
                                 <Button 
                                   title="Unlike" 
                                   onPress={() => {this.setState({post_Id: item.post_id});this.unlikePost();}} 
                                   color="#ef8354"
+                                  accessibilityRole="button"
                                 />
                                 <Button 
                                   title="Delete post" 
                                   onPress={() => {this.setState({post_Id: item.post_id}); this.removePost();}} 
-                                  color="#ef8354"/>
+                                  color="#ef8354"
+                                  accessibilityRole="button"
+                                />
                                   
                                
                               </View> 

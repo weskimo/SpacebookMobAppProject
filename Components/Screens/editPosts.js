@@ -210,13 +210,13 @@ class editPosts extends Component {
             )
         }else{
             return (
-              <ScrollView>
-                <SafeAreaView>
+              <ScrollView accessible={true}>
+                <SafeAreaView accessible={true}>
                   
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={styles.postContainer}>
+                            <View style={styles.postContainer} accessible={true}>
                               <SafeAreaView style={styles.postAuthorContainer}>
                               <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                                 <Text style={styles.profileInfo}>
@@ -244,6 +244,7 @@ class editPosts extends Component {
                                   title='Select Post' 
                                   onPress={ () => {this.setState({post_Id: item.post_id}); this.setPostId()}}
                                   color='#ef8354'
+                                  accessibilityRole="button"
                                 /> 
                                 
                                 
@@ -252,6 +253,7 @@ class editPosts extends Component {
                                   title='View Post' 
                                   onPress={() => {this.props.navigation.navigate("Edit Post")}}
                                   color='#ef8354'
+                                  accessibilityRole="button"
                                 /> 
                                 </SafeAreaView>
                             </View>

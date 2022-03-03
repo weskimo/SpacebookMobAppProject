@@ -5,10 +5,23 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginForm from '../Components/loginForm';
 import { View } from 'react-native-web';
 import styles from '../StyleSheets/LoginScreenStyles.js';
+import ValidationComponent from 'react-simple-form-validator';
 
-class LoginScreen extends Component{
+class LoginScreen extends ValidationComponent{
     constructor(props){
         super(props);
+
+        this.fieldRules = {
+            email: {
+                     email: true, 
+                     required: true,
+                     maxlength: 320,
+                     minlength: 5   
+                    },
+            password: { required: true,
+                minlength: 5
+                  }
+          };
 
         this.state = {
             email: "",
@@ -16,18 +29,99 @@ class LoginScreen extends Component{
             errorMsg: ""
         }
     }
+    
+    login = async () => {
+
+        if(this.state.password.length < 1 || this.state.email.length < 1){
+            this.setState({errorMsg: "The Email and Password must be between 1 and 320 characters"});
+        } else if(this.state.password.length > 320 || this.state.email.length > 320) {
+            this.setState({errorMsg: "The Email and Password must be between 1 and 320 characters"});
+        } else {
+
+        return fetch("http://localhost:3333/api/1.0.0/login", {
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        })
+        .then((response) => {
+            if(response.status === 200){
+                
+                return response.json()
+               
+            }else if(response.status === 400){
+                this.setState({errorMsg: "Invalid email or password"});
+                throw 'Invalid email or password';
+            }else if(response.status === 500){
+                this.setState({errorMsg: "Server Error! Please reload or try again later!"});
+                throw "Server Error! Please reload or try again later!";
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .then(async (responseJson) => {
+                console.log(responseJson);
+                await AsyncStorage.setItem('@session_token', responseJson.token);
+                await AsyncStorage.setItem('@user_id', responseJson.id);
+
+                this.props.navigation.navigate("SpaceBook");
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+    }
 
 
 
     render(){
         return (
-                <View>
+                <View accessible={true}>
                     
-                <SafeAreaView style={styles.loginForm}>
+                <SafeAreaView style={styles.loginForm} accessible={true}>
                     <Text style={styles.text}>
                         Please Login here:
                     </Text>
-                    <LoginForm />  
+                    <View accessible={true}>
+             
+                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                <form>
+                    <input
+                        id="email"
+                        type="email"
+                        onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.email}
+                        placeholder="Enter your email..."
+                    />
+                </form>
+                <form>
+                <input
+                        id="password"
+                        type="password"
+                        onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
+                        value={this.state.password}
+                        placeholder="Enter your password..."
+                    />
+                </form>
+              
+                <View style={styles.buttonContainer} accessible={true}>
+                    <Button
+                        title="Login"
+                        onPress={() => this.login()}
+                        accessibilityRole="button"
+                    />
+                </View>
+                <View style={styles.buttonContainer}>
+                    <Button
+                        title="Don't have an account?"
+                        color='#ef8354'
+                        onPress={() => this.props.navigation.navigate("Signup")}
+                        accessibilityRole="button"
+                    />
+                </View>
+             
+            </View> 
                 </SafeAreaView>
                 </View>
            

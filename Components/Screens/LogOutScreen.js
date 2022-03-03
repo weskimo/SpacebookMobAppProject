@@ -61,7 +61,7 @@ class HomeScreen extends Component{
 
     render(){
         return (
-            <ScrollView>
+            <ScrollView accessible={true}>
                 <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                 <Text 
                     style={{
@@ -86,11 +86,13 @@ class HomeScreen extends Component{
                     title="I'm outta here"
                     onPress={() => this.logout()}
                     color="#ef8354"
+                    accessibilityRole="button"
                 />
                 <Button
                     title="OK, take me home, country roads"
                     color="#ef8354"
                     onPress={() => this.props.navigation.navigate("Home")}
+                    accessibilityRole="button"
                 />
             </ScrollView>
         )

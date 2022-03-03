@@ -98,7 +98,7 @@ class FriendListScreen extends Component {
         );
       }else{
         return (
-          <View>
+          <View accessible={true}>
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <FlatList
                   data={this.state.listData}
@@ -117,19 +117,20 @@ class FriendListScreen extends Component {
                             
                           </SafeAreaView>
                         </SafeAreaView>
-                        <SafeAreaView style={styles.buttonsContainer}>
+                        <SafeAreaView style={styles.buttonsContainer} accessible={true}>
                           <Button 
                             title="Select User" 
                             onPress={() => {this.setState({friendsID: item.user_id}); }} 
                             color='#ef8354'
+                            accessibilityRole="button"
                           />
                           <Text> {this.state.friendsID}</Text>
                           <Button 
                             title="Go to profile" 
                             onPress={() => {
-                              this.setState({friendsID: item.user_id});
                               this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
                             color='#ef8354'
+                            accessibilityRole="button"
                           />
                           </SafeAreaView>
                       </View>

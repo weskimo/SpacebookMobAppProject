@@ -62,6 +62,7 @@ class cameraComponent extends Component {
           return(
             <View 
               style={styles.container}
+              accessible={true}
             >
               <Camera 
                 style={styles.camera} 

@@ -137,10 +137,10 @@ class editYourProfile extends Component {
             );
           }else{
             return (
-              <View>
+              <View accessible={true}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <View style={styles.pageContainer}>
-                    <View style={styles.textContainer}>
+                    <View style={styles.textContainer} accessible={true}>
                     <Text>First Name: {this.state.first_name}</Text>
                     <Text>Last Name: {this.state.last_name}</Text>
                     <Text>Email: {this.state.email}</Text>
@@ -178,6 +178,7 @@ class editYourProfile extends Component {
                         title="Change Details"
                         onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
                         color='#ef8354'
+                        accessibilityRole="button"
                     />
               </View>
               </View>
