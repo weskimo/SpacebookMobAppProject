@@ -12,6 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ProfilePostsList from '../Components/profilePostsList';
 import styles from '../StyleSheets/MyProfileStyles.js'
 import { Divider, useTheme } from 'react-native-elements';
+import SaveDrafts from './SaveDrafts.js';
 
 
 
@@ -446,6 +447,12 @@ class ProfileScreen extends Component {
                       <Button 
                         title="Make post" 
                         onPress={() => {this.makePost();}} 
+                        color="#ef8354"
+                        accessibilityRole="button"
+                      />
+                      <Button 
+                        title="Save Draft Posts" 
+                        onPress={() => {this.props.navigation.navigate("SaveDrafts")}} 
                         color="#ef8354"
                         accessibilityRole="button"
                       />

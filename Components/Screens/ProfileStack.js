@@ -11,6 +11,7 @@ import editPost from './editPosts';
 import cameraComponent from './cameraComponent';
 import editOnePost from './editOnePost';
 import editPosts from './editPosts';
+import SaveDrafts from './SaveDrafts';
 
 
 
@@ -48,6 +49,10 @@ class ProfileStack extends Component {
             <Stack.Screen 
                 name="Take picture" 
                 component={cameraComponent} 
+            />
+            <Stack.Screen
+                name="SaveDrafts"
+                component={SaveDrafts}
             />
         </Stack.Navigator>           
     )
