@@ -4,6 +4,7 @@ import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, Stat
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FriendListScreen from './FriendListScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../StyleSheets/NotificationScreenStyles.js'
 
 
 
@@ -173,24 +174,3 @@ class NotificationScreen extends Component {
 }
 }
 export default NotificationScreen;
-
-
-const styles = StyleSheet.create({
-
-  buttonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    borderColor: '#674AB3',
-    width: '100%',
-    marginVertical: 10,
-    marginHorizontal: 10
-  },
-  buttonColor: {
-    color: '#9075D8'
-  },
-  tinyLogo: {
-    width: 50,
-    height: 50,
-  },
-
-});  

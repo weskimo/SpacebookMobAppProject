@@ -4,6 +4,7 @@ import { ScrollView, TextInput, StyleSheet, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginForm from '../Components/loginForm';
 import { View } from 'react-native-web';
+import styles from '../StyleSheets/LoginScreenStyles.js';
 
 class LoginScreen extends Component{
     constructor(props){
@@ -35,21 +36,3 @@ class LoginScreen extends Component{
 }
 
 export default LoginScreen;
-
-const styles = StyleSheet.create({
-    loginForm: {
-        
-        alignSelf: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 100
-    },
-
-    text: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginVertical: 10
-    }
-    
-})

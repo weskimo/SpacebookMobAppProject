@@ -3,7 +3,7 @@ import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView
 import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
-
+import styles from '../StyleSheets/FriendsProfileStyles.js';
 
 
 
@@ -376,67 +376,3 @@ class FriendsProfile extends Component {
 }
 }
 export default FriendsProfile;
-
-
-const styles = StyleSheet.create({
-    contentView: {
-      flex: 1,
-    },
-    buttonsContainer: {
-      flexDirection: 'row',
-      borderColor: '#001d3d',
-      justifyContent: 'space-around',
-      
-      width: '100%',
-      marginVertical: 10,
-      marginHorizontal: 10
-    },
-    postContainer: {
-      backgroundColor: `#FFFFFF` , 
-      borderWidth: 5,
-      borderColor: '#001d3d'
-    },
-  
-    profileContainer: {
-      backgroundColor: `#FFFFFF` , 
-      borderWidth: 5,
-      borderColor: '#001d3d'
-      
-    },
-  
-    buttonColor: {
-      color: '#9075D8'
-    },
-  
-    profileInfo: {
-      fontSize: 15,
-      fontWeight: "bold",
-      
-    },
-  
-    postText: {
-      fontSize: 15,
-      marginHorizontal: 10,
-      marginVertical: 20
-    },
-    tinyLogo: {
-      width: 50,
-      height: 50,
-    },
-    infoContainer: {
-      flexDirection: 'row',
-      marginVertical: 10,
-      marginHorizontal: 10
-    },
-    postAuthorContainer: {
-      flexDirection: 'row',
-      marginVertical: 10,
-      marginHorizontal: 10,
-      alignItems: 'center'
-    },
-  likesText: {
-    fontSize: 15,
-      fontWeight: "bold",
-      marginHorizontal: 10
-  }
-  });  

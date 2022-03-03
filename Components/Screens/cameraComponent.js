@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Camera } from 'expo-camera';
 import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../StyleSheets/cameraComponentStyles.js';
 
 
 class cameraComponent extends Component {
@@ -96,27 +97,3 @@ class cameraComponent extends Component {
       }
     }
 export default cameraComponent;
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-    },
-    camera: {
-      flex: 1,
-    },
-    buttonContainer: {
-      flex: 1,
-      backgroundColor: 'transparent',
-      flexDirection: 'row',
-      margin: 20,
-    },
-    button: {
-      flex: 0.1,
-      alignSelf: 'flex-end',
-      alignItems: 'center',
-    },
-    text: {
-      fontSize: 18,
-      color: 'white',
-    },
-  });

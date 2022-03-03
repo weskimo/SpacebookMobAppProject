@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {Component} from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
+import styles from '../StyleSheets/EditProfileStyles.js';
 
 
 
@@ -188,16 +189,3 @@ class editYourProfile extends Component {
 
 export default editYourProfile;
 
-const styles = StyleSheet.create({
-  pageContainer: {
-    backgroundColor: `#ffffff` , 
-    borderWidth: 5,
-    borderColor: '#001d3d',
-    
-  },
-
-  textContainer: {
-    marginHorizontal: 10,
-    marginVertical: 5
-  }
-});

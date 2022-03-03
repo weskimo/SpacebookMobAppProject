@@ -34,7 +34,7 @@ class FriendsListStack extends Component {
                     <Stack.Screen 
                         name="MyFriend's Profile" 
                         component={FriendsProfile} 
-                        options={{headerShown: false}}
+                        
                     />
         </Stack.Navigator>
                    

@@ -3,7 +3,7 @@ import { Button,  Text  } from 'react-native';
 import { ScrollView, TextInput, StyleSheet, SafeAreaView, View} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ValidationComponent from 'react-simple-form-validator';
-
+import styles from '../StyleSheets/LoginFormStyles.js'
 
 
 
@@ -122,10 +122,3 @@ class LoginForm extends ValidationComponent{
 }
 
 export default LoginForm;
-
-const styles = StyleSheet.create({
-    buttonContainer: {
-        marginVertical: 10
-    }
-    
-})
