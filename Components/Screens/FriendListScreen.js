@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, FlatList, SafeAreaView, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import { View, Text, Button, FlatList, SafeAreaView, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../StyleSheets/FriendListScreenStyles.js';
 
@@ -17,6 +17,8 @@ class FriendListScreen extends Component {
       listData: [],
       requestId: '',
       friendsID: '',
+      nameToSearch: '',
+      tempName: ''
     }
 
   }
@@ -65,6 +67,40 @@ class FriendListScreen extends Component {
             console.log(error);
         })
   }
+  searchForName = async () => {
+    const value = await AsyncStorage.getItem('@session_token');
+    const nameToSearchFor = this.state.nameToSearch;
+    return fetch("http://localhost:3333/api/1.0.0/search?q=" + nameToSearchFor + "&search_in=friends", {
+          'headers': {
+            'X-Authorization':  value
+          }
+        })
+        .then((response) => {
+            if(response.status === 200){
+                this.setState({errorMsg: ''})
+                return response.json()
+            }else if(response.status === 400){
+                this.setState({errorMsg: 'Bad Request, Please reload or try again later.'})
+                throw '500 server error'
+            }else if(response.status === 401){
+              this.props.navigation.navigate("Login");
+            }else if(response.status === 500){
+              this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
+              throw '500 server error'
+            }else{
+                throw 'Something went wrong';
+            }
+        })
+        .then((responseJson) => {
+          this.setState({
+            isLoading: false,
+            listData: responseJson
+          })
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+  }
 
 
   setFriendsId = async () => {
@@ -78,6 +114,20 @@ class FriendListScreen extends Component {
     
 
   }
+
+  searchName = async () => {
+    let tempName = this.state.tempName;
+    this.setState({
+        nameToSearch: tempName
+    })
+    this.searchForName();
+}
+
+
+  
+
+
+
 
 
   
@@ -100,6 +150,21 @@ class FriendListScreen extends Component {
         return (
           <View accessible={true} accessibilityLabel="Friend List">
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+            <TextInput
+                        placeholder="Search for friend with name..."
+                        onChangeText={ value => this.setState({tempName: value})}
+                        value={this.state.tempName}
+                        style={{padding:5, borderWidth:1, margin:5}}
+                        maxLength={200}
+                      />
+            <Button 
+                            title="Search" 
+                            onPress={() => {
+                              this.searchName();
+                              }}
+                            color='#ef8354'
+                            accessibilityRole="button"
+                          />
             <Button 
                             title="Go to Selected Friend's profile" 
                             onPress={() => {
@@ -128,7 +193,7 @@ class FriendListScreen extends Component {
                           <Button 
                             title="Select User" 
                             onPress={() => {this.setState({friendsID: item.user_id}); 
-                            this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
+                            }} 
                             color='#ef8354'
                             accessibilityRole="button"
                             

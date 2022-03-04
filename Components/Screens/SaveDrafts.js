@@ -17,12 +17,15 @@ class SaveDrafts extends Component {
           first_Name: '',
           last_Name: '',
           text: '',
-          tempPost1: '',
+          tempPost: '',
           listData: [],
           post_Id: 0, 
           postLikes: 0,
           photo: null,
-          errorMsg: "",
+          errorMsg: '',
+          loadedMsg: '',
+
+
           timeItem1: "",
           timeItem2: 0,
           timeItem3: 0,
@@ -43,15 +46,15 @@ class SaveDrafts extends Component {
 
     scheduleTime = () => {
         //Format July 20, 69 20:17:40 GMT+00:00
-        let tempTime1 = this.state.tempTime1;
+        let tempTime = this.state.tempTime;
         const postTime = new Date().getTime();
         this.setState({timeNow: postTime});
 
         this.setState({
-            tempTime1: tempTime1
+            tempTime: tempTime
         })
 
-        const date = new Date({tempTime1})
+        const date = new Date({tempTime})
         const milliseconds = date.getTime();
 
         const timeTillPost = postTime - milliseconds;
@@ -59,17 +62,68 @@ class SaveDrafts extends Component {
         this.setState({timeTillPost: timeTillPost});
     }
 
-   
+    setPostMessage = () => {
+        let tempPost = this.state.tempPost;
+        this.setState({
+            text: tempPost
+        })
+    }
 
     saveDraft = async () => {
         await AsyncStorage.setItem('@savedPost1', this.state.text);
-    }
-    setPostMessage = () => {
-        let tempPost1 = this.state.tempPost1;
-        this.setState({
-            text: tempPost1
-        })
-    }
+    }    
+
+    makePost = async () => {
+        
+        // between 1-320 characters
+        if (this.state.text.length < 1 || this.state.text.length > 320) {
+              this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
+        } else {
+        const savedPost = await AsyncStorage.getItem('@savedPost1');
+        const value = await AsyncStorage.getItem('@session_token');
+        const id = await AsyncStorage.getItem('@user_id');
+        this.setState({loadedMsg: savedPost})
+        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post" , {
+           method: 'post',
+           headers: {
+                'X-Authorization':  value ,
+                'Content-Type': 'application/json' 
+
+              },
+              body: JSON.stringify({
+                text: this.state.loadedMsg
+            })
+            
+                
+            
+            })
+            .then((response) => {
+                if(response.status === 201){
+                    
+                    this.setState({errorMsg: ""});
+                  }else if(response.status === 401){
+                    this.setState({errorMsg: "Unauthorized"})
+                    this.props.navigation.navigate("Login");
+                    throw '401 Unauthorized in addpost';
+                  }else if (response.status === 404){  
+                    this.setState({errorMsg: "User not found?!"})
+                    throw '404 in add post'
+                  }else if (response.status === 500){  
+                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    throw '500 in add post'
+                }else{
+                    throw 'Something went wrong';
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+          }
+      }
+      
+
+
+
 
     render() {
         const navigation = this.props.navigation; 
@@ -80,8 +134,8 @@ class SaveDrafts extends Component {
                 <Text> Save Drafts Here:</Text>
                 <TextInput
                         placeholder="Write you post here.."
-                        onChangeText={ value => this.setState({tempPost1: value})}
-                        value={this.state.tempPost1}
+                        onChangeText={ value => this.setState({tempPost: value})}
+                        value={this.state.tempPost}
                         style={{padding:5, borderWidth:1, margin:5}}
                         maxLength={200}
                       />
@@ -95,18 +149,26 @@ class SaveDrafts extends Component {
                       />
                       <Text>{}</Text>
                       <Button 
+                        title="Confirm" 
+                        onPress={() => {this.setPostMessage();}} 
+                        color="#ef8354"
+                        accessibilityRole="button"
+                      />
+                      
+                      <Button 
+                        title="Save Draft Post" 
+                        onPress={() => { this.saveDraft();}} 
+                        color="#ef8354"
+                        accessibilityRole="button"
+                      />
+
+                    <Button 
                         title="Make post" 
                         onPress={() => {this.makePost();}} 
                         color="#ef8354"
                         accessibilityRole="button"
                       />
-                      <Button 
-                        title="Save Draft Post" 
-                        onPress={() => {this.setPostMessage(); this.saveDraft();this.getDateTimeNow();this.scheduleTime();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                      <Text>{this.state.timeTillPost}</Text>
+                      <Text>{this.state.text}</Text>
             </SafeAreaView>
 
         );
