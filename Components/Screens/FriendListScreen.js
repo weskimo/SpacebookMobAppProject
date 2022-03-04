@@ -74,7 +74,7 @@ class FriendListScreen extends Component {
   }
 
   clickOnProfile = async () => {
-    await AsyncStorage.setItem('@friendsID', this.state.friendsID);
+    this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});
     
 
   }
@@ -100,6 +100,13 @@ class FriendListScreen extends Component {
         return (
           <View accessible={true} accessibilityLabel="Friend List">
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+            <Button 
+                            title="Go to Selected Friend's profile" 
+                            onPress={() => {
+                              this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
+                            color='#ef8354'
+                            accessibilityRole="button"
+                          />
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 
@@ -120,19 +127,14 @@ class FriendListScreen extends Component {
                         <SafeAreaView style={styles.buttonsContainer} accessible={true}>
                           <Button 
                             title="Select User" 
-                            onPress={() => {this.setState({friendsID: item.user_id}); }} 
+                            onPress={() => {this.setState({friendsID: item.user_id}); 
+                            this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
                             color='#ef8354'
                             accessibilityRole="button"
                             
                           />
                           <Text> {this.state.friendsID}</Text>
-                          <Button 
-                            title="Go to profile" 
-                            onPress={() => {
-                              this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
-                            color='#ef8354'
-                            accessibilityRole="button"
-                          />
+                          
                           </SafeAreaView>
                       </View>
                   )}

@@ -17,7 +17,7 @@ class FriendsProfile extends Component {
     
         this.state = {
           isLoading: true,
-          userId: props.route.params,
+          userId: '',
           first_Name: '',
           last_name: '',
           text: '',
@@ -100,6 +100,7 @@ class FriendsProfile extends Component {
  
     componentDidMount(){
       this.unsubscribe = this.props.navigation.addListener('focus', () => {  
+        this.setState({userId: JSON.stringify(this.props.route.params.friendID)})
         this.getProfileData();
         this.getPosts();
         this.get_profile_image();

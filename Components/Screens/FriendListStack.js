@@ -24,12 +24,19 @@ class FriendsListStack extends Component {
     const navigation = this.props.navigation;
     return (
        
-        <Stack.Navigator initialRouteName='Profile'>
+        <Stack.Navigator initialRouteName='Profile'>  
+        
+                 
                     
                     <Stack.Screen 
                         name="FriendList" 
                         component={FriendListScreen} 
                         options={{headerShown: false}}
+                    />
+                    <Stack.Screen 
+                        name="MyFriend's Profile" 
+                        component={FriendsProfile} 
+                        
                     />
                   
         </Stack.Navigator>
