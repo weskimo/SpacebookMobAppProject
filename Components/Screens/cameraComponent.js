@@ -12,7 +12,8 @@ class cameraComponent extends Component {
 
         this.state = {
             hasPermission: null,
-            type: Camera.Constants.Type.back
+            type: Camera.Constants.Type.back,
+            errorMsg: ''
         }
     }
 
@@ -36,7 +37,21 @@ class cameraComponent extends Component {
                 "X-Authorization": token
             },
             body: blob
-        })
+        }).then((response) => {
+          if(response.status === 200){
+              this.setState({errorMsg: "Your Picture Has Been Successfully Changed!"})
+          }else if (response.status === 400){  
+          this.setState({errorMsg: "Bad request Error, Please Try again!"})
+          }else if(response.status === 401){
+            this.props.navigation.navigate("Login");
+          }else if (response.status === 404){  
+            this.setState({errorMsg: "Post Not found?!"})
+          }else if (response.status === 500){  
+            this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+          }else{
+              throw 'Something went wrong';
+          }
+      })
         .then((response) => {
             console.log("Picture added", response);
         })
@@ -65,6 +80,8 @@ class cameraComponent extends Component {
               accessible={true}
               accessibilityLabel="Camera Screen"
             >
+              <View><Text style={{color: 'red'}}>{this.state.errorMsg}</Text></View>
+              
               <Camera 
                 style={styles.camera} 
                 type={this.state.type}

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Button,  Text  } from 'react-native';
-import { ScrollView, TextInput, StyleSheet, SafeAreaView} from 'react-native';
+import {  Text  } from 'react-native';
+import { ScrollView, TextInput, StyleSheet, SafeAreaView, Image} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LoginForm from '../Components/loginForm';
 import { View } from 'react-native-web';
 import styles from '../StyleSheets/LoginScreenStyles.js';
 import ValidationComponent from 'react-simple-form-validator';
+import { Button } from 'react-native-elements';
 
 class LoginScreen extends ValidationComponent{
     constructor(props){
@@ -80,12 +81,18 @@ class LoginScreen extends ValidationComponent{
                 <View accessible={true} accessibilityLabel="Login Screen and Form">
                     
                 <SafeAreaView style={styles.loginForm} accessible={true}>
+                <View >
+                    <Image 
+                    style={styles.tinyLogo}
+                    source={{uri: require('../pics/spacebooklogo.png')}} />
+                </View>    
                     <Text style={styles.text}>
                         Please Login here:
                     </Text>
                     <View accessible={true}>
              
                 <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                <SafeAreaView style={styles.loginForm}>
                 <form>
                     <input
                         id="email"
@@ -95,6 +102,8 @@ class LoginScreen extends ValidationComponent{
                         placeholder="Enter your email..."
                     />
                 </form>
+                </SafeAreaView>
+                <SafeAreaView style={styles.loginForm}>
                 <form>
                 <input
                         id="password"
@@ -104,14 +113,30 @@ class LoginScreen extends ValidationComponent{
                         placeholder="Enter your password..."
                     />
                 </form>
-              
-                <View style={styles.buttonContainer} accessible={true}>
-                    <Button
-                        title="Login"
-                        onPress={() => this.login()}
-                        accessibilityRole="button"
-                    />
+                </SafeAreaView>
+                <View style={styles.buttonsContainer}>
+                        <Button
+                            title="LOG IN"
+                            onPress={() => this.login()}
+                            buttonStyle={{
+                            backgroundColor: 'black',
+                            borderWidth: 2,
+                            borderColor: 'white',
+                            borderRadius: 30,
+                            
+                            }
+                        }
+                            containerStyle={{
+                            width: 200,
+                            marginHorizontal: 50,
+                            marginVertical: 10,
+                            
+                            }}
+                            titleStyle={{ fontWeight: 'bold' }}
+                        />
                 </View>
+              
+                
                 <View style={styles.buttonContainer}>
                     <Button
                         title="Don't have an account?"

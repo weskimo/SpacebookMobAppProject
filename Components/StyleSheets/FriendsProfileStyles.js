@@ -42,9 +42,9 @@ export default StyleSheet.create({
         marginHorizontal: 10,
         marginVertical: 20
       },
-      tinyLogo: {
-        width: 50,
-        height: 50,
+      profPic: {
+        width: 100,
+      height: 100,
       },
       infoContainer: {
         flexDirection: 'row',
@@ -58,7 +58,7 @@ export default StyleSheet.create({
         alignItems: 'center'
       },
     likesText: {
-      fontSize: 15,
+        fontSize: 15,
         fontWeight: "bold",
         marginHorizontal: 10
     }

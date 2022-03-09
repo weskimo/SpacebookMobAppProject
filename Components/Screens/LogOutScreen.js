@@ -71,27 +71,19 @@ class HomeScreen extends Component{
                             margin:5
                             }}
                 >
-                    If you leave me now, you'll take away the biggest part of me...
+                    Are you sure you want to Log out?
                 </Text>
-                <Text 
-                    style={{
-                            fontSize:18, 
-                            fontWeight:'bold', 
-                            padding:5, 
-                            margin:5}}
-                >
-                     ...Oooooohh, baby please don't go!
-                </Text>
+               
                 <Button
-                    title="I'm outta here"
+                    title="Yes, Log me out"
                     onPress={() => this.logout()}
                     color="#ef8354"
                     accessibilityRole="button"
                 />
                 <Button
-                    title="OK, take me home, country roads"
+                    title="Back to your profile"
                     color="#ef8354"
-                    onPress={() => this.props.navigation.navigate("Home")}
+                    onPress={() => this.props.navigation.navigate("SpaceBook")}
                     accessibilityRole="button"
                 />
             </ScrollView>

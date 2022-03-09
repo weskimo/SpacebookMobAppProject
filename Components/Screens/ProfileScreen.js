@@ -311,12 +311,12 @@ class ProfileScreen extends Component {
             })
       }
       addPost = async () => {
-        // between 1-320 characters
-        if (this.state.text.length < 1 || this.state.text.length > 320) {
-              this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
-        } else {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
+        const getState = this.state.text;
+        if (getState.length < 1 || getState.length > 320) {
+          this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
+        }else {
         return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post" , {
            method: 'post',
            headers: {
@@ -351,12 +351,11 @@ class ProfileScreen extends Component {
             .catch((error) => {
                 console.log(error);
             })
-          }
+          } 
       }
       makePost = () => {
         this.changePost();
         this.addPost();
-        
     }
 
     changePost = () => {
@@ -438,11 +437,11 @@ class ProfileScreen extends Component {
                       <SafeAreaView accessible={true}>
                     <View style={styles.postContainer}>
                       <TextInput
-                        placeholder="Write you post here.."
-                        onChangeText={ value => this.setState({tempPost: value})}
-                        value={this.state.tempPost}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                        maxLength={200}
+                      placeholder="Write you post here.."
+                      onChangeText={ value => this.setState({tempPost: value})}
+                      value={this.state.tempPost}
+                      style={{padding:5, borderWidth:1, margin:5}}
+                      maxLength={200}
                       />
                       <Button 
                         title="Make post" 

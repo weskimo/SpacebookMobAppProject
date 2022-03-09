@@ -75,10 +75,7 @@ class SaveDrafts extends Component {
 
     makePost = async () => {
         
-        // between 1-320 characters
-        if (this.state.text.length < 1 || this.state.text.length > 320) {
-              this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
-        } else {
+        
         const savedPost = await AsyncStorage.getItem('@savedPost1');
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
@@ -118,7 +115,7 @@ class SaveDrafts extends Component {
             .catch((error) => {
                 console.log(error);
             })
-          }
+          
       }
       
 

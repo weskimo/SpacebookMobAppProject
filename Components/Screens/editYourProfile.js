@@ -101,7 +101,7 @@ class editYourProfile extends Component {
             })
             .then((response) => {
               if(response.status === 200){
-                  
+                  this.setState({errorMsg: "Your details have been successfully changed!"})
                   return response.json()
               }else if(response.status === 400){
                 this.setState({errorMsg: "Bad Request"})

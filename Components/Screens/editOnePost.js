@@ -172,7 +172,7 @@ class editOnePost extends Component {
                             <Text> {this.state.text}</Text>
                         </View>
                         <View style={styles.likeAndPostId}>
-                            <Text style={styles.nameInfo}>Likes: {this.state.postLikes}</Text>
+                            
                             <Text style={styles.nameInfo}>Post ID: {this.state.post_Id}</Text>
                         </View>
                         <Divider/>
@@ -186,14 +186,14 @@ class editOnePost extends Component {
                        
                         <View accessible={true}>
                             <Button 
-                                title='Change Post' 
+                                title='Edit Post' 
                                 onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
                                 color='#ef8354'
                                 accessibilityRole="button"
                             />
 
                             <Button 
-                                title='Patch Post' 
+                                title='CONFIRM EDIT Post' 
                                 onPress={() => {this.patchPost();}} 
                                 color='#ef8354'
                                 accessibilityRole="button"

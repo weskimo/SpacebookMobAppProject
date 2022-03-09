@@ -8,7 +8,8 @@ export default StyleSheet.create({
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
-        marginVertical: 100
+        marginVertical: 5
+        
     },
 
     text: {
@@ -19,7 +20,20 @@ export default StyleSheet.create({
 
     buttonContainer: {
         marginVertical: 10
-    }
+    },
+
+    subHeader: {
+        backgroundColor : "#2089dc",
+        color : "white",
+        textAlign : "center",
+        paddingVertical : 5,
+        marginBottom : 10
+      },
+      
+      tinyLogo: {
+        width: 300,
+        height: 300,
+      },
     
     
 });

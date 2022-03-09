@@ -7,7 +7,8 @@ import styles from '../StyleSheets/FriendsProfileStyles.js';
 import FriendListScreen from './FriendListScreen.js';
 
 
-
+// function that takes a param of a list, then for each list element stores the profile id into an array. 
+// then loop that array and for each id, pass it to a function that gets the profile pictures which accepts a param of the user id.
 
 
 class FriendsProfile extends Component {
@@ -31,6 +32,33 @@ class FriendsProfile extends Component {
           
           
         }
+      }
+
+      
+
+      get_profile_image_Posts = async (userID) => {
+        const token = await AsyncStorage.getItem('@session_token');
+        const friendsID = userID;
+          
+        fetch("http://localhost:3333/api/1.0.0/user/" + friendsID +"/photo", {
+          method: 'GET',
+          headers: {
+            'X-Authorization': token
+          }
+        })
+        .then((res) => {
+          return res.blob();
+        })
+        .then((resBlob) => {
+          let data = URL.createObjectURL(resBlob);
+          this.setState({
+            photo: data,
+            isLoading: false
+          });
+        })
+        .catch((err) => {
+          console.log("error", err)
+        });
       }
       
 
@@ -215,7 +243,7 @@ class FriendsProfile extends Component {
 
     likePost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
+        const id = this.state.userId
         const postID = this.state.post_Id;
         return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
            method: 'post',
@@ -250,7 +278,7 @@ class FriendsProfile extends Component {
 
       unlikePost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
-        const id = await AsyncStorage.getItem('@friendsID');
+        const id = this.state.userId
         const postID = this.state.post_Id;
         return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
            method: 'delete',
@@ -300,7 +328,7 @@ class FriendsProfile extends Component {
                   <SafeAreaView style={styles.infoContainer} accessible={true}>
                     <Image
                         source={{uri: this.state.photo}}
-                        style={styles.tinyLogo}
+                        style={styles.profPic}
                     />
                     <SafeAreaView accessible={true}>
                       <Text style={styles.postText}>
