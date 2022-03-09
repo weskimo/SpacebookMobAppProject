@@ -216,7 +216,7 @@ class editPosts extends Component {
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={styles.postContainer} accessible={true}>
+                            <View style={styles.postContainer} accessible={true} accessibilityLabel="Post Element">
                               <SafeAreaView style={styles.postAuthorContainer}>
                               <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                                 <Text style={styles.profileInfo}>
@@ -241,20 +241,11 @@ class editPosts extends Component {
                                 <SafeAreaView style={styles.buttonContainerEdit}>
                                 
                                 <Button 
-                                  title='Select Post' 
-                                  onPress={ () => {this.setState({post_Id: item.post_id}); this.setPostId()}}
+                                  title="View Post" 
+                                  onPress={() => this.props.navigation.navigate("Edit Post", {postID: item.post_id})} 
                                   color='#ef8354'
                                   accessibilityRole="button"
-                                /> 
-                                
-                                
-                              
-                                <Button 
-                                  title='View Post' 
-                                  onPress={() => {this.props.navigation.navigate("Edit Post")}}
-                                  color='#ef8354'
-                                  accessibilityRole="button"
-                                /> 
+                                />
                                 </SafeAreaView>
                             </View>
                         )}

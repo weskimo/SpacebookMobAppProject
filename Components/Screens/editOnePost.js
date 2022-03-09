@@ -28,7 +28,7 @@ class editOnePost extends Component {
           text: '',
           tempPost: '',
           listData: [],
-          post_Id: 0, 
+          post_Id: '', 
           postLikes: 0,
           errorMsg: ''
          
@@ -42,7 +42,7 @@ class editOnePost extends Component {
       getPost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
-        const postId = await AsyncStorage.getItem('@post_id');
+        const postId = this.state.post_Id;
         
         return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post/" + postId, {
               'headers': {
@@ -83,7 +83,7 @@ class editOnePost extends Component {
 
       
     componentDidMount = async () => {
-       
+        this.setState({post_Id: JSON.stringify(this.props.route.params.postID)})
         this.getPost();
         
         
@@ -162,7 +162,7 @@ class editOnePost extends Component {
         }else{
             return (
                 <ScrollView style={styles.pageContainer} accessible={true}>
-                    <SafeAreaView style={styles.postContainer} accessible={true}>
+                    <SafeAreaView style={styles.postContainer} accessible={true} accessibilityLabel="Post Element">
                         <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                         <View>
                             <Text style={styles.nameInfo}>{this.state.first_Name} {this.state.last_name} says: </Text>

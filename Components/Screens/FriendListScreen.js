@@ -165,13 +165,6 @@ class FriendListScreen extends Component {
                             color='#ef8354'
                             accessibilityRole="button"
                           />
-            <Button 
-                            title="Go to Selected Friend's profile" 
-                            onPress={() => {
-                              this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});}} 
-                            color='#ef8354'
-                            accessibilityRole="button"
-                          />
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 
@@ -190,13 +183,12 @@ class FriendListScreen extends Component {
                           </SafeAreaView>
                         </SafeAreaView>
                         <SafeAreaView style={styles.buttonsContainer} accessible={true}>
+                          
                           <Button 
-                            title="Select User" 
-                            onPress={() => {this.setState({friendsID: item.user_id}); 
-                            }} 
+                            title="Go to Friend's profile" 
+                            onPress={() => this.props.navigation.navigate("MyFriend's Profile", {friendID: item.user_id})} 
                             color='#ef8354'
                             accessibilityRole="button"
-                            
                           />
                           <Text> {this.state.friendsID}</Text>
                           
