@@ -1,6 +1,7 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
+  
   pageContainer: {
     backgroundColor: `#ffffff` , 
     borderWidth: 5,

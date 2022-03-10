@@ -1,18 +1,16 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-    contentView: {
-      flex: 1,
-    },
+
     buttonsContainer: {
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
       borderColor: '#674AB3',
-  
       width: '100%',
       marginVertical: 10,
     },
+
     postContainer: {
       backgroundColor: `#FFFFFF` , 
       borderWidth: 5,
@@ -28,20 +26,24 @@ export default StyleSheet.create({
     buttonColor: {
       color: '#9075D8'
     },
+
     profileInfo: {
       fontSize: 15,
       fontWeight: "bold",
       marginHorizontal: 10
     },
+
     tinyLogo: {
       width: 50,
       height: 50,
     },
+
     infoContainer: {
       flexDirection: 'row',
       marginVertical: 10,
       marginHorizontal: 10
     },
+    
     loading: {
       flex: 1,
       flexDirection: "column",

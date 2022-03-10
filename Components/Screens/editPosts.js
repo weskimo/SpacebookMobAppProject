@@ -211,43 +211,45 @@ class EditPosts extends Component {
                     <FlatList
                         data={this.state.listData}
                         renderItem={({item}) => (
-                            <View style={styles.postContainer} accessible={true} accessibilityLabel="Post Element">
+                            <View 
+                              style={styles.postContainer} 
+                              accessible={true} 
+                              accessibilityLabel="Post Element">
                               <SafeAreaView style={styles.postAuthorContainer}>
-                              <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
-                                <Text style={styles.profileInfo}>
-                                  {item.author.first_name} {item.author.last_name} says: </Text>
+                              <Text style={{color: "red"}}>
+                                {this.state.errorMsg}
+                              </Text>
+                              <Text style={styles.profileInfo}>
+                                  {item.author.first_name} {item.author.last_name} says: 
+                              </Text>
                               </SafeAreaView>
                                 <Divider />
                                 <Text style={styles.postText}>
                                 {item.text}
                                 </Text>
-                                
                                 <View style={styles.likeAndPostIDContainerEdit}>
-                                <Text style={styles.postText}>
-                                  Likes: {item.numLikes}
-                                </Text> 
-                                <Text style={styles.postText}>
-                                  Post Id: {item.post_id}
-                                </Text>
+                                  <Text style={styles.postText}>
+                                    Likes: {item.numLikes}
+                                  </Text> 
+                                  <Text style={styles.postText}>
+                                    Post Id: {item.post_id}
+                                  </Text>
                                 </View>
                                 <Divider />
-                                
-                               
                                 <SafeAreaView style={styles.buttonContainerEdit}>
-                                
-                                <Button 
-                                  title="View Post" 
-                                  onPress={() => this.props.navigation.navigate("Edit Post", {postID: item.post_id})} 
-                                  color="#ef8354"
-                                  accessibilityRole="button"
-                                />
+                                  <Button 
+                                    title="View Post" 
+                                    onPress={() => this.props.navigation.navigate("Edit Post", {postID: item.post_id})} 
+                                    color="#ef8354"
+                                    accessibilityRole="button"
+                                  />
                                 </SafeAreaView>
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
                         />        
                 </SafeAreaView>
-                </ScrollView>
+              </ScrollView>
             )
     } 
 }

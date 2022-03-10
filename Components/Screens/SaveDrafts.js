@@ -21,7 +21,6 @@ class SaveDrafts extends Component {
           errorMsg: '',
           loadedMsg: '',
 
-
           timeItem1: '',
           timeItem2: 0,
           timeItem3: 0,
@@ -77,8 +76,7 @@ class SaveDrafts extends Component {
       await AsyncStorage.setItem('savedPost1',this.state.text);
     }
 
-    makePost = async () => {
-        
+    makePost = async () => {    
         
         const savedPost = await AsyncStorage.getItem('@savedPost1');
         const value = await AsyncStorage.getItem('@session_token');
@@ -94,9 +92,6 @@ class SaveDrafts extends Component {
               body: JSON.stringify({
                 text: this.state.loadedMsg
             })
-            
-                
-            
             })
             .then((response) => {
                 if(response.status === 201){
@@ -118,77 +113,68 @@ class SaveDrafts extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
-          
+            }) 
       }
-      
-
-
-
 
     render() {
         const navigation = this.props.navigation; 
         return (
 
-
             <SafeAreaView>
                 <Text> Save Drafts Here:</Text>
                 <TextInput
-                        placeholder="Write you post here.."
-                        onChangeText={ value => this.setState({tempPost: value})}
-                        value={this.state.tempPost}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                        maxLength={200}
-                      />
+                  placeholder="Write you post here.."
+                  onChangeText={ value => this.setState({tempPost: value})}
+                  value={this.state.tempPost}
+                  style={{padding:5, borderWidth:1, margin:5}}
+                  maxLength={200}
+                />
 
                 <TextInput
-                        placeholder="Write time to post at like: 'July 20, 69 20:17:40 GMT+00:00' "
-                        onChangeText={ value => this.setState({tempTime1: value})}
-                        value={this.state.tempTime1}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                        maxLength={200}
-                      />
-                      <Text>{}</Text>
-                      <Button 
-                        title="Confirm" 
-                        onPress={() => {this.setPostMessage();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
+                  placeholder="Write time to post at like: 'July 20, 69 20:17:40 GMT+00:00' "
+                  onChangeText={ value => this.setState({tempTime1: value})}
+                  value={this.state.tempTime1}
+                  style={{padding:5, borderWidth:1, margin:5}}
+                  maxLength={200}
+                />
+                <Text>{}</Text>
+                <Button 
+                  title="Confirm" 
+                  onPress={() => {this.setPostMessage();}} 
+                  color="#ef8354"
+                  accessibilityRole="button"
+                />
                       
-                      <Button 
-                        title="Save Draft Post" 
-                        onPress={() => { this.saveDraft();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
+                <Button 
+                  title="Save Draft Post" 
+                  onPress={() => { this.saveDraft();}} 
+                  color="#ef8354"
+                  accessibilityRole="button"
+                />
 
-                      <Button 
-                        title="Make post" 
-                        onPress={() => {this.makePost();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                      <Button 
-                        title="Delete Saved Post" 
-                        onPress={() => {this.deletePost();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                      <Button 
-                        title="Edit Saved Post" 
-                        onPress={() => {this.editPost();}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                      <Text>Save this post for later:</Text>
-                      <Text>{this.state.text}</Text>
+                <Button 
+                  title="Make post" 
+                  onPress={() => {this.makePost();}} 
+                  color="#ef8354"
+                  accessibilityRole="button"
+                />
+                <Button 
+                  title="Delete Saved Post" 
+                  onPress={() => {this.deletePost();}} 
+                  color="#ef8354"
+                  accessibilityRole="button"
+                />
+                <Button 
+                  title="Edit Saved Post" 
+                  onPress={() => {this.editPost();}} 
+                  color="#ef8354"
+                  accessibilityRole="button"
+                />
+                <Text>Save this post for later:</Text>
+                <Text>{this.state.text}</Text>
             </SafeAreaView>
-
         );
     }
-
 }
-
 
 export default SaveDrafts;

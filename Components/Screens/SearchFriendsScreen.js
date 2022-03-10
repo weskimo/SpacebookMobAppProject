@@ -4,8 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../StyleSheets/SearchFriendsScreenStyles.js';
 
 
-
-
 class SearchFriendsScreen extends Component {
 
   constructor(props){
@@ -19,7 +17,6 @@ class SearchFriendsScreen extends Component {
       nameToSearch: '',
       tempName: ''
     }
-
   }
 
   componentDidMount() {
@@ -65,7 +62,6 @@ class SearchFriendsScreen extends Component {
             console.log(error);
         })
   }
-
 
   addFriend = async () => {
     const value = await AsyncStorage.getItem('@session_token');
@@ -141,10 +137,7 @@ class SearchFriendsScreen extends Component {
     })
     this.searchForName();
   }
-
     render(){
-       
-      
       if (this.state.isLoading){
         return (
           <View
@@ -162,26 +155,25 @@ class SearchFriendsScreen extends Component {
           <ScrollView styles={styles.profileContainer} accessible={true} accessibilityLabel="Find new Friends"> 
             <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
             <TextInput
-                        placeholder="Search for friend with name..."
-                        onChangeText={ value => this.setState({tempName: value})}
-                        value={this.state.tempName}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                        maxLength={200}
-                      />
+              placeholder="Search for friend with name..."
+              onChangeText={ value => this.setState({tempName: value})}
+              value={this.state.tempName}
+              style={{padding:5, borderWidth:1, margin:5}}
+              maxLength={200}
+            />
             <Button 
-                            title="Search" 
-                            onPress={() => {
-                              this.searchName();
-                              }}
-                            color="#ef8354"
-                            accessibilityRole="button"
-                          />
+              title="Search" 
+              onPress={() => {
+                this.searchName();
+              }}
+              color="#ef8354"
+              accessibilityRole="button"
+            />
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
                     <View style= {styles.profileContainer} accessible={true} accessibilityLabel="Possible Friend">
-                       <SafeAreaView style={styles.friendContainer}>
-                          
+                       <SafeAreaView style={styles.friendContainer}>                     
                           <SafeAreaView>
                           <Text style={styles.profileInfo}>
                             User ID: {item.user_id.toString()}
@@ -189,25 +181,21 @@ class SearchFriendsScreen extends Component {
                           <Text style={styles.profileInfo}>
                             Name: {item.user_givenname} {item.user_familyname}
                             </Text>
-                            
                           </SafeAreaView>
-                    
-                      <Button 
-                        title="Add" 
-                        onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                        </SafeAreaView>
-                    </View>
-                    
+                          <Button 
+                              title="Add" 
+                              onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
+                              color="#ef8354"
+                              accessibilityRole="button"
+                          />
+                      </SafeAreaView>
+                    </View> 
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
                 />
           </ScrollView>
         );
-      }
-      
+      } 
     }
   }
 export default SearchFriendsScreen;

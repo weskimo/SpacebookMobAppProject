@@ -146,7 +146,6 @@ class EditYourProfile extends Component {
                         <Text>First Name: {this.state.first_name}</Text>
                         <Text>Last Name: {this.state.last_name}</Text>
                         <Text>Email: {this.state.email}</Text>
-                    
                       </View>
                       <TextInput
                         placeholder="Enter your first name..."

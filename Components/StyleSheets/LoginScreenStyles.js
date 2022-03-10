@@ -2,14 +2,12 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
 
-    loginForm: {
-        
+    loginForm: { 
         alignSelf: 'center',
         alignContent: 'center',
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 5
-        
     },
 
     text: {

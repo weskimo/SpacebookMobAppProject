@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import styles from '../StyleSheets/FriendsProfileStyles.js';
 
-
 class FriendsProfile extends Component {
 
     constructor(props){
@@ -24,8 +23,6 @@ class FriendsProfile extends Component {
           errorMsg: ''
         }
       }
-
-      
 
       get_profile_image_Posts = async (userID) => {
         const token = await AsyncStorage.getItem('@session_token');
@@ -50,8 +47,7 @@ class FriendsProfile extends Component {
         .catch((err) => {
           console.log('error', err)
         });
-      }
-      
+      }     
 
       get_profile_image = async () => {
         const token = await AsyncStorage.getItem('@session_token');
@@ -123,8 +119,7 @@ class FriendsProfile extends Component {
         this.getProfileData();
         this.getPosts();
         this.get_profile_image();
-      });
-        
+      });     
     }
 
     getProfileData = async () => {
@@ -136,10 +131,8 @@ class FriendsProfile extends Component {
               },  
         })
         .then((response) => {
-          if(response.status === 200){
-                  
+          if(response.status === 200){       
             return response.json()
-           
           }else if(response.status === 401){
             this.setState({errorMsg: 'Unauthorized'})
             this.props.navigation.navigate('Login');
@@ -161,7 +154,6 @@ class FriendsProfile extends Component {
                 await AsyncStorage.setItem('@email', responseJson.email);
                 await AsyncStorage.setItem('@password', responseJson.password);
                 this.setState({
-                    
                     isLoading: false,
                     first_Name: responseJson.first_name,
                     last_Name: responseJson.last_name
@@ -188,9 +180,7 @@ class FriendsProfile extends Component {
               },
               body: JSON.stringify({
                 text: this.state.text
-            })
-                
-            
+            }) 
             })
             .then((response) => {
                 if(response.status === 201){
@@ -213,9 +203,7 @@ class FriendsProfile extends Component {
                 console.log(error);
             })
           }
-      }
-
-      
+      }    
 
       makePost = () => {
           this.changePost();
@@ -228,9 +216,6 @@ class FriendsProfile extends Component {
             text: tempPost
         })
     }
-
-
-
 
     likePost = async () => {
         const value = await AsyncStorage.getItem('@session_token');
@@ -276,13 +261,11 @@ class FriendsProfile extends Component {
            headers: {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
-
               },
             })
             .then((response) => {
                 if(response.status === 200){
-                    this.getPosts();
-                    
+                    this.getPosts();  
                   }else if(response.status === 401){
                     this.setState({errorMsg: 'Unauthorized'})
                     this.props.navigation.navigate('Login');
@@ -320,6 +303,7 @@ class FriendsProfile extends Component {
                     <Image
                         source={{uri: this.state.photo}}
                         style={styles.profPic}
+                        alt="The users profile picture"
                     />
                     <SafeAreaView accessible={true}>
                       <Text style={styles.postText}>

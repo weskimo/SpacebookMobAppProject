@@ -134,9 +134,9 @@ class NotificationScreen extends Component {
         <View
           style={{
             flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
           }}>
           <Text>Loading..</Text>
         </View>
@@ -144,7 +144,7 @@ class NotificationScreen extends Component {
     }else{
       return (
         <View accessible={true} accessibilityLabel="Notificatons appear here when you get them">
-          <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+          <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
           <FlatList
               data={this.state.listData}
               renderItem={({item}) => (

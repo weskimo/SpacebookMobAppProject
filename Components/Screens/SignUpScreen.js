@@ -6,7 +6,6 @@ import ValidationComponent from 'react-simple-form-validator';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 
 
-
 class SignupScreen extends ValidationComponent{
     constructor(props){
         super(props);
@@ -22,7 +21,7 @@ class SignupScreen extends ValidationComponent{
     }
 
     signup = () => {
-        //Validation here...
+        
         if(this.state.password.length <5) {
             this.setState({errorMsg: 'The password must be greater than 5 characters'})
         } else if(this.state.first_name.length <1){
@@ -61,85 +60,79 @@ class SignupScreen extends ValidationComponent{
     }
 }
 
-
     render(){
         return (
             <View style={styles.loginForm} accessible={true} accessibilityLabel="Sign Up Screen and form">
                     
-            <View style={styles.loginForm} accessible={true}>
-                <View>
-
-            </View>
-                <View >
-                    <Image 
-                    style={styles.logo}
-                    source={{uri: require('../pics/spacebooklogo.png')}} />
-                </View>  
-                <Text style={styles.text}>
-                    Sign-Up here:
-                </Text>
-                <SafeAreaView accessible={true}>
-                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                <View style={styles.signUpContainer}>
-                    <SafeAreaView style={styles.formContainer}> 
-                        <Text style={styles.formTitles}>First Name:</Text>
-                        <form>
-                            <input
-                                id="firstname"
-                                type="text"
-                                onChange={(fn) => this.validate({ first_name: fn.target.value, fieldRules: this.fieldRules })}
-                                value={this.state.first_name}
-                                placeholder="Enter your first name..."
+                <View style={styles.loginForm} accessible={true}>
+                    <View >
+                        <Image 
+                        style={styles.logo}
+                        source={{uri: require('../pics/spacebooklogo.png')}} />
+                    </View>  
+                    <Text style={styles.text}>
+                        Sign-Up here:
+                    </Text>
+                    <SafeAreaView accessible={true}>
+                        <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                        <View style={styles.signUpContainer}>
+                            <SafeAreaView style={styles.formContainer}> 
+                                <Text style={styles.formTitles}>First Name:</Text>
+                                <form>
+                                    <input
+                                        id="firstname"
+                                        type="text"
+                                        onChange={(fn) => this.validate({ first_name: fn.target.value, fieldRules: this.fieldRules })}
+                                        value={this.state.first_name}
+                                        placeholder="Enter your first name..."
+                                    />
+                                </form>
+                            </SafeAreaView>
+                            <SafeAreaView style={styles.formContainer}> 
+                                <Text style={styles.formTitles}>Family Name:</Text>
+                                <form>
+                                    <input
+                                        id="name"
+                                        type="text"
+                                        onChange={(ln) => this.validate({ last_name: ln.target.value, fieldRules: this.fieldRules })}
+                                        value={this.state.last_name}
+                                        placeholder="Enter your last name..."
+                                    />
+                                </form>
+                            </SafeAreaView>
+                            <SafeAreaView style={styles.formContainer}> 
+                                <Text style={styles.formTitles}>Email Address:</Text>
+                                <form>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
+                                        value={this.state.email}
+                                        placeholder="Enter your email..."
+                                    />
+                                </form>
+                            </SafeAreaView>
+                            <SafeAreaView style={styles.formContainer}> 
+                                <Text style={styles.formTitles}>Password:</Text>
+                                <form>
+                                    <input
+                                        id="password"
+                                        type="password"
+                                        onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
+                                        value={this.state.password}
+                                        placeholder="Create a Password..."
+                                    />
+                                </form>
+                            </SafeAreaView>
+                        </View>
+                            <Button
+                                title="Sign Up"
+                                
+                                onPress={() => this.signup()}
+                                accessibilityRole="button"
                             />
-                        </form>
                     </SafeAreaView>
-                    <SafeAreaView style={styles.formContainer}> 
-                        <Text style={styles.formTitles}>Family Name:</Text>
-                        <form>
-                            <input
-                                id="name"
-                                type="text"
-                                onChange={(ln) => this.validate({ last_name: ln.target.value, fieldRules: this.fieldRules })}
-                                value={this.state.last_name}
-                                placeholder="Enter your last name..."
-                            />
-                        </form>
-                    </SafeAreaView>
-                    <SafeAreaView style={styles.formContainer}> 
-                        <Text style={styles.formTitles}>Email Address:</Text>
-                        <form>
-                            <input
-                                id="email"
-                                type="email"
-                                onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
-                                value={this.state.email}
-                                placeholder="Enter your email..."
-                            />
-                        </form>
-                    </SafeAreaView>
-                    <SafeAreaView style={styles.formContainer}> 
-                        <Text style={styles.formTitles}>Password:</Text>
-                        <form>
-                            <input
-                                id="password"
-                                type="password"
-                                onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
-                                value={this.state.password}
-                                placeholder="Create a Password..."
-                            />
-                        </form>
-                    </SafeAreaView>
-                    </View>
-                
-
-                <Button
-                    title="Sign Up"
-                    
-                    onPress={() => this.signup()}
-                    accessibilityRole="button"
-                />
-            </SafeAreaView>
-            </View>
+                </View>
             </View>
         )
     }

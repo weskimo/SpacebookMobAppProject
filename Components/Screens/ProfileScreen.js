@@ -1,18 +1,9 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList, StyleSheet, Image, ScrollView} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import { SafeAreaView } from 'react-native-safe-area-context';
-
 import styles from '../StyleSheets/MyProfileStyles.js'
-import { Divider, useTheme } from 'react-native-elements';
-
-
-
-
-
-
+import { Divider } from 'react-native-elements';
 
 class ProfileScreen extends Component {
 
@@ -30,10 +21,8 @@ class ProfileScreen extends Component {
           post_Id: 0, 
           postLikes: 0,
           photo: null,
-          errorMsg: ""
-         
-          
-          
+          errorMsg: ''
+ 
         }
       }
       getPosts = async () => {
@@ -104,12 +93,9 @@ class ProfileScreen extends Component {
     componentDidMount(){
       this.unsubscribe = this.props.navigation.addListener('focus', () => {
         this.getProfileData();
-        this.getPosts();
-        
+        this.getPosts(); 
         this.get_profile_image();
-
-      });
-        
+      }); 
     }
 
     componentWillUnmount() {
@@ -117,7 +103,6 @@ class ProfileScreen extends Component {
       }
 
     getProfileData = async () => {
-
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         return fetch('http://localhost:3333/api/1.0.0/user/' + id, {
@@ -126,10 +111,8 @@ class ProfileScreen extends Component {
               },
         })
         .then((response) => {
-            if(response.status === 200){
-                
-                return response.json()
-               
+            if(response.status === 200){    
+                return response.json()   
             }else if(response.status === 400){
                 throw 'Invalid email or password';
               }else if(response.status === 401){
@@ -202,11 +185,7 @@ class ProfileScreen extends Component {
            headers: {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
-
               },
-              
-                
-            
             })
             .then((response) => {
                 if(response.status === 200){
@@ -275,11 +254,7 @@ class ProfileScreen extends Component {
            headers: {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
-
               },
-              
-                
-            
             })
             .then((response) => {
                 if(response.status === 200){
@@ -321,9 +296,7 @@ class ProfileScreen extends Component {
               },
               body: JSON.stringify({
                 text: this.state.text
-            })
-                
-            
+            }) 
             })
             .then((response) => {
                 if(response.status === 201){
@@ -362,74 +335,67 @@ class ProfileScreen extends Component {
 
     render(){
         const navigation = this.props.navigation; 
-        
-        
         if(this.state.isLoading){
             return (
                 <View><Text>Loading... 
                     </Text></View>
             )
         }else{
-            
             return (
                 <ScrollView style={styles.pageContainer} accessible={true} accessibilityLabel="Your Profile">
                   <SafeAreaView style={styles.profileSectionContainer} accessible={true}>
                     <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
                     <SafeAreaView style={styles.mainProfileContainer} accessible={true}>
-                    <SafeAreaView style={styles.picAndInfoContainer} accessible={true}>
-                      <SafeAreaView style={styles.profPicAndButtonContainer} accessible={true}>
-                        <SafeAreaView style={styles.pictureSpace} accessible={true}>
-                          <Image
-                            source={{
-                              uri: this.state.photo,
-                            }}
-                            style={styles.profileLogo}
-                          />
-                          
+                      <SafeAreaView style={styles.picAndInfoContainer} accessible={true}>
+                        <SafeAreaView style={styles.profPicAndButtonContainer} accessible={true}>
+                          <SafeAreaView style={styles.pictureSpace} accessible={true}>
+                            <Image
+                              source={{
+                                uri: this.state.photo,
+                              }}
+                              style={styles.profileLogo}
+                              alt="The users profile picture"
+                            />
+                          </SafeAreaView>
                         </SafeAreaView>
-                      
-                      </SafeAreaView>
-                    
-                      <SafeAreaView style={styles.profileTextInfo} accessible={true}>
-                        <Text>
-                          Login id: {this.state.userId}
-                        </Text>
-                        <Text style={styles.profileInfo}>
-                          {this.state.first_Name}
-                        </Text>
-                        <Text style={styles.profileInfo}>
-                          {this.state.last_Name}
-                        </Text>
+                        <SafeAreaView style={styles.profileTextInfo} accessible={true}>
+                          <Text>
+                            Login id: {this.state.userId}
+                          </Text>
+                          <Text style={styles.profileInfo}>
+                            {this.state.first_Name}
+                          </Text>
+                          <Text style={styles.profileInfo}>
+                            {this.state.last_Name}
+                          </Text>
                         </SafeAreaView>
                       </SafeAreaView>
                       <SafeAreaView style={styles.editButton} accessible={true}>
-                      <Button 
+                        <Button 
                           title="Edit Profile" 
                           onPress={() => {this.props.navigation.navigate("Edit Profile")}}  
                           color="#ef8354"
                           style={styles.editButton}
                           accessibilityRole="button"
-                          />
-                          <Button 
-                        title="Change Photo" 
-                        onPress={() => {this.props.navigation.navigate("Take picture")}} 
-                        color="#ef8354"
-                        accessibilityRole="button"
-                      />
-                      <Button 
-                                  title="Manage Posts" 
-                                  onPress={() => {
-                                    this.props.navigation.navigate("Manage Posts")}} 
-                                    color="#ef8354"
-                                    accessibilityRole="button"
-                                />
+                        />
+                        <Button 
+                          title="Change Photo" 
+                          onPress={() => {this.props.navigation.navigate("Take picture")}} 
+                          color="#ef8354"
+                          accessibilityRole="button"
+                        />
+                        <Button 
+                          title="Manage Posts" 
+                          onPress={() => {
+                          this.props.navigation.navigate("Manage Posts")}} 
+                          color="#ef8354"
+                          accessibilityRole="button"
+                        />
                       </SafeAreaView>
-                      </SafeAreaView>
+                    </SafeAreaView>
+                  </SafeAreaView>
                       
-                    
-                      </SafeAreaView>
-                      
-                      <SafeAreaView accessible={true}>
+                  <SafeAreaView accessible={true}>
                     <View style={styles.postContainer}>
                       <TextInput
                       placeholder="Write you post here.."
@@ -456,8 +422,6 @@ class ProfileScreen extends Component {
                         renderItem={({item}) => (
                             <View style={styles.postContainer} accessible={true} accessibilityLabel="Your Wall posts">
                               <SafeAreaView style={styles.postAuthorContainer}>
-                                 
-                                
                                 <Text style={styles.profileInfo}>
                                   {item.author.first_name + " " + item.author.last_name + " says:"}
                                 </Text>
@@ -492,20 +456,16 @@ class ProfileScreen extends Component {
                                   color="#ef8354"
                                   accessibilityRole="button"
                                 />
-                                  
-                               
                               </View> 
                             </View>
                         )}
                         keyExtractor={(item,index) => item.post_id.toString()}
                     />  
                     </SafeAreaView>
-
                 </ScrollView>     
             )
     } 
-
-}
+  }
 }
 export default ProfileScreen;
 

@@ -98,17 +98,12 @@ class FriendListScreen extends Component {
         })
   }
 
-
-  setFriendsId = async () => {
-          
-    await AsyncStorage.setItem('@friendsID', this.state.friendsID);
-          
+  setFriendsId = async () => {      
+    await AsyncStorage.setItem('@friendsID', this.state.friendsID);         
   }
 
   clickOnProfile = async () => {
     this.props.navigation.navigate("MyFriend's Profile", {friendID: this.state.friendsID});
-    
-
   }
 
   searchName = async () => {
@@ -117,10 +112,9 @@ class FriendListScreen extends Component {
         nameToSearch: tempName
     })
     this.searchForName();
-}
+  }
 
-
-    render(){
+  render(){
       const navigation = this.props.navigation; 
       if (this.state.isLoading){
         return (
@@ -135,39 +129,36 @@ class FriendListScreen extends Component {
           <View accessible={true} accessibilityLabel="Friend List">
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
             <TextInput
-                        placeholder="Search for friend with name..."
-                        onChangeText={ value => this.setState({tempName: value})}
-                        value={this.state.tempName}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                        maxLength={200}
-                      />
+              placeholder="Search for friend with name..."
+              onChangeText={ value => this.setState({tempName: value})}
+              value={this.state.tempName}
+              style={{padding:5, borderWidth:1, margin:5}}
+              maxLength={200}
+            />
             <Button 
-                            title="Search" 
-                            onPress={() => {
-                              this.searchName();
-                              }}
-                            color='#ef8354'
-                            accessibilityRole="button"
-                          />
+              title="Search" 
+              onPress={() => {
+                this.searchName();
+              }}
+              color='#ef8354'
+              accessibilityRole="button"
+            />
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 
                       (
                       <View style= {styles.profileContainer} accessibilityLabel="Friend">
                         <SafeAreaView >
-                          
                           <SafeAreaView>
-                          <Text style={styles.profileInfo}>
-                            User ID: {item.user_id.toString()}
+                            <Text style={styles.profileInfo}>
+                              User ID: {item.user_id.toString()}
                             </Text>
-                          <Text style={styles.profileInfo}>
-                            Name: {item.user_givenname} {item.user_familyname}
+                            <Text style={styles.profileInfo}>
+                              Name: {item.user_givenname} {item.user_familyname}
                             </Text>
-                            
                           </SafeAreaView>
                         </SafeAreaView>
                         <SafeAreaView style={styles.buttonsContainer} accessible={true}>
-                          
                           <Button 
                             title="Go to Friend's profile" 
                             onPress={() => this.props.navigation.navigate("MyFriend's Profile", {friendID: item.user_id})} 
@@ -175,8 +166,7 @@ class FriendListScreen extends Component {
                             accessibilityRole="button"
                           />
                           <Text> {this.state.friendsID}</Text>
-                          
-                          </SafeAreaView>
+                        </SafeAreaView>
                       </View>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}

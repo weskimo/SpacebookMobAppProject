@@ -3,10 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FriendListScreen from './FriendListScreen';
 import FriendsProfile from './FriendsProfile';
 
-
-
-
-
 const Stack = createNativeStackNavigator();
 
 
@@ -30,8 +26,7 @@ class FriendsListStack extends Component {
                         
                     />
                   
-        </Stack.Navigator>
-                   
+        </Stack.Navigator>             
     )
     }
  }

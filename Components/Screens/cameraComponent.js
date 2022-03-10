@@ -80,7 +80,11 @@ class CameraComponent extends Component {
               accessible={true}
               accessibilityLabel="Camera Screen"
             >
-              <View><Text style={{color: "red"}}>{this.state.errorMsg}</Text></View>
+              <View>
+                <Text style={{color: "red"}}>
+                  {this.state.errorMsg}
+                </Text>
+              </View>
               
               <Camera 
                 style={styles.camera} 

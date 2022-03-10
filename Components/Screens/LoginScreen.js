@@ -73,82 +73,74 @@ class LoginScreen extends ValidationComponent{
     }
     }
 
-
-
     render(){
         return (
                 <View accessible={true} accessibilityLabel="Login Screen and Form">
                     
-                <SafeAreaView style={styles.loginForm} accessible={true}>
-                <View >
-                    <Image 
-                    style={styles.tinyLogo}
-                    source={{uri: require("../pics/spacebooklogo.png")}} />
-                </View>    
-                    <Text style={styles.text}>
-                        Please Login here:
-                    </Text>
-                    <View accessible={true}>
-             
-                <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
-                <SafeAreaView style={styles.loginForm}>
-                <form>
-                    <input
-                        id="email"
-                        type="email"
-                        onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
-                        value={this.state.email}
-                        placeholder="Enter your email..."
-                    />
-                </form>
-                </SafeAreaView>
-                <SafeAreaView style={styles.loginForm}>
-                <form>
-                <input
-                        id="password"
-                        type="password"
-                        onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
-                        value={this.state.password}
-                        placeholder="Enter your password..."
-                    />
-                </form>
-                </SafeAreaView>
-                <View style={styles.buttonsContainer}>
-                        <Button
-                            title="LOG IN"
-                            onPress={() => this.login()}
-                            buttonStyle={{
-                            backgroundColor: 'black',
-                            borderWidth: 2,
-                            borderColor: 'white',
-                            borderRadius: 30,
-                            
-                            }
-                        }
-                            containerStyle={{
-                            width: 200,
-                            marginHorizontal: 50,
-                            marginVertical: 10,
-                            
-                            }}
-                            titleStyle={{ fontWeight: "bold" }}
-                        />
+                    <SafeAreaView style={styles.loginForm} accessible={true}>
+                        <View >
+                            <Image 
+                            style={styles.tinyLogo}
+                            source={{uri: require("../pics/spacebooklogo.png")}} />
+                            </View>    
+                                <Text style={styles.text}>
+                                    Please Login here:
+                                </Text>
+                            <View accessible={true}>
+                        
+                                <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
+                                <SafeAreaView style={styles.loginForm}>
+                                    <form>
+                                        <input
+                                            id="email"
+                                            type="email"
+                                            onChange={(e) => this.validate({ email: e.target.value, fieldRules: this.fieldRules })}
+                                            value={this.state.email}
+                                            placeholder="Enter your email..."
+                                        />
+                                    </form>
+                                </SafeAreaView>
+                                <SafeAreaView style={styles.loginForm}>
+                                    <form>
+                                        <input
+                                                id="password"
+                                                type="password"
+                                                onChange={(p) => this.validate({ password: p.target.value, fieldRules: this.fieldRules })}
+                                                value={this.state.password}
+                                                placeholder="Enter your password..."
+                                        />
+                                    </form>
+                                </SafeAreaView>
+                                <View style={styles.buttonsContainer}>
+                                        <Button
+                                            title="LOG IN"
+                                            onPress={() => this.login()}
+                                            buttonStyle={{
+                                            backgroundColor: 'black',
+                                            borderWidth: 2,
+                                            borderColor: 'white',
+                                            borderRadius: 30,
+                                            }}
+                                            containerStyle={{
+                                            width: 200,
+                                            marginHorizontal: 50,
+                                            marginVertical: 10,
+                                            
+                                            }}
+                                            titleStyle={{ fontWeight: "bold" }}
+                                        />
+                                </View>
+                                <View style={styles.buttonContainer}>
+                                    <Button
+                                        title="Don't have an account?"
+                                        color='#ef8354'
+                                        onPress={() => this.props.navigation.navigate("Signup")}
+                                        accessibilityRole="button"
+                                    />
+                            </View>
+                        </View> 
+                    </SafeAreaView>
                 </View>
-              
-                
-                <View style={styles.buttonContainer}>
-                    <Button
-                        title="Don't have an account?"
-                        color='#ef8354'
-                        onPress={() => this.props.navigation.navigate("Signup")}
-                        accessibilityRole="button"
-                    />
-                </View>
-             
-            </View> 
-                </SafeAreaView>
-                </View>
-           
         )
     }
 }

@@ -7,48 +7,43 @@ import EditPosts from './EditPosts';
 import SaveDrafts from './SaveDrafts';
 import EditYourProfile from './EditYourProfile';
 
-
-
-
-
 const Stack = createNativeStackNavigator();
-
 
 class ProfileStack extends Component {
 
     render() {
+        const navigation = this.props.navigation;
 
-    const navigation = this.props.navigation;
-    return (
+        return (
        
-        <Stack.Navigator initialRouteName="Profile">   
-            <Stack.Screen  
-                name="Edit Profile" 
-                component={EditYourProfile} 
-            />
-            <Stack.Screen 
-                name="Profile" 
-                component={ProfileScreen} 
-                options={{headerShown: false}} 
-            />
-            <Stack.Screen 
-                name="Manage Posts" 
-                component={EditPosts} 
-            />
-            <Stack.Screen
-                name="Edit Post"
-                component={EditOnePost}
-            />
-            
-            <Stack.Screen 
-                name="Take picture" 
-                component={CameraComponent} 
-            />
-            <Stack.Screen
-                name="SaveDrafts"
-                component={SaveDrafts}
-            />
-        </Stack.Navigator>           
+            <Stack.Navigator initialRouteName="Profile">   
+                <Stack.Screen  
+                    name="Edit Profile" 
+                    component={EditYourProfile} 
+                />
+                <Stack.Screen 
+                    name="Profile" 
+                    component={ProfileScreen} 
+                    options={{headerShown: false}} 
+                />
+                <Stack.Screen 
+                    name="Manage Posts" 
+                    component={EditPosts} 
+                />
+                <Stack.Screen
+                    name="Edit Post"
+                    component={EditOnePost}
+                />
+                
+                <Stack.Screen 
+                    name="Take picture" 
+                    component={CameraComponent} 
+                />
+                <Stack.Screen
+                    name="SaveDrafts"
+                    component={SaveDrafts}
+                />
+            </Stack.Navigator>           
     )
     }
  }
