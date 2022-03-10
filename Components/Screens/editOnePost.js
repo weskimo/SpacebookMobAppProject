@@ -86,6 +86,11 @@ class EditOnePost extends Component {
 
 
     patchPost = async () => {
+
+      const getState = this.state.text;
+      if (getState.length < 1 || getState.length > 320) {
+        this.setState({errorMsg: 'The length of the post must be between 1 and 320 characters.'})
+      }else {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         
@@ -94,12 +99,10 @@ class EditOnePost extends Component {
            headers: {
                 'X-Authorization':  value ,
                 'Content-Type': 'application/json' 
-
               },
               body: JSON.stringify({
                 text: this.state.text
             })
-
             })
             .then((response) => {
                 if(response.status === 200){
@@ -119,6 +122,7 @@ class EditOnePost extends Component {
             .catch((error) => {
                 console.log(error);
             })
+          }
       }
 
 

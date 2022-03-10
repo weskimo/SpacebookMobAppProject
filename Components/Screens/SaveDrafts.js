@@ -133,7 +133,7 @@ class SaveDrafts extends Component {
               <SafeAreaView style={styles.postContainer}>
                 <Text> Save Drafts Here:</Text>
                 <TextInput
-                  placeholder="Write you post here.."
+                  placeholder="Write your post here.."
                   onChangeText={ value => this.setState({text: value})}
                   value={this.state.text}
                   style={{padding:5, borderWidth:1, margin:5}}
