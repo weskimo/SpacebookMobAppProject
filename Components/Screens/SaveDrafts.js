@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../StyleSheets/SaveDrafts';
 
 class SaveDrafts extends Component {
 
@@ -20,6 +21,7 @@ class SaveDrafts extends Component {
           photo: null,
           errorMsg: '',
           loadedMsg: '',
+          savedMsg: '',
 
           timeItem1: '',
           timeItem2: 0,
@@ -31,6 +33,16 @@ class SaveDrafts extends Component {
 
           
         }
+    }
+
+    componentDidMount(){
+      
+        this.setSavedMessage(); 
+    }
+
+    setSavedMessage = async () => {
+      const savedMsg = await AsyncStorage.getItem('savedPost1');
+      this.setState({savedMsg: savedMsg});
     }
 
     getDateTimeNow = () => {
@@ -58,7 +70,7 @@ class SaveDrafts extends Component {
     }
 
     setPostMessage = () => {
-        let tempPost = this.state.tempPost;
+        let tempPost = this.state.text;
         this.setState({
             text: tempPost
         })
@@ -66,14 +78,11 @@ class SaveDrafts extends Component {
 
     saveDraft = async () => {
         await AsyncStorage.setItem('@savedPost1', this.state.text);
+        this.setState({savedMsg: this.state.text})
     }
     
     deleteDraft = async () => {
       await AsyncStorage.setItem('savedPost1','');
-    }
-
-    editDraft = async () => {
-      await AsyncStorage.setItem('savedPost1',this.state.text);
     }
 
     makePost = async () => {    
@@ -120,12 +129,13 @@ class SaveDrafts extends Component {
         const navigation = this.props.navigation; 
         return (
 
-            <SafeAreaView>
+            <SafeAreaView style={styles.pageContainer}>
+              <SafeAreaView style={styles.postContainer}>
                 <Text> Save Drafts Here:</Text>
                 <TextInput
                   placeholder="Write you post here.."
-                  onChangeText={ value => this.setState({tempPost: value})}
-                  value={this.state.tempPost}
+                  onChangeText={ value => this.setState({text: value})}
+                  value={this.state.text}
                   style={{padding:5, borderWidth:1, margin:5}}
                   maxLength={200}
                 />
@@ -137,41 +147,28 @@ class SaveDrafts extends Component {
                   style={{padding:5, borderWidth:1, margin:5}}
                   maxLength={200}
                 />
-                <Text>{}</Text>
-                <Button 
-                  title="Confirm" 
-                  onPress={() => {this.setPostMessage();}} 
-                  color="#ef8354"
-                  accessibilityRole="button"
-                />
-                      
-                <Button 
-                  title="Save Draft Post" 
-                  onPress={() => { this.saveDraft();}} 
-                  color="#ef8354"
-                  accessibilityRole="button"
-                />
-
-                <Button 
-                  title="Make post" 
-                  onPress={() => {this.makePost();}} 
-                  color="#ef8354"
-                  accessibilityRole="button"
-                />
-                <Button 
-                  title="Delete Saved Post" 
-                  onPress={() => {this.deletePost();}} 
-                  color="#ef8354"
-                  accessibilityRole="button"
-                />
-                <Button 
+                <SafeAreaView style={styles.buttonsContainer}>          
+                  <Button 
+                    title="Save Draft Post" 
+                    onPress={() => { this.saveDraft();}} 
+                    color="#ef8354"
+                    accessibilityRole="button"
+                  />
+                  <Button 
                   title="Edit Saved Post" 
-                  onPress={() => {this.editPost();}} 
+                  onPress={() => {this.saveDraft()}} 
                   color="#ef8354"
                   accessibilityRole="button"
-                />
-                <Text>Save this post for later:</Text>
-                <Text>{this.state.text}</Text>
+                  />
+                  <Button 
+                    title="Post saved draft" 
+                    onPress={() => {this.makePost();}} 
+                    color="#ef8354"
+                    accessibilityRole="button"
+                  />
+                </SafeAreaView>   
+                
+              </SafeAreaView>
             </SafeAreaView>
         );
     }

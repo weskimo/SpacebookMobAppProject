@@ -126,29 +126,31 @@ class FriendListScreen extends Component {
         );
       }else{
         return (
-          <View accessible={true} accessibilityLabel="Friend List">
+          <SafeAreaView style={styles.pageContainer} accessible={true} accessibilityLabel="Friend List">
             <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-            <TextInput
-              placeholder="Search for friend with name..."
-              onChangeText={ value => this.setState({tempName: value})}
-              value={this.state.tempName}
-              style={{padding:5, borderWidth:1, margin:5}}
-              maxLength={200}
-            />
-            <Button 
-              title="Search" 
-              onPress={() => {
-                this.searchName();
-              }}
-              color='#ef8354'
-              accessibilityRole="button"
-            />
+            <SafeAreaView style={styles.postContainer}>
+              <TextInput
+                placeholder="Search for friend with name..."
+                onChangeText={ value => this.setState({tempName: value})}
+                value={this.state.tempName}
+                style={{padding:5, borderWidth:1, margin:5}}
+                maxLength={200}
+              />
+              <Button 
+                title="Search" 
+                onPress={() => {
+                  this.searchName();
+                }}
+                color='#ef8354'
+                accessibilityRole="button"
+              />
+            </SafeAreaView>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => 
                       (
-                      <View style= {styles.profileContainer} accessibilityLabel="Friend">
-                        <SafeAreaView >
+                      <SafeAreaView style= {styles.profileContainer} accessibilityLabel="Friend">
+                        <SafeAreaView style={styles.profileAndButtonBox}>
                           <SafeAreaView>
                             <Text style={styles.profileInfo}>
                               User ID: {item.user_id.toString()}
@@ -157,21 +159,21 @@ class FriendListScreen extends Component {
                               Name: {item.user_givenname} {item.user_familyname}
                             </Text>
                           </SafeAreaView>
+                          <SafeAreaView accessible={true}>
+                            <Button 
+                              title="Go to Friend's profile" 
+                              onPress={() => this.props.navigation.navigate("MyFriend's Profile", {friendID: item.user_id})} 
+                              color='#ef8354'
+                              accessibilityRole="button"
+                            />
+                            <Text> {this.state.friendsID}</Text>
+                          </SafeAreaView>
                         </SafeAreaView>
-                        <SafeAreaView style={styles.buttonsContainer} accessible={true}>
-                          <Button 
-                            title="Go to Friend's profile" 
-                            onPress={() => this.props.navigation.navigate("MyFriend's Profile", {friendID: item.user_id})} 
-                            color='#ef8354'
-                            accessibilityRole="button"
-                          />
-                          <Text> {this.state.friendsID}</Text>
-                        </SafeAreaView>
-                      </View>
+                      </SafeAreaView>
                   )}
                   keyExtractor={(item,index) => item.user_id.toString()}
                 />
-          </View>
+          </SafeAreaView>
         );
       }
     } 

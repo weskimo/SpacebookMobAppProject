@@ -47,7 +47,7 @@ export default StyleSheet.create({
       infoContainer: {
         flexDirection: 'row',
         marginVertical: 10,
-        marginHorizontal: 10
+        marginHorizontal: 15
       },
 
       postAuthorContainer: {

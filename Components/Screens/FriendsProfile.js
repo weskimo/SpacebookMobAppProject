@@ -3,6 +3,7 @@ import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import styles from '../StyleSheets/FriendsProfileStyles.js';
+import { Avatar } from 'react-native-elements';
 
 class FriendsProfile extends Component {
 
@@ -300,11 +301,14 @@ class FriendsProfile extends Component {
                 <ScrollView style={styles.profileContainer} accessible={true} accessibilityLabel="Friends Profile">
                   <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer} accessible={true}>
-                    <Image
+                    <SafeAreaView style={styles.infoContainer}>  
+                      <Avatar
+                        size={100}
+                        rounded
                         source={{uri: this.state.photo}}
-                        style={styles.profPic}
                         alt="The users profile picture"
-                    />
+                      />
+                    </SafeAreaView>
                     <SafeAreaView accessible={true}>
                       <Text style={styles.postText}>
                         Login id: {this.state.userId}

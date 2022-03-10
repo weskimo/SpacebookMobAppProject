@@ -1,21 +1,14 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-
-    buttonsContainer: {
-      flexDirection: 'row',
-      borderColor: '#674AB3',
-      justifyContent: 'space-between',
-      marginVertical: 10,
-      marginHorizontal: 10
-    },
-    
-    postContainer: {
-      backgroundColor: `#FFFFFF` , 
-      borderWidth: 5,
-      borderColor: '#674AB3'
-    },
   
+    pageContainer: {
+      backgroundColor: `#001d3d` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+      flex: 1
+    },
+
     profileContainer: {
       backgroundColor: `#ffffff` , 
       borderWidth: 5,

@@ -6,15 +6,14 @@ export default StyleSheet.create({
       flexDirection: 'row',
       flexWrap: 'wrap',
       justifyContent: 'space-around',
-      borderColor: '#674AB3',
-      width: '100%',
+      borderColor: '#001d3d',
       marginVertical: 10,
     },
 
     postContainer: {
       backgroundColor: `#FFFFFF` , 
       borderWidth: 5,
-      borderColor: '#674AB3'
+      borderColor: '#001d3d'
     },
   
     profileContainer: {
@@ -43,12 +42,26 @@ export default StyleSheet.create({
       marginVertical: 10,
       marginHorizontal: 10
     },
-    
+
     loading: {
       flex: 1,
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-    }
+    },
+
+    profileAndButtonBox: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginHorizontal: 10,
+      marginVertical: 10
+    },
+    
+    pageContainer: {
+      backgroundColor: `#001d3d` , 
+      borderWidth: 5,
+      borderColor: '#001d3d',
+      flex: 1
+    },
   });  
   

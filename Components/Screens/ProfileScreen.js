@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import styles from '../StyleSheets/MyProfileStyles.js'
 import { Divider } from 'react-native-elements';
+import { Avatar } from 'react-native-elements';
 
 class ProfileScreen extends Component {
 
@@ -349,12 +350,14 @@ class ProfileScreen extends Component {
                       <SafeAreaView style={styles.picAndInfoContainer} accessible={true}>
                         <SafeAreaView style={styles.profPicAndButtonContainer} accessible={true}>
                           <SafeAreaView style={styles.pictureSpace} accessible={true}>
-                            <Image
+                            
+                            <Avatar
+                              size={100}
+                              rounded
                               source={{
                                 uri: this.state.photo,
                               }}
-                              style={styles.profileLogo}
-                              alt="The users profile picture"
+                              
                             />
                           </SafeAreaView>
                         </SafeAreaView>

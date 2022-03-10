@@ -152,23 +152,25 @@ class SearchFriendsScreen extends Component {
         );
       }else{
         return (
-          <ScrollView styles={styles.profileContainer} accessible={true} accessibilityLabel="Find new Friends"> 
+          <ScrollView styles={styles.pageContainer} accessible={true} accessibilityLabel="Find new Friends"> 
             <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
-            <TextInput
-              placeholder="Search for friend with name..."
-              onChangeText={ value => this.setState({tempName: value})}
-              value={this.state.tempName}
-              style={{padding:5, borderWidth:1, margin:5}}
-              maxLength={200}
-            />
-            <Button 
-              title="Search" 
-              onPress={() => {
-                this.searchName();
-              }}
-              color="#ef8354"
-              accessibilityRole="button"
-            />
+            <SafeAreaView style={styles.profileContainer}>
+              <TextInput
+                placeholder="Search for friend with name..."
+                onChangeText={ value => this.setState({tempName: value})}
+                value={this.state.tempName}
+                style={{padding:5, borderWidth:1, margin:5}}
+                maxLength={200}
+              />
+              <Button 
+                title="Search" 
+                onPress={() => {
+                  this.searchName();
+                }}
+                color="#ef8354"
+                accessibilityRole="button"
+              />
+            </SafeAreaView>
             <FlatList
                   data={this.state.listData}
                   renderItem={({item}) => (
