@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../StyleSheets/cameraComponentStyles.js';
 
 
-class cameraComponent extends Component {
+class CameraComponent extends Component {
     constructor(props) {
         super(props);
 
@@ -30,30 +30,30 @@ class cameraComponent extends Component {
         let res = await fetch(data.base64);
         let blob = await res.blob();
         
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/photo", {
-            method: "POST",
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/photo', {
+            method: 'POST',
             headers: {
-                "Content-Type": "image/png",
-                "X-Authorization": token
+                'Content-Type': 'image/png',
+                'X-Authorization': token
             },
             body: blob
         }).then((response) => {
           if(response.status === 200){
-              this.setState({errorMsg: "Your Picture Has Been Successfully Changed!"})
+              this.setState({errorMsg: 'Your Picture Has Been Successfully Changed!'})
           }else if (response.status === 400){  
-          this.setState({errorMsg: "Bad request Error, Please Try again!"})
+          this.setState({errorMsg: 'Bad request Error, Please Try again!'})
           }else if(response.status === 401){
-            this.props.navigation.navigate("Login");
+            this.props.navigation.navigate('Login');
           }else if (response.status === 404){  
-            this.setState({errorMsg: "Post Not found?!"})
+            this.setState({errorMsg: 'Post Not found?!'})
           }else if (response.status === 500){  
-            this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+            this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
           }else{
               throw 'Something went wrong';
           }
       })
         .then((response) => {
-            console.log("Picture added", response);
+            console.log('Picture added', response);
         })
         .catch((err) => {
             console.log(err);
@@ -80,7 +80,7 @@ class cameraComponent extends Component {
               accessible={true}
               accessibilityLabel="Camera Screen"
             >
-              <View><Text style={{color: 'red'}}>{this.state.errorMsg}</Text></View>
+              <View><Text style={{color: "red"}}>{this.state.errorMsg}</Text></View>
               
               <Camera 
                 style={styles.camera} 
@@ -118,4 +118,4 @@ class cameraComponent extends Component {
         }
       }
     }
-export default cameraComponent;
+export default CameraComponent;

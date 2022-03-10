@@ -7,7 +7,7 @@ import styles from '../StyleSheets/EditProfileStyles.js';
 
 
 
-class editYourProfile extends Component {
+class EditYourProfile extends Component {
     constructor(props){
         super(props);
     
@@ -36,7 +36,7 @@ class editYourProfile extends Component {
 
           const value = await AsyncStorage.getItem('@session_token');
           const id = await AsyncStorage.getItem('@user_id');
-          return fetch("http://localhost:3333/api/1.0.0/user/" + id, {
+          return fetch('http://localhost:3333/api/1.0.0/user/' + id, {
                 'headers': {
                   'X-Authorization':  value
                 },
@@ -48,12 +48,14 @@ class editYourProfile extends Component {
                   return response.json()
                  
               }else if(response.status === 401){
-                  this.setState({errorMsg: "Unauthorized"})
+                  this.setState({errorMsg: 'Unauthorized'})
                   throw '401 Unauthorized';
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "User not found?!"})
+                  this.setState({errorMsg: 'User not found?!'})
+                  throw '404 User not found';
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
+                  throw '500 Server Error';
                 }else{
                   throw 'Something went wrong';
               }
@@ -72,7 +74,7 @@ class editYourProfile extends Component {
       
                   })
   
-                  this.props.navigation.navigate("Home");
+                  this.props.navigation.navigate('Home');
           })
           .catch((error) => {
               console.log(error);
@@ -84,9 +86,9 @@ class editYourProfile extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const userID = await AsyncStorage.getItem('@user_id');
         if(this.state.first_name.length <1 || this.state.last_name.length < 1) {
-          this.setState({errorMsg: "User Name must be greater than 1 character"})
+          this.setState({errorMsg: 'User Name must be greater than 1 character'})
         } else {
-        return fetch("http://localhost:3333/api/1.0.0/user/" + userID, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + userID, {
             method: 'PATCH',
               headers: {
                 'X-Authorization':  value,
@@ -101,21 +103,21 @@ class editYourProfile extends Component {
             })
             .then((response) => {
               if(response.status === 200){
-                  this.setState({errorMsg: "Your details have been successfully changed!"})
+                  this.setState({errorMsg: 'Your details have been successfully changed!'})
                   return response.json()
               }else if(response.status === 400){
-                this.setState({errorMsg: "Bad Request"})
+                this.setState({errorMsg: 'Bad Request'})
                 throw '400 Badrequest ';
               }else if(response.status === 401){
-                  this.setState({errorMsg: "Unauthorized"});
-                  this.props.navigation.navigate("Login");
+                  this.setState({errorMsg: 'Unauthorized'});
+                  this.props.navigation.navigate('Login');
                   throw '401 Unauthorized';
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "Forbidden request 403 - patch data"})
+                  this.setState({errorMsg: 'Forbidden request 403 - patch data'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "404 not found?!"})
+                  this.setState({errorMsg: '404 not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                   throw 'Something went wrong';
               }
@@ -138,56 +140,56 @@ class editYourProfile extends Component {
           }else{
             return (
               <View accessible={true}>
-                    <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                    <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                     <View style={styles.pageContainer}>
-                    <View style={styles.textContainer} accessible={true}>
-                    <Text>First Name: {this.state.first_name}</Text>
-                    <Text>Last Name: {this.state.last_name}</Text>
-                    <Text>Email: {this.state.email}</Text>
+                      <View style={styles.textContainer} accessible={true}>
+                        <Text>First Name: {this.state.first_name}</Text>
+                        <Text>Last Name: {this.state.last_name}</Text>
+                        <Text>Email: {this.state.email}</Text>
                     
-                    </View>
-                    <TextInput
-                      placeholder="Enter your first name..."
-                      onChangeText={(first_name) => this.setState({first_name})}
-                      value={this.state.first_name}
-                      style={{padding:5, borderWidth:1, margin:5}}
-                    />
-                
-                    <TextInput
-                      placeholder="Enter your last name..."
-                      onChangeText={(last_name) => this.setState({last_name})}
-                      value={this.state.last_name}
-                      style={{padding:5, borderWidth:1, margin:5}}
-                    />
-                
-                    <TextInput
-                        placeholder="Enter your email..."
-                        onChangeText={(email) => this.setState({email})}
-                        value={this.state.email}
+                      </View>
+                      <TextInput
+                        placeholder="Enter your first name..."
+                        onChangeText={(first_name) => this.setState({first_name})}
+                        value={this.state.first_name}
                         style={{padding:5, borderWidth:1, margin:5}}
-                    />
+                      />
                 
-                    <TextInput
-                        placeholder="Enter your password..."
-                        onChangeText={(password) => this.setState({password})}
-                        value={this.state.password}
-                        secureTextEntry
+                      <TextInput
+                        placeholder="Enter your last name..."
+                        onChangeText={(last_name) => this.setState({last_name})}
+                        value={this.state.last_name}
                         style={{padding:5, borderWidth:1, margin:5}}
-                    />
-                    <Button 
-                        title="Change Details"
-                        onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
-                        color='#ef8354'
-                        accessibilityRole="button"
-                        accessibilityLabel="Click here to change details"
-                    />
-              </View>
-              </View>
+                      />
+                
+                      <TextInput
+                          placeholder="Enter your email..."
+                          onChangeText={(email) => this.setState({email})}
+                          value={this.state.email}
+                          style={{padding:5, borderWidth:1, margin:5}}
+                      />
+                  
+                      <TextInput
+                          placeholder="Enter your password..."
+                          onChangeText={(password) => this.setState({password})}
+                          value={this.state.password}
+                          secureTextEntry
+                          style={{padding:5, borderWidth:1, margin:5}}
+                      />
+                      <Button 
+                          title="Change Details"
+                          onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
+                          color="#ef8354"
+                          accessibilityRole="button"
+                          accessibilityLabel="Click here to change details"
+                      />
+                      </View>
+            </View>
             );
           }
           
         }
       }
 
-export default editYourProfile;
+export default EditYourProfile;
 

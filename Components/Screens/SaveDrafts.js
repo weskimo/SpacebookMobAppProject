@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, StyleSheet, Image, ScrollView, SafeAreaView} from 'react-native';
+import { View, Text, Button, TextInput, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
-
 
 class SaveDrafts extends Component {
 
@@ -26,12 +22,12 @@ class SaveDrafts extends Component {
           loadedMsg: '',
 
 
-          timeItem1: "",
+          timeItem1: '',
           timeItem2: 0,
           timeItem3: 0,
           timeItem4: 0,
           timeNow: 0,
-          tempTime1: "",
+          tempTime1: '',
           timeTillPost: 0
 
           
@@ -71,7 +67,15 @@ class SaveDrafts extends Component {
 
     saveDraft = async () => {
         await AsyncStorage.setItem('@savedPost1', this.state.text);
-    }    
+    }
+    
+    deleteDraft = async () => {
+      await AsyncStorage.setItem('savedPost1','');
+    }
+
+    editDraft = async () => {
+      await AsyncStorage.setItem('savedPost1',this.state.text);
+    }
 
     makePost = async () => {
         
@@ -80,7 +84,7 @@ class SaveDrafts extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         this.setState({loadedMsg: savedPost})
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post" , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/post' , {
            method: 'post',
            headers: {
                 'X-Authorization':  value ,
@@ -97,16 +101,16 @@ class SaveDrafts extends Component {
             .then((response) => {
                 if(response.status === 201){
                     
-                    this.setState({errorMsg: ""});
+                    this.setState({errorMsg: ''});
                   }else if(response.status === 401){
-                    this.setState({errorMsg: "Unauthorized"})
-                    this.props.navigation.navigate("Login");
+                    this.setState({errorMsg: 'Unauthorized'})
+                    this.props.navigation.navigate('Login');
                     throw '401 Unauthorized in addpost';
                   }else if (response.status === 404){  
-                    this.setState({errorMsg: "User not found?!"})
+                    this.setState({errorMsg: 'User not found?!'})
                     throw '404 in add post'
                   }else if (response.status === 500){  
-                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                     throw '500 in add post'
                 }else{
                     throw 'Something went wrong';
@@ -159,12 +163,25 @@ class SaveDrafts extends Component {
                         accessibilityRole="button"
                       />
 
-                    <Button 
+                      <Button 
                         title="Make post" 
                         onPress={() => {this.makePost();}} 
                         color="#ef8354"
                         accessibilityRole="button"
                       />
+                      <Button 
+                        title="Delete Saved Post" 
+                        onPress={() => {this.deletePost();}} 
+                        color="#ef8354"
+                        accessibilityRole="button"
+                      />
+                      <Button 
+                        title="Edit Saved Post" 
+                        onPress={() => {this.editPost();}} 
+                        color="#ef8354"
+                        accessibilityRole="button"
+                      />
+                      <Text>Save this post for later:</Text>
                       <Text>{this.state.text}</Text>
             </SafeAreaView>
 

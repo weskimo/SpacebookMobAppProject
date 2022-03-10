@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeConsumer } from 'react-native-elements';
-import editYourProfile from './editYourProfile';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from './ProfileScreen';
-import LoggedInScreen from './LoggedInScreen';
-import editPost from './editPosts';
-import cameraComponent from './cameraComponent';
-import editOnePost from './editOnePost';
-import editPosts from './editPosts';
+import CameraComponent from './CameraComponent';
+import EditOnePost from './EditOnePost';
+import EditPosts from './EditPosts';
 import SaveDrafts from './SaveDrafts';
+import EditYourProfile from './EditYourProfile';
 
 
 
@@ -27,10 +21,10 @@ class ProfileStack extends Component {
     const navigation = this.props.navigation;
     return (
        
-        <Stack.Navigator initialRouteName='Profile'>   
+        <Stack.Navigator initialRouteName="Profile">   
             <Stack.Screen  
-                 name="Edit Profile" 
-                component={editYourProfile} 
+                name="Edit Profile" 
+                component={EditYourProfile} 
             />
             <Stack.Screen 
                 name="Profile" 
@@ -39,16 +33,16 @@ class ProfileStack extends Component {
             />
             <Stack.Screen 
                 name="Manage Posts" 
-                component={editPosts} 
+                component={EditPosts} 
             />
             <Stack.Screen
                 name="Edit Post"
-                component={editOnePost}
+                component={EditOnePost}
             />
             
             <Stack.Screen 
                 name="Take picture" 
-                component={cameraComponent} 
+                component={CameraComponent} 
             />
             <Stack.Screen
                 name="SaveDrafts"

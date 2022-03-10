@@ -42,5 +42,11 @@ export default StyleSheet.create({
       marginVertical: 10,
       marginHorizontal: 10
     },
+    loading: {
+      flex: 1,
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    }
   });  
   

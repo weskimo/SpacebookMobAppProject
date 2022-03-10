@@ -3,10 +3,6 @@ import { View, Text, Button, FlatList, SafeAreaView, TextInput} from 'react-nati
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../StyleSheets/FriendListScreenStyles.js';
 
-
-
-// lets have some radio buttons to replace the double buttons
-
 class FriendListScreen extends Component {
 
   constructor(props){
@@ -37,7 +33,7 @@ class FriendListScreen extends Component {
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     const id = await AsyncStorage.getItem('@user_id');
-    return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/friends", {
+    return fetch('http://localhost:3333/api/1.0.0/user/' + id  +'/friends', {
           'headers': {
             'X-Authorization':  value
           }
@@ -46,13 +42,13 @@ class FriendListScreen extends Component {
             if(response.status === 200){
                 return response.json()
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if (response.status === 403){  
-              this.setState({errorMsg: "You can only view the friends of yourself and your friends!"})
+              this.setState({errorMsg: 'You can only view the friends of yourself and your friends!'})
             }else if (response.status === 404){  
-              this.setState({errorMsg: "User not found?!"})
+              this.setState({errorMsg: 'User not found?!'})
             }else if (response.status === 500){  
-              this.setState({errorMsg: "Server Error on!"})
+              this.setState({errorMsg: 'Server Error on!'})
             }else{
                 throw 'Something went wrong';
             }
@@ -70,7 +66,7 @@ class FriendListScreen extends Component {
   searchForName = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     const nameToSearchFor = this.state.nameToSearch;
-    return fetch("http://localhost:3333/api/1.0.0/search?q=" + nameToSearchFor + "&search_in=friends", {
+    return fetch('http://localhost:3333/api/1.0.0/search?q=' + nameToSearchFor + '&search_in=friends', {
           'headers': {
             'X-Authorization':  value
           }
@@ -83,7 +79,7 @@ class FriendListScreen extends Component {
                 this.setState({errorMsg: 'Bad Request, Please reload or try again later.'})
                 throw '500 server error'
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if(response.status === 500){
               this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
               throw '500 server error'
@@ -124,24 +120,12 @@ class FriendListScreen extends Component {
 }
 
 
-  
-
-
-
-
-
-  
     render(){
       const navigation = this.props.navigation; 
       if (this.state.isLoading){
         return (
           <View
-            style={{
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
+            style={styles.loading}
           >
             <Text>Loading..</Text>
           </View>

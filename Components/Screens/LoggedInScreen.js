@@ -23,14 +23,10 @@ class HomeScreen extends Component {
   }
 
   componentDidMount() {
-    
       this.checkLoggedIn();
-  
-  
-    this.setState({
-      isLoading: false,
-    })
-    
+      this.setState({
+        isLoading: false,
+      })
   }
 
   componentWillUnmount() {
@@ -70,18 +66,18 @@ class HomeScreen extends Component {
                   iconName = focused
                     ? "person-circle-outline"
                     : "person-circle-outline";
-                } else if (route.name === 'MyFriends') {
-                  iconName = focused ? 'people-circle-outline' : 'people-circle-outline';
-                } else if (route.name === 'Notifications') {
-                  iconName = focused ? 'notifications-circle-outline' : 'notifications-circle-outline';
+                } else if (route.name === "MyFriends") {
+                  iconName = focused ? "people-circle-outline" : "people-circle-outline";
+                } else if (route.name === "Notifications") {
+                  iconName = focused ? "notifications-circle-outline" : "notifications-circle-outline";
                 
                 } else if (route.name === 'FindFriends') {
-                  iconName = focused ? 'person-add-outline' : 'person-add-outline';
+                  iconName = focused ? "person-add-outline" : "person-add-outline";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
             },
-            tabBarActiveTintColor: 'tomato',
-            tabBarInactiveTintColor: 'gray',
+            tabBarActiveTintColor: "tomato",
+            tabBarInactiveTintColor: "gray",
             })}
           >
             <Tab.Screen 

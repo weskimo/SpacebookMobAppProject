@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeConsumer } from 'react-native-elements';
-import editYourProfile from './editYourProfile';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getHeaderTitle } from '@react-navigation/elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Divider } from 'react-native-elements';
@@ -15,7 +10,7 @@ import styles from '../StyleSheets/editOnePost.js';
 
 
 
-class editOnePost extends Component {
+class EditOnePost extends Component {
 
     constructor(props){
         super(props);
@@ -44,7 +39,7 @@ class editOnePost extends Component {
         const id = await AsyncStorage.getItem('@user_id');
         const postId = this.state.post_Id;
         
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post/" + postId, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id  + '/post/' + postId, {
               'headers': {
                 'X-Authorization':  value
               }
@@ -54,13 +49,13 @@ class editOnePost extends Component {
                     this.setState({post_Id: postId})
                     return response.json()
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only view the posts of your friends!"})
+                  this.setState({errorMsg: 'You can only view the posts of your friends!'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "Posts not found?!"})
+                  this.setState({errorMsg: 'Posts not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -94,7 +89,7 @@ class editOnePost extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + this.state.post_Id , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/post/' + this.state.post_Id , {
            method: 'PATCH',
            headers: {
                 'X-Authorization':  value ,
@@ -110,13 +105,13 @@ class editOnePost extends Component {
                 if(response.status === 200){
                     this.getPost();
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only update your own posts!"})
+                  this.setState({errorMsg: 'You can only update your own posts!'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "Post Not found?!"})
+                  this.setState({errorMsg: 'Post Not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -163,7 +158,7 @@ class editOnePost extends Component {
             return (
                 <ScrollView style={styles.pageContainer} accessible={true}>
                     <SafeAreaView style={styles.postContainer} accessible={true} accessibilityLabel="Post Element">
-                        <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                        <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                         <View>
                             <Text style={styles.nameInfo}>{this.state.first_Name} {this.state.last_name} says: </Text>
                         </View>
@@ -179,23 +174,23 @@ class editOnePost extends Component {
                        
                         <SafeAreaView style={styles.textInput}>
                         <TextInput 
-                            placeholder='Change post to...' 
+                            placeholder="Change post to..." 
                             onChangeText={ value => this.setState({tempPost: value})}
                         />
                         </SafeAreaView>
                        
                         <View accessible={true}>
                             <Button 
-                                title='Edit Post' 
+                                title="Edit Post" 
                                 onPress={() => {this.setState({post_Id: this.state.post_Id});this.changePost() ;}} 
-                                color='#ef8354'
+                                color="#ef8354"
                                 accessibilityRole="button"
                             />
 
                             <Button 
-                                title='CONFIRM EDIT Post' 
+                                title="CONFIRM EDIT Post" 
                                 onPress={() => {this.patchPost();}} 
-                                color='#ef8354'
+                                color="#ef8354"
                                 accessibilityRole="button"
                             /> 
                          </View>
@@ -206,5 +201,5 @@ class editOnePost extends Component {
     } 
 }
 }
-export default editOnePost;
+export default EditOnePost;
 

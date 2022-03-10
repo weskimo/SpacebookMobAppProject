@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList, StyleSheet, Image,SafeAreaView, ScrollView} from 'react-native';
-import { NavigationContainer, TabRouter } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import styles from '../StyleSheets/FriendsProfileStyles.js';
-import FriendListScreen from './FriendListScreen.js';
-
-
-// function that takes a param of a list, then for each list element stores the profile id into an array. 
-// then loop that array and for each id, pass it to a function that gets the profile pictures which accepts a param of the user id.
 
 
 class FriendsProfile extends Component {
@@ -27,10 +21,7 @@ class FriendsProfile extends Component {
           post_Id: 0, 
           postLikes: 0,
           photo: null,
-          errorMsg: ""
-         
-          
-          
+          errorMsg: ''
         }
       }
 
@@ -40,7 +31,7 @@ class FriendsProfile extends Component {
         const token = await AsyncStorage.getItem('@session_token');
         const friendsID = userID;
           
-        fetch("http://localhost:3333/api/1.0.0/user/" + friendsID +"/photo", {
+        fetch('http://localhost:3333/api/1.0.0/user/' + friendsID +'/photo', {
           method: 'GET',
           headers: {
             'X-Authorization': token
@@ -57,7 +48,7 @@ class FriendsProfile extends Component {
           });
         })
         .catch((err) => {
-          console.log("error", err)
+          console.log('error', err)
         });
       }
       
@@ -66,7 +57,7 @@ class FriendsProfile extends Component {
         const token = await AsyncStorage.getItem('@session_token');
         const friendsID = this.state.userId;
           
-        fetch("http://localhost:3333/api/1.0.0/user/" + friendsID +"/photo", {
+        fetch('http://localhost:3333/api/1.0.0/user/' + friendsID +'/photo', {
           method: 'GET',
           headers: {
             'X-Authorization': token
@@ -83,14 +74,14 @@ class FriendsProfile extends Component {
           });
         })
         .catch((err) => {
-          console.log("error", err)
+          console.log('error', err)
         });
       }
 
       getPosts = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const friendsID = this.state.userId;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID  +"/post", {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + friendsID  +'/post', {
               'headers': {
                 'X-Authorization':  value
               }
@@ -99,16 +90,16 @@ class FriendsProfile extends Component {
                 if(response.status === 200){
                     return response.json()
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                   throw '401 in getposts'
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only see the posts of yourself and your friends!"})
+                  this.setState({errorMsg: 'You can only see the posts of yourself and your friends!'})
                   throw '403 in getposts'
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "404 Not found?!"})
+                  this.setState({errorMsg: '404 Not found?!'})
                   throw '404 in getposts'
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error?!"})
+                  this.setState({errorMsg: 'Server Error?!'})
                   throw '500 in getposts'
                 }else{
                     throw 'Something went wrong';
@@ -139,7 +130,7 @@ class FriendsProfile extends Component {
     getProfileData = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const friendsID = this.state.userId;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + friendsID, {
               'headers': {
                 'X-Authorization':  value
               },  
@@ -150,14 +141,14 @@ class FriendsProfile extends Component {
             return response.json()
            
           }else if(response.status === 401){
-            this.setState({errorMsg: "Unauthorized"})
-            this.props.navigation.navigate("Login");
+            this.setState({errorMsg: 'Unauthorized'})
+            this.props.navigation.navigate('Login');
             throw '401 Unauthorized';
           }else if (response.status === 404){  
-            this.setState({errorMsg: "User not found?!"})
+            this.setState({errorMsg: 'User not found?!'})
             throw '404 in get profile data'
           }else if (response.status === 500){  
-            this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+            this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
             throw '500 in get profile data'
           }else{
             throw 'Something went wrong';
@@ -175,7 +166,7 @@ class FriendsProfile extends Component {
                     first_Name: responseJson.first_name,
                     last_Name: responseJson.last_name
                 })
-                this.props.navigation.navigate("Home");
+                this.props.navigation.navigate('Home');
         })
         .catch((error) => {
             console.log(error);
@@ -187,9 +178,9 @@ class FriendsProfile extends Component {
         const friendsID = this.state.userId;
         const getState = this.state.text;
         if (getState.length < 1 || getState.length > 320) {
-          this.setState({errorMsg: "The length of the post must be between 1 and 320 characters."})
+          this.setState({errorMsg: 'The length of the post must be between 1 and 320 characters.'})
     } else {
-        return fetch("http://localhost:3333/api/1.0.0/user/" + friendsID + "/post" , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + friendsID + '/post' , {
            method: 'post',
            headers: {
                 'X-Authorization':  value ,
@@ -205,14 +196,14 @@ class FriendsProfile extends Component {
                 if(response.status === 201){
                     this.getPosts();
                   }else if(response.status === 401){
-                    this.setState({errorMsg: "Unauthorized"})
-                    this.props.navigation.navigate("Login");
+                    this.setState({errorMsg: 'Unauthorized'})
+                    this.props.navigation.navigate('Login');
                     throw '401 Unauthorized in addpost';
                   }else if (response.status === 404){  
-                    this.setState({errorMsg: "User not found?!"})
+                    this.setState({errorMsg: 'User not found?!'})
                     throw '404 in add post'
                   }else if (response.status === 500){  
-                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                     throw '500 in add post'
                 }else{
                     throw 'Something went wrong';
@@ -245,7 +236,7 @@ class FriendsProfile extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = this.state.userId
         const postID = this.state.post_Id;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/post/' + postID + '/like' , {
            method: 'post',
            headers: {
                 'X-Authorization':  value ,
@@ -258,14 +249,14 @@ class FriendsProfile extends Component {
                     this.getPosts();
                     
                   }else if(response.status === 401){
-                    this.setState({errorMsg: "Unauthorized"})
-                    this.props.navigation.navigate("Login");
+                    this.setState({errorMsg: 'Unauthorized'})
+                    this.props.navigation.navigate('Login');
                     throw '401 Unauthorized in like post';
                   }else if (response.status === 404){  
-                    this.setState({errorMsg: "User not found?!"})
+                    this.setState({errorMsg: 'User not found?!'})
                     throw '404 in like post'
                   }else if (response.status === 500){  
-                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                     throw '500 in like post'
                 }else{
                     throw 'Something went wrong';
@@ -280,7 +271,7 @@ class FriendsProfile extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = this.state.userId
         const postID = this.state.post_Id;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + postID + "/like" , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/post/' + postID + '/like' , {
            method: 'delete',
            headers: {
                 'X-Authorization':  value ,
@@ -293,14 +284,14 @@ class FriendsProfile extends Component {
                     this.getPosts();
                     
                   }else if(response.status === 401){
-                    this.setState({errorMsg: "Unauthorized"})
-                    this.props.navigation.navigate("Login");
+                    this.setState({errorMsg: 'Unauthorized'})
+                    this.props.navigation.navigate('Login');
                     throw '401 Unauthorized in unlike post';
                   }else if (response.status === 404){  
-                    this.setState({errorMsg: "User not found?!"})
+                    this.setState({errorMsg: 'User not found?!'})
                     throw '404 in unlike post'
                   }else if (response.status === 500){  
-                    this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                    this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                     throw '500 in unlike post'
                 }else{
                     throw 'Something went wrong';
@@ -324,7 +315,7 @@ class FriendsProfile extends Component {
         }else{
             return (
                 <ScrollView style={styles.profileContainer} accessible={true} accessibilityLabel="Friends Profile">
-                  <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                  <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                   <SafeAreaView style={styles.infoContainer} accessible={true}>
                     <Image
                         source={{uri: this.state.photo}}

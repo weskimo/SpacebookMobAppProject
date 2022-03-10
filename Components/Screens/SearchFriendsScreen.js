@@ -34,7 +34,7 @@ class SearchFriendsScreen extends Component {
 
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/search", {
+    return fetch('http://localhost:3333/api/1.0.0/search', {
           'headers': {
             'X-Authorization':  value
           }
@@ -47,7 +47,7 @@ class SearchFriendsScreen extends Component {
                 this.setState({errorMsg: 'Bad Request, Please reload or try again later.'})
                 throw '500 server error'
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if(response.status === 500){
               this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
               throw '500 server error'
@@ -69,7 +69,7 @@ class SearchFriendsScreen extends Component {
 
   addFriend = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/user/" + this.state.requestId  +"/friends", {
+    return fetch('http://localhost:3333/api/1.0.0/user/' + this.state.requestId  +'/friends', {
        method: 'post',
        headers: {
             'X-Authorization':  value
@@ -80,7 +80,7 @@ class SearchFriendsScreen extends Component {
                 this.setState({errorMsg: ''})
                 return response.json()
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if(response.status === 403){
               this.setState({errorMsg: 'You have already added this user!'})
               throw '403 add friend'
@@ -102,7 +102,7 @@ class SearchFriendsScreen extends Component {
   searchForName = async () => {
     const value = await AsyncStorage.getItem('@session_token');
     const nameToSearchFor = this.state.nameToSearch;
-    return fetch("http://localhost:3333/api/1.0.0/search?q=" + nameToSearchFor, {
+    return fetch('http://localhost:3333/api/1.0.0/search?q=' + nameToSearchFor, {
           'headers': {
             'X-Authorization':  value
           }
@@ -115,7 +115,7 @@ class SearchFriendsScreen extends Component {
                 this.setState({errorMsg: 'Bad Request, Please reload or try again later.'})
                 throw '500 server error'
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if(response.status === 500){
               this.setState({errorMsg: 'Server Error, Please reload or try again later.'})
               throw '500 server error'
@@ -142,11 +142,6 @@ class SearchFriendsScreen extends Component {
     this.searchForName();
   }
 
-  
-
-
-
-  
     render(){
        
       
@@ -165,7 +160,7 @@ class SearchFriendsScreen extends Component {
       }else{
         return (
           <ScrollView styles={styles.profileContainer} accessible={true} accessibilityLabel="Find new Friends"> 
-            <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+            <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
             <TextInput
                         placeholder="Search for friend with name..."
                         onChangeText={ value => this.setState({tempName: value})}
@@ -178,7 +173,7 @@ class SearchFriendsScreen extends Component {
                             onPress={() => {
                               this.searchName();
                               }}
-                            color='#ef8354'
+                            color="#ef8354"
                             accessibilityRole="button"
                           />
             <FlatList
@@ -198,9 +193,9 @@ class SearchFriendsScreen extends Component {
                           </SafeAreaView>
                     
                       <Button 
-                        title='Add' 
+                        title="Add" 
                         onPress={() => {this.setState({requestId: item.user_id.toString()}); this.addFriend(); }} 
-                        color='#ef8354'
+                        color="#ef8354"
                         accessibilityRole="button"
                       />
                         </SafeAreaView>

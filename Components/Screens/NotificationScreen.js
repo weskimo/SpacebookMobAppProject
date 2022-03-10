@@ -35,7 +35,7 @@ class NotificationScreen extends Component {
   
   getData = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/friendrequests", {
+    return fetch('http://localhost:3333/api/1.0.0/friendrequests', {
           'headers': {
             'X-Authorization':  value
           }
@@ -44,11 +44,11 @@ class NotificationScreen extends Component {
             if(response.status === 200){
                 return response.json()
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
-              throw "401! Unauthorized!";
+              this.props.navigation.navigate('Login');
+              throw '401! Unauthorized!';
             }else if(response.status === 500){
-              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
-              throw "500! Server error!";
+              this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
+              throw '500! Server error!';
             }else{
                 throw 'Something went wrong';
             }
@@ -67,7 +67,7 @@ class NotificationScreen extends Component {
 
   acceptFriend = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + this.state.requestId  , {
+    return fetch('http://localhost:3333/api/1.0.0/friendrequests/' + this.state.requestId  , {
        method: 'post',
        headers: {
             'X-Authorization':  value
@@ -77,16 +77,16 @@ class NotificationScreen extends Component {
             if(response.status === 200){
                 return response.json()
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
-              throw "401! Unauthorized!";
+              this.props.navigation.navigate('Login');
+              throw '401! Unauthorized!';
             }else if(response.status === 404){
-              this.props.navigation.navigate("Login");
-              this.setState({errorMsg: "404 Not found Error!"})
-              throw "404! Not found!";
+              this.props.navigation.navigate('Login');
+              this.setState({errorMsg: '404 Not found Error!'})
+              throw '404! Not found!';
             }else if(response.status === 500){
-              this.props.navigation.navigate("Login");
-              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
-              throw "500! Server error!";
+              this.props.navigation.navigate('Login');
+              this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
+              throw '500! Server error!';
             }else{
                 throw 'Something went wrong';
             }
@@ -98,7 +98,7 @@ class NotificationScreen extends Component {
 
   declineFriend = async () => {
     const value = await AsyncStorage.getItem('@session_token');
-    return fetch("http://localhost:3333/api/1.0.0/friendrequests/" + this.state.requestId  , {
+    return fetch('http://localhost:3333/api/1.0.0/friendrequests/' + this.state.requestId  , {
        method: 'delete',
        headers: {
             'X-Authorization':  value
@@ -108,15 +108,15 @@ class NotificationScreen extends Component {
             if(response.status === 200){
                 return response.json()
             }else if(response.status === 401){
-              this.props.navigation.navigate("Login");
+              this.props.navigation.navigate('Login');
             }else if(response.status === 404){
-              this.props.navigation.navigate("Login");
-              this.setState({errorMsg: "404 Not found Error!"})
-              throw "404! Not found!";
+              this.props.navigation.navigate('Login');
+              this.setState({errorMsg: '404 Not found Error!'})
+              throw '404! Not found!';
             }else if(response.status === 500){
-              this.props.navigation.navigate("Login");
-              this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
-              throw "500! Server error!";
+              this.props.navigation.navigate('Login');
+              this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
+              throw '500! Server error!';
             }else{
                 throw 'Something went wrong';
             }
@@ -154,15 +154,15 @@ class NotificationScreen extends Component {
                   {item.first_name} {item.last_name} {item.user_id.toString()}
                 </Text>
                 <Button 
-                  title='Accept' 
+                  title="Accept" 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.acceptFriend(); }} 
-                  color='#ef8354'
+                  color="#ef8354"
                   accessibilityRole="button"
                 />
                   
                 <Button 
-                  title='Decline' 
+                  title="Decline" 
                   onPress={() => {this.setState({requestId: item.user_id.toString()}); 
                     this.declineFriend(); }} 
                   color='#ef8354'

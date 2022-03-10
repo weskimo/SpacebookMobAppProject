@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ThemeConsumer } from 'react-native-elements';
-import editYourProfile from './editYourProfile';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { getHeaderTitle } from '@react-navigation/elements';
 import { Divider, useTheme } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
 import styles from '../StyleSheets/EditPostsStyles.js';
@@ -15,7 +10,7 @@ import styles from '../StyleSheets/EditPostsStyles.js';
 
 
 
-class editPosts extends Component {
+class EditPosts extends Component {
 
     constructor(props){
         super(props);
@@ -41,7 +36,7 @@ class editPosts extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         const postId = await AsyncStorage.getItem('@post_Id')
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post/" + postId, {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id  + '/post/' + postId, {
               'headers': {
                 'X-Authorization':  value
               }
@@ -50,13 +45,13 @@ class editPosts extends Component {
                 if(response.status === 200){
                     return response.json()
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only view the posts of your friends!"})
+                  this.setState({errorMsg: 'You can only view the posts of your friends!'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "Posts not found?!"})
+                  this.setState({errorMsg: 'Posts not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -77,7 +72,7 @@ class editPosts extends Component {
       getPosts = async () => {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id  +"/post", {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id  + '/post', {
               'headers': {
                 'X-Authorization':  value
               }
@@ -86,13 +81,13 @@ class editPosts extends Component {
                 if(response.status === 200){
                     return response.json()
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only view the posts of your friends!"})
+                  this.setState({errorMsg: 'You can only view the posts of your friends!'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "Posts not found?!"})
+                  this.setState({errorMsg: 'Posts not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -143,7 +138,7 @@ class editPosts extends Component {
         const value = await AsyncStorage.getItem('@session_token');
         const id = await AsyncStorage.getItem('@user_id');
         const post_id = this.state.post_Id;
-        return fetch("http://localhost:3333/api/1.0.0/user/" + id + "/post/" + post_id , {
+        return fetch('http://localhost:3333/api/1.0.0/user/' + id + '/post/' + post_id , {
            method: 'PATCH',
            headers: {
                 'X-Authorization':  value ,
@@ -159,13 +154,13 @@ class editPosts extends Component {
                 if(response.status === 200){
                     return response
                 }else if(response.status === 401){
-                  this.props.navigation.navigate("Login");
+                  this.props.navigation.navigate('Login');
                 }else if (response.status === 403){  
-                  this.setState({errorMsg: "You can only update your own posts!"})
+                  this.setState({errorMsg: 'You can only update your own posts!'})
                 }else if (response.status === 404){  
-                  this.setState({errorMsg: "Post Not found?!"})
+                  this.setState({errorMsg: 'Post Not found?!'})
                 }else if (response.status === 500){  
-                  this.setState({errorMsg: "Server Error! Please relaod or try again later!"})
+                  this.setState({errorMsg: 'Server Error! Please relaod or try again later!'})
                 }else{
                     throw 'Something went wrong';
                 }
@@ -218,7 +213,7 @@ class editPosts extends Component {
                         renderItem={({item}) => (
                             <View style={styles.postContainer} accessible={true} accessibilityLabel="Post Element">
                               <SafeAreaView style={styles.postAuthorContainer}>
-                              <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                              <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                                 <Text style={styles.profileInfo}>
                                   {item.author.first_name} {item.author.last_name} says: </Text>
                               </SafeAreaView>
@@ -243,7 +238,7 @@ class editPosts extends Component {
                                 <Button 
                                   title="View Post" 
                                   onPress={() => this.props.navigation.navigate("Edit Post", {postID: item.post_id})} 
-                                  color='#ef8354'
+                                  color="#ef8354"
                                   accessibilityRole="button"
                                 />
                                 </SafeAreaView>
@@ -257,5 +252,5 @@ class editPosts extends Component {
     } 
 }
 }
-export default editPosts;
+export default EditPosts;
 

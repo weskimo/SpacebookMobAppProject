@@ -27,14 +27,14 @@ class HomeScreen extends Component{
         if(value !== null) {
           this.setState({token:value});
         }else{
-            this.props.navigation.navigate("Login");
+            this.props.navigation.navigate('Login');
         }
     }
 
     logout = async () => {
         let token = await AsyncStorage.getItem('@session_token');
         await AsyncStorage.removeItem('@session_token');
-        return fetch("http://localhost:3333/api/1.0.0/logout", {
+        return fetch('http://localhost:3333/api/1.0.0/logout', {
             method: 'post',
             headers: {
                 "X-Authorization": token
@@ -42,13 +42,13 @@ class HomeScreen extends Component{
         })
         .then((response) => {
             if(response.status === 200){
-                this.props.navigation.navigate("Login");
+                this.props.navigation.navigate('Login');
             }else if(response.status === 401){
-                this.props.navigation.navigate("Login");
-                throw "401! Unauthorized!";
+                this.props.navigation.navigate('Login');
+                throw '401! Unauthorized!';
             }else if(response.status === 500){
-                this.setState({errorMsg: "Server Error! Please reload or try again later!"});
-                throw "Server Error! Please reload or try again later!";
+                this.setState({errorMsg: 'Server Error! Please reload or try again later!'});
+                throw 'Server Error! Please reload or try again later!';
             }else{
                 throw 'Something went wrong';
             }
