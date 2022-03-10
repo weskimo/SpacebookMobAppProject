@@ -139,51 +139,55 @@ class EditYourProfile extends Component {
             );
           }else{
             return (
-              <View accessible={true}>
+              <SafeAreaView style={styles.pageContainer} accessible={true}>
+                <SafeAreaView style={styles.postContainer}>
                     <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
                     <View style={styles.pageContainer}>
-                      <View style={styles.textContainer} accessible={true}>
-                        <Text>First Name: {this.state.first_name}</Text>
-                        <Text>Last Name: {this.state.last_name}</Text>
-                        <Text>Email: {this.state.email}</Text>
+                      <View style={styles.postContainer} accessible={true}>
+                        <Text style={styles.userInfo}>First Name: {this.state.first_name}</Text>
+                        <Text style={styles.userInfo}>Last Name: {this.state.last_name}</Text>
+                        <Text style={styles.userInfo}>Email: {this.state.email}</Text>
                       </View>
-                      <TextInput
-                        placeholder="Enter your first name..."
-                        onChangeText={(first_name) => this.setState({first_name})}
-                        value={this.state.first_name}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                      />
-                
-                      <TextInput
-                        placeholder="Enter your last name..."
-                        onChangeText={(last_name) => this.setState({last_name})}
-                        value={this.state.last_name}
-                        style={{padding:5, borderWidth:1, margin:5}}
-                      />
-                
-                      <TextInput
-                          placeholder="Enter your email..."
-                          onChangeText={(email) => this.setState({email})}
-                          value={this.state.email}
+                      <SafeAreaView style={styles.postContainer}>
+                        <TextInput
+                          placeholder="Enter your first name..."
+                          onChangeText={(first_name) => this.setState({first_name})}
+                          value={this.state.first_name}
                           style={{padding:5, borderWidth:1, margin:5}}
-                      />
+                        />
                   
-                      <TextInput
-                          placeholder="Enter your password..."
-                          onChangeText={(password) => this.setState({password})}
-                          value={this.state.password}
-                          secureTextEntry
+                        <TextInput
+                          placeholder="Enter your last name..."
+                          onChangeText={(last_name) => this.setState({last_name})}
+                          value={this.state.last_name}
                           style={{padding:5, borderWidth:1, margin:5}}
-                      />
-                      <Button 
-                          title="Change Details"
-                          onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
-                          color="#ef8354"
-                          accessibilityRole="button"
-                          accessibilityLabel="Click here to change details"
-                      />
-                      </View>
-            </View>
+                        />
+                  
+                        <TextInput
+                            placeholder="Enter your email..."
+                            onChangeText={(email) => this.setState({email})}
+                            value={this.state.email}
+                            style={{padding:5, borderWidth:1, margin:5}}
+                        />
+                    
+                        <TextInput
+                            placeholder="Enter your password..."
+                            onChangeText={(password) => this.setState({password})}
+                            value={this.state.password}
+                            secureTextEntry
+                            style={{padding:5, borderWidth:1, margin:5}}
+                        />
+                        <Button 
+                            title="Change Details"
+                            onPress={() => { this.saveData();this.patchData();this.getProfileData();}} 
+                            color="#ef8354"
+                            accessibilityRole="button"
+                            accessibilityLabel="Click here to change details"
+                        />
+                      </SafeAreaView>
+                    </View>
+                </SafeAreaView>      
+            </SafeAreaView>
             );
           }
           
