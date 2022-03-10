@@ -2,22 +2,39 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
 
-  buttonsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    borderColor: '#674AB3',
-    width: '100%',
-    marginVertical: 10,
-    marginHorizontal: 10
+  pageContainer: {
+    backgroundColor: `#001d3d` , 
+    borderWidth: 5,
+    borderColor: '#001d3d',
+    flex: 1
   },
 
-  buttonColor: {
-    color: '#9075D8'
+  postContainer: {
+    backgroundColor: `#FFFFFF` , 
+    borderWidth: 5,
+    borderColor: '#001d3d'
   },
-  
-  tinyLogo: {
-    width: 50,
-    height: 50,
+
+  userInfo: {
+    fontWeight: "bold",
+    marginHorizontal: 10,
+    marginVertical: 10
   },
+
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 10
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+    alignSelf: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  }
+
 
 });  

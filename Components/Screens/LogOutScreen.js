@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Text, ScrollView, Button } from 'react-native';
+import { Text, ScrollView, Button, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import styles from '../StyleSheets/SignOut';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 class HomeScreen extends Component{
     constructor(props){
@@ -62,30 +64,37 @@ class HomeScreen extends Component{
     render(){
         return (
             <ScrollView accessible={true} accessibilityLabel="Logout Screen">
-                <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
-                <Text 
-                    style={{
-                            fontSize:18, 
-                            fontWeight:'bold', 
-                            padding:5, 
-                            margin:5
-                            }}
-                >
-                    Are you sure you want to Log out?
-                </Text>
-               
-                <Button
-                    title="Yes, Log me out"
-                    onPress={() => this.logout()}
-                    color="#ef8354"
-                    accessibilityRole="button"
-                />
-                <Button
-                    title="Back to your profile"
-                    color="#ef8354"
-                    onPress={() => this.props.navigation.navigate("SpaceBook")}
-                    accessibilityRole="button"
-                />
+                <SafeAreaView style={styles.loginForm}>
+                    <Text style={{color: 'red'}}>{this.state.errorMsg}</Text>
+                        <Image 
+                            style={styles.tinyLogo}
+                            source={{uri: require("../pics/spacebooklogo.png")}} 
+                        />
+                    <Text 
+                        style={{
+                                fontSize:18, 
+                                fontWeight:'bold', 
+                                padding:5, 
+                                margin:5
+                                }}
+                    >
+                        Are you sure you want to Log out?
+                    </Text>
+                    <SafeAreaView style={styles.buttons}>           
+                        <Button
+                            title="Yes, Log me out"
+                            onPress={() => this.logout()}
+                            color="#ef8354"
+                            accessibilityRole="button"
+                        />
+                        <Button
+                            title="Back to your profile"
+                            color="#ef8354"
+                            onPress={() => this.props.navigation.navigate("SpaceBook")}
+                            accessibilityRole="button"
+                        />
+                    </SafeAreaView> 
+                </SafeAreaView>
             </ScrollView>
         )
     }

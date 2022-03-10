@@ -80,8 +80,9 @@ class LoginScreen extends ValidationComponent{
                     <SafeAreaView style={styles.loginForm} accessible={true}>
                         <View >
                             <Image 
-                            style={styles.tinyLogo}
-                            source={{uri: require("../pics/spacebooklogo.png")}} />
+                                style={styles.tinyLogo}
+                                source={{uri: require("../pics/spacebooklogo.png")}} 
+                            />
                             </View>    
                                 <Text style={styles.text}>
                                     Please Login here:

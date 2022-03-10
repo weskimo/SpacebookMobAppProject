@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, TextInput, FlatList, SafeAreaView, StyleSheet, StatusBar, TouchableOpacity, Image} from 'react-native';
+import { View, Text, Button, FlatList, SafeAreaView, ScrollView} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import FriendListScreen from './FriendListScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from '../StyleSheets/NotificationScreenStyles.js'
 
@@ -75,6 +74,7 @@ class NotificationScreen extends Component {
         })
         .then((response) => {
             if(response.status === 200){
+                this.getData();
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate('Login');
@@ -106,6 +106,7 @@ class NotificationScreen extends Component {
         })
         .then((response) => {
             if(response.status === 200){
+                this.getData();
                 return response.json()
             }else if(response.status === 401){
               this.props.navigation.navigate('Login');
@@ -143,36 +144,46 @@ class NotificationScreen extends Component {
       );
     }else{
       return (
-        <View accessible={true} accessibilityLabel="Notificatons appear here when you get them">
+        <ScrollView  style={styles.pageContainer} accessible={true} accessibilityLabel="Notificatons appear here when you get them">
           <Text style={{color: "red"}}>{this.state.errorMsg}</Text>
           <FlatList
               data={this.state.listData}
               renderItem={({item}) => (
-              <View>
-                
-                <Text>
-                  {item.first_name} {item.last_name} {item.user_id.toString()}
+              <SafeAreaView style={styles.postContainer}>
+                <Text style={styles.title}>
+                  Friend Request:
                 </Text>
-                <Button 
-                  title="Accept" 
-                  onPress={() => {this.setState({requestId: item.user_id.toString()}); 
-                    this.acceptFriend(); }} 
-                  color="#ef8354"
-                  accessibilityRole="button"
-                />
-                  
-                <Button 
-                  title="Decline" 
-                  onPress={() => {this.setState({requestId: item.user_id.toString()}); 
-                    this.declineFriend(); }} 
-                  color='#ef8354'
-                  accessibilityRole="button"
-                />
-              </View>
+                <Text style={styles.userInfo}>
+                  UserID: {item.user_id.toString()}
+                </Text>
+                <Text style={styles.userInfo}>
+                  Firstname: {item.first_name}
+                </Text>
+                <Text style={styles.userInfo}>
+                  Familyname: {item.last_name}
+                </Text>
+                <SafeAreaView style={styles.buttonContainer}>
+                  <Button 
+                    title="Accept" 
+                    onPress={() => {this.setState({requestId: item.user_id.toString()}); 
+                      this.acceptFriend(); }} 
+                    color="#ef8354"
+                    accessibilityRole="button"
+                  />
+                    
+                  <Button 
+                    title="Decline" 
+                    onPress={() => {this.setState({requestId: item.user_id.toString()}); 
+                      this.declineFriend(); }} 
+                    color='#ef8354'
+                    accessibilityRole="button"
+                  />
+                </SafeAreaView>
+              </SafeAreaView>
                 )}
                 keyExtractor={(item,index) => item.user_id.toString()}
               />
-        </View>
+        </ScrollView>
       );
     }
 }
