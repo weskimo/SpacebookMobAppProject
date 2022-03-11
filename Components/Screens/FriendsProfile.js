@@ -311,7 +311,7 @@ class FriendsProfile extends Component {
                     </SafeAreaView>
                     <SafeAreaView accessible={true}>
                       <Text style={styles.postText}>
-                        Login id: {this.state.userId}
+                        User ID: {this.state.userId}
                       </Text>
                       <Text style={styles.profileInfo}>
                         First Name: {this.state.first_Name}

@@ -139,12 +139,6 @@ class EditOnePost extends Component {
         })
     }
 
-
-    
-
- 
-
-
      
     render(){
         const navigation = this.props.navigation; 

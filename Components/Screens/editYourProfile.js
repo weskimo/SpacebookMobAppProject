@@ -27,9 +27,12 @@ class EditYourProfile extends Component {
                     await AsyncStorage.setItem('@password', this.state.password);
         }
     
-        componentDidMount(){
+        componentDidMount = async () => {
+         
             
+           
             this.getProfileData();
+            
         }
 
         getProfileData = async () => {
@@ -70,7 +73,9 @@ class EditYourProfile extends Component {
                       userId: id,
                       isLoading: false,
                       first_name: responseJson.first_name,
-                      last_name: responseJson.last_name
+                      last_name: responseJson.last_name,
+                      email: responseJson.email,
+                      password: responseJson.password
       
                   })
   

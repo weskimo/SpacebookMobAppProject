@@ -38,7 +38,7 @@ class ProfileScreen extends Component {
                 if(response.status === 200){
                     return response.json()
                   }else if(response.status === 401){
-                    this.setState({errorMsg: 'Unauthorized'})
+                    
                     this.props.navigation.navigate('Login');
                     throw '401 Unauthorized';
                   }else if (response.status === 403){  
@@ -117,7 +117,7 @@ class ProfileScreen extends Component {
             }else if(response.status === 400){
                 throw 'Invalid email or password';
               }else if(response.status === 401){
-                this.setState({errorMsg: 'Unauthorized'})
+                
                 this.props.navigation.navigate('Login');
                 throw '401 Unauthorized';
               }else if (response.status === 404){  
@@ -193,7 +193,7 @@ class ProfileScreen extends Component {
                     this.getPosts();
                     
                   }else if(response.status === 401){
-                    this.setState({errorMsg: 'Unauthorized'})
+                    
                     this.props.navigation.navigate('Login');
                     throw '401 Unauthorized in like post';
                   }else if (response.status === 404){  
@@ -303,6 +303,7 @@ class ProfileScreen extends Component {
                 if(response.status === 201){
                     this.getPosts();
                     this.setState({errorMsg: ''});
+                    this.setState({text: ''});
                   }else if(response.status === 401){
                     this.setState({errorMsg: 'Unauthorized'})
                     this.props.navigation.navigate('Login');
@@ -350,20 +351,18 @@ class ProfileScreen extends Component {
                       <SafeAreaView style={styles.picAndInfoContainer} accessible={true}>
                         <SafeAreaView style={styles.profPicAndButtonContainer} accessible={true}>
                           <SafeAreaView style={styles.pictureSpace} accessible={true}>
-                            
                             <Avatar
                               size={100}
                               rounded
                               source={{
                                 uri: this.state.photo,
-                              }}
-                              
+                              }} 
                             />
                           </SafeAreaView>
                         </SafeAreaView>
                         <SafeAreaView style={styles.profileTextInfo} accessible={true}>
                           <Text>
-                            Login id: {this.state.userId}
+                            User ID: {this.state.userId}
                           </Text>
                           <Text style={styles.profileInfo}>
                             {this.state.first_Name}

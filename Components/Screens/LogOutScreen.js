@@ -80,19 +80,23 @@ class HomeScreen extends Component{
                     >
                         Are you sure you want to Log out?
                     </Text>
-                    <SafeAreaView style={styles.buttons}>           
-                        <Button
-                            title="Yes, Log me out"
-                            onPress={() => this.logout()}
-                            color="#ef8354"
-                            accessibilityRole="button"
-                        />
-                        <Button
-                            title="Back to your profile"
-                            color="#ef8354"
-                            onPress={() => this.props.navigation.navigate("SpaceBook")}
-                            accessibilityRole="button"
-                        />
+                    <SafeAreaView style={styles.buttons}> 
+                        <SafeAreaView>       
+                            <Button
+                                title="Yes, Log me out"
+                                onPress={() => this.logout()}
+                                color="#ef8354"
+                                accessibilityRole="button"
+                            />
+                        </SafeAreaView>  
+                        <SafeAreaView>   
+                            <Button
+                                title="Back to your profile"
+                                color="#ef8354"
+                                onPress={() => this.props.navigation.navigate("SpaceBook")}
+                                accessibilityRole="button"
+                            />
+                        </SafeAreaView>   
                     </SafeAreaView> 
                 </SafeAreaView>
             </ScrollView>
